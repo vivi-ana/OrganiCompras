@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 
 public class SplashScreen extends Activity { //extiende de una actividad para que puedo ser un splash screen
 ImageView icono;
-Animation animationIconIzquierda;
+Animation animacionIconoIzquierda, animacionIconoDerecha;
 AnimationSet desplazamiento = new AnimationSet(false);//usar dos animaciones
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +27,30 @@ AnimationSet desplazamiento = new AnimationSet(false);//usar dos animaciones
                 finish();
             }
         }, 3000);
-
-        animationIconIzquierda= AnimationUtils.loadAnimation(this, R.anim.animation_icon_izquierda);
-        desplazamiento.addAnimation(animationIconIzquierda);
+        icono.setVisibility(View.VISIBLE);
+        animacionIconoDerecha = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.animacion_icono_derecha);
+        desplazamiento.addAnimation(animacionIconoDerecha);
         icono.startAnimation(desplazamiento);
 
+        animacionIconoDerecha.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
+            }
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+
+                animacionIconoIzquierda = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.animacion_icono_izquierda);
+                desplazamiento.addAnimation(animacionIconoIzquierda);
+                icono.startAnimation(desplazamiento);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 }
