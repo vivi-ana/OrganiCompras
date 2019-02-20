@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">OrganiCompras</string>
     <string name="iconDesc">Splash ShoppingCart</string>
+    <string name="compras">Mi Compra</string>
+    <string name="despensa">Mi Despensa</string>
+    <string name="historial">Mi Historial</string>
+    <string name="ofertas">Ofertas</string>
 </resources>
