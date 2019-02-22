@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="acostapeter.com.organicompras">
-    <!--Permisos almacenamiento externo, acceso a internet, estado del acceso a internet-->
+    <!-- Permisos almacenamiento externo, acceso a internet, estado del acceso a internet -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -13,22 +14,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Tabs" />
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"><!-- Para que no tenga barra de titulo-->
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"> <!-- Para que no tenga barra de titulo -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.LAUNCHER" /><!-- Para que se ejecute primero el Splash Screen-->
+
+                <category android:name="android.intent.category.LAUNCHER" /> <!-- Para que se ejecute primero el Splash Screen -->
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"> <!-- Para que no gire la pantalla-->
+            android:screenOrientation="portrait"> <!-- Para que no gire la pantalla -->
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

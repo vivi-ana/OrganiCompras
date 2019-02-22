@@ -5,4 +5,16 @@
     <string name="despensa">Mi Despensa</string>
     <string name="historial">Mi Historial</string>
     <string name="ofertas">Ofertas</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="msjMax">¿Desea introducir un máximo para su compra?</string>
+    <string name="tituloMax">Máximo de la compra</string>
+    <string name="atras">Volver al menú</string>
+    <string name="msjAceptar">Debe ingresar un monto</string>
+    <string name="msjIngresarMax">Introduzca un máximo:</string>
+    <string name="formato">Ej: 2000</string>
+    <string name="listo">Listo</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+
 </resources>
