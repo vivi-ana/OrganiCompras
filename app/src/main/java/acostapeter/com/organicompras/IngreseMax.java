@@ -19,7 +19,7 @@ public class IngreseMax extends DialogFragment {
     EditText max;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.activity_ingrese_max, container, false);
+        View rootview = inflater.inflate(R.layout.activity_ingrese_max, container);
         botonAceptar = rootview.findViewById(R.id.btnAceptar);
         botonCancelar = rootview.findViewById(R.id.btnCancelar);
         max = rootview.findViewById(R.id.Emaximo);
