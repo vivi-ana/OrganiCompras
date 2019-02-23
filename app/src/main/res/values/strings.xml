@@ -16,5 +16,6 @@
     <string name="listo">Listo</string>
     <string name="aceptar">Aceptar</string>
     <string name="cancelar">Cancelar</string>
-
+    <string name="salirVacio">Lista vacia</string>
+    <string name="msjSalirVacio">¿Desea agregar un producto?No se pueden guardar listas vacias.</string>
 </resources>
