@@ -11,19 +11,25 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
-    CardView cardCompra;
+    CardView cardCompra, cardOfertas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         cardCompra = findViewById(R.id.cardCompras);
         cardCompra.setOnClickListener(this);
+        cardOfertas = findViewById(R.id.cardOfertas);
+        cardOfertas.setOnClickListener(this);
     }
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.cardCompras:
                 dialogoMaximo();
-                break;
+            break;
+            case R.id.cardOfertas:
+                startActivity(new Intent(MainActivity.this, Ofertas.class));
+                finish();
+            break;
         }
     }
 
