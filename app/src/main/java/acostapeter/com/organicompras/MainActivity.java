@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +26,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.cardCompras:
+
+                String seleccion = "Apa";
+                DbHelper admin;
+                admin = new DbHelper(this, null); //hace correr la bd
+                SQLiteDatabase db = admin.getReadableDatabase();
+                Cursor a = db.rawQuery("Select * from supermercados where descripcion =  '" + seleccion + "'", null);
+                a.close();
                 dialogoMaximo();
             break;
             case R.id.cardOfertas:
