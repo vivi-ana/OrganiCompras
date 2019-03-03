@@ -1,11 +1,23 @@
 package acostapeter.com.organicompras;
 
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 @SuppressWarnings("all")
 public class FragmentComprasListViewAdapter extends BaseAdapter {
+    ArrayList<HashMap<String, String>> lista;
+    Activity activity;
+
+    FragmentComprasListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> lista) {
+        super();
+        this.activity = activity;
+        this.lista = lista;
+    }
 
     @Override
     public int getCount() {
