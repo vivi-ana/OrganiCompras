@@ -14,8 +14,8 @@ public class DbHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        DbTablas tablas = new DbTablas();
-        DbDatos datos = new DbDatos();
+        DbTablas tablas = new DbTablas(); //crear las tablas
+        DbDatos datos = new DbDatos(); //ingresar datos
         db.execSQL(tablas.COMPRAS_CREATE);
         db.execSQL(tablas.DETALLES_CREATE);
         db.execSQL(tablas.PROD_CREATE);

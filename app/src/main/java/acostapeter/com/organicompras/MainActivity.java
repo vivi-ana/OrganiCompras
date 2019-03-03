@@ -26,7 +26,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.cardCompras:
-
                 String seleccion = "Apa";
                 DbHelper admin;
                 admin = new DbHelper(this, null); //hace correr la bd

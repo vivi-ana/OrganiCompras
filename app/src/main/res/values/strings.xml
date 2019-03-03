@@ -18,4 +18,21 @@
     <string name="cancelar">Cancelar</string>
     <string name="salirVacio">Lista vacia</string>
     <string name="msjSalirVacio">¿Desea agregar un producto?No se pueden guardar listas vacias.</string>
+    <string name="producto">Producto</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="lbl_cantidad">Cantidad:</string>
+    <string name="cero">0</string>
+    <string name="total">Total: $</string>
+    <string name="máximo">Máximo: $</string>
+    <string name="lista">Productos no encontrados</string>
+    <string name="borrar">Borrar</string>
+    <string name="guardar">Guardar</string>
+    <string name="nombre">Nombre</string>
+    <string name="marca">Marca</string>
+    <string name="neto">Neto</string>
+    <string name="medida">Gr</string>
+    <string name="signo">$</string>
+    <string name="precio">Precio</string>
+    <string name="uno">1</string>
 </resources>

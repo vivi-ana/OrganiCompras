@@ -14,7 +14,7 @@ TranslateAnimation animacionDerecha, animacionIzquierda, animacionNombre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.splash_screen);
         icono = findViewById(R.id.iconImage);
         nombreapp = findViewById(R.id.iconoNombre);
         new Handler().postDelayed(new Runnable() {
