@@ -26,6 +26,7 @@ public class IngreseMax extends DialogFragment {
         botonAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //validación de lo que ingresa
                 String Smax = max.getText().toString();
                 Pattern ps = Pattern.compile("[0-9]*");
                 Matcher ms = ps.matcher(Smax);
@@ -37,14 +38,14 @@ public class IngreseMax extends DialogFragment {
                 }
                 else if (max.getText().length() < 3) {
                     max.setError("Mínimo 3 dígitos");
-                } else if (max.getText().length() >= 7) {
+                } else if (max.getText().length() >= 6) {
                     max.setError("Máximo de 5 dígitos");
-                }else if(Integer.parseInt(Smax)<100){
+                }else if(Integer.parseInt(Smax)<100){ //para que no ingrese 0000
                     max.setError("El valor ingresado debe ser mayor a 100");
                 } else {
                     //si esta validado
                     Intent i = new Intent (getActivity(), Tabs.class);
-                    i.putExtra("max", max.getText().toString());
+                    i.putExtra("max", max.getText().toString()); //se envia el maximo que ingreso
                     startActivity(i);
                     if (getActivity()!= null){
                     getActivity().finish();
@@ -52,7 +53,6 @@ public class IngreseMax extends DialogFragment {
                     dismiss();
 
                 }
-
             }
         });
         botonCancelar.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class IngreseMax extends DialogFragment {
                 dismiss();
             }
         });
-        setCancelable(false);
+        setCancelable(false); //solo se permite cancelar el mensaje con el boton cancelar.
         getDialog().setTitle("Máximo");
         return rootview;
     }

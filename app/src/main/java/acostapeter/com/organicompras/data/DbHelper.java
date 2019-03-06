@@ -1,4 +1,4 @@
-package acostapeter.com.organicompras;
+package acostapeter.com.organicompras.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "BDapp"; //nombre de la bd
     private static int DB__VERSION = 1; //numero de version de la bd
 
-    DbHelper(Context context, SQLiteDatabase.CursorFactory factory) {
+    public DbHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DB_NAME, factory, DB__VERSION);
     }
     @Override

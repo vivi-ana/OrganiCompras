@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 
 @SuppressLint("SetJavaScriptEnabled") //elimina el warning de JS
 public class Ofertas extends AppCompatActivity {
-    String seleccion;
+    private String seleccion;
     public ProgressBar progressBar;
 
     @Override
@@ -64,7 +64,7 @@ public class Ofertas extends AppCompatActivity {
         Dialog dialog = supermercado.create();
         dialog.show();
     }
-
+    //cargar el webView.
     public void paginaofertas(String seleccionoferta){
         WebView myWebView = findViewById(R.id.webView);
         WebSettings webSettings = myWebView.getSettings();
@@ -120,7 +120,7 @@ public class Ofertas extends AppCompatActivity {
             .show();
         }
     }
-
+    //comprobar si tiene acceso a internet
     public boolean isNetworkAvailable(Context context) {
         boolean value = false;
         ConnectivityManager connec = (ConnectivityManager) context
@@ -133,6 +133,7 @@ public class Ofertas extends AppCompatActivity {
         }
         return value;
     }
+    //boton hacia atrás, debe volver al menu principal.
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

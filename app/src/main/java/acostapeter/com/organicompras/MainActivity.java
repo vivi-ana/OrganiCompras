@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import acostapeter.com.organicompras.data.DbHelper;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     CardView cardCompra, cardOfertas;
@@ -24,6 +25,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         cardOfertas.setOnClickListener(this);
     }
     public void onClick(final View v) {
+        //Evento click por cada boton del menú
         switch (v.getId()) {
             case R.id.cardCompras:
                 String seleccion = "Apa";
@@ -50,6 +52,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             //Si acepta el mensaje debe salir otro mensaje para introducir el maximo.
             public void onClick(DialogInterface dialog, int which) {
+                //se muestra el otro dialogo para ingresar el maximo
                 FragmentManager manager = getSupportFragmentManager();
                 IngreseMax ingreseMax = new IngreseMax();
                 ingreseMax.show(manager, "IngresarMax");

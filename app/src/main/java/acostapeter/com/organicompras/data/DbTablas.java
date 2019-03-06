@@ -1,4 +1,4 @@
-package acostapeter.com.organicompras;
+package acostapeter.com.organicompras.data;
 
 class DbTablas {
 

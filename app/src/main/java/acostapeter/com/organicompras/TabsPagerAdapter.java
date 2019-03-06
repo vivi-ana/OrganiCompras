@@ -15,12 +15,13 @@ public class TabsPagerAdapter  extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         FragmentCompras tab1 = new FragmentCompras();
         FragmentDespensa tab2 = new FragmentDespensa();
+        //para mostrar alguno de los dos fragments
         switch (position) {
             case 0:
                 return tab1;
            case 1:
                 return tab2;
-            default:
+           default:
                 return null;
         }
     }

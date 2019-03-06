@@ -35,4 +35,5 @@
     <string name="signo">$</string>
     <string name="precio">Precio</string>
     <string name="uno">1</string>
+    <string name="supermercado">¿Donde comprará?</string>
 </resources>
