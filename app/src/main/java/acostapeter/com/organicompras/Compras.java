@@ -9,13 +9,13 @@ public class Compras {
 private int id;
 private int supermercado;
 private String fecha;
-private String max;
+private int max;
 private int cantidad;
 private double total;
 private double total_unitario;
 private DbCRUD admin;
 
-    public Compras(int id, int supermercado, String fecha, String max, int cantidad, double total, double total_unitario) {
+    public Compras(int id, int supermercado, String fecha, int max, int cantidad, double total, double total_unitario) {
         this.id = id;
         this.supermercado = supermercado;
         this.fecha = fecha;
@@ -52,11 +52,11 @@ private DbCRUD admin;
         this.fecha = fecha;
     }
 
-    public String getMax() {
+    public int getMax() {
         return max;
     }
 
-    void setMax(String max) {
+    void setMax(int max) {
         this.max = max;
     }
 

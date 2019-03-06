@@ -34,15 +34,11 @@ public class DbCRUD extends DbHelper {
         }
         return idsuper;
     }
-    public void agregar_compra(String max, int idsuper, String dia){
+    public void agregar_compra(int max, int idsuper, String dia){
             ContentValues registros = new ContentValues();
             registros.put(DbTablas.TablaCompras.CAMPO_FK_ID_SUPER, idsuper);
             registros.put(DbTablas.TablaCompras.CAMPO_FECHA, dia);
-            if (max==null) { //varia dependiendo si agrego un maximo o no. Revisar si guarda bien los datos
-                registros.put(DbTablas.TablaCompras.CAMPO_MAX, 0);
-            }else {
-                registros.put(DbTablas.TablaCompras.CAMPO_MAX, max);
-            }
+            registros.put(DbTablas.TablaCompras.CAMPO_MAX, max); //max puede ser 0 por default o el monto que ingreso
             registros.put(DbTablas.TablaCompras.CAMPO_CANT_PROD, 0);
             registros.put(DbTablas.TablaCompras.CAMPO_TOTAL, 0);
             registros.put(DbTablas.TablaCompras.CAMPO_TOT_UNITARIO, 0);

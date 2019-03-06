@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+@SuppressWarnings("all")
 public class IngreseMax extends DialogFragment {
     Button botonAceptar, botonCancelar;
     EditText max;
@@ -45,7 +45,10 @@ public class IngreseMax extends DialogFragment {
                 } else {
                     //si esta validado
                     Intent i = new Intent (getActivity(), Tabs.class);
-                    i.putExtra("max", max.getText().toString()); //se envia el maximo que ingreso
+                    String maximo_compra = max.getText().toString();
+                    int maximo = Integer.parseInt(maximo_compra);
+                    i.putExtra("max", maximo); //se envia el maximo que ingreso
+                    //i.putExtra("max", maximo);
                     startActivity(i);
                     if (getActivity()!= null){
                     getActivity().finish();

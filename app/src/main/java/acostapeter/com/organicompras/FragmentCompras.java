@@ -30,7 +30,8 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     static TextView txttotal, cantidadproducto;
     static ListView listado_productos;
     static ArrayList<HashMap<String, String>> lista;
-    String dia = "", nom = "", marca = "", precioun = "", supermercado = "", idcompra = "",seleccion = "", max = "", idsupermercado = "", datorecibido = null;
+    int max = 0;
+    String dia = "", nom = "", marca = "", precioun = "", supermercado = "", idcompra = "",seleccion = "", idsupermercado = "", datorecibido = null;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compras, container, false);
         scanBtn = view.findViewById(R.id.scan_button);
@@ -92,7 +93,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     private void supermercado_elegido() {
         //se obtiene el maximo que se trae del mensaje
         if (getActivity() != null) {
-            max = getActivity().getIntent().getStringExtra("max");
+            max = getActivity().getIntent().getIntExtra("max", 0);
         }
         //se obtiene el id del supermercado a partir del nombre que eligio.
         Supermercado supermercado = new Supermercado(getActivity());
@@ -104,10 +105,11 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         compras.setSupermercado(idsuper);
         compras.setFecha(dia);
         compras.agregar_compra(); //se agrega la compra
-        if (max !=null){
+        if (max !=0){ //si no ingreso monto el maximo por default es 0
             textView.setVisibility(View.VISIBLE);
             lblmx.setVisibility(View.VISIBLE);
-            textView.setText(max);
+            String maximo_compra = Integer.toString(max);
+            textView.setText(maximo_compra);
         }
     }
 
