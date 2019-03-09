@@ -2,10 +2,12 @@ package acostapeter.com.organicompras;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,41 +27,154 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import google.zxing.integration.android.IntentIntegrator;
+import google.zxing.integration.android.IntentResult;
 @SuppressWarnings("all")
 public class FragmentCompras extends android.support.v4.app.Fragment implements View.OnClickListener {
     Button scanBtn;
     TextView formatTxt, contentTxt, lblmx, textView;
-    static TextView txttotal, cantidadproducto;
+    static TextView txt_total, cantidad_producto;
     static ListView listado_productos;
     static ArrayList<HashMap<String, String>> lista;
-    int max = 0;
-    String dia = "", nom = "", marca = "", precioun = "", supermercado = "", idcompra = "",seleccion = "", idsupermercado = "", datorecibido = null;
+    Supermercado supermercado;
+    Compras compras;
+    Productos productos;
+    static Context contexto;
+    static int max = 0, id_compras =0, id_supermercado = 0;
+    static String text_total_compras;
+    String dia = "",seleccion = "", datorecibido = null;
+    DecimalFormat df = new DecimalFormat("0.00");
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compras, container, false);
         scanBtn = view.findViewById(R.id.scan_button);
         lblmx = view.findViewById(R.id.lbl_maximo);
         formatTxt = view.findViewById(R.id.scan_format);
         contentTxt = view.findViewById(R.id.scan_content);
-        txttotal = view.findViewById(R.id.total);
+        txt_total = view.findViewById(R.id.total);
         textView = view.findViewById(R.id.max_compra);
-        cantidadproducto = view.findViewById(R.id.cantidad_producto);
+        cantidad_producto = view.findViewById(R.id.cantidad_producto);
         scanBtn.setOnClickListener(this);
-        listado_productos = view.findViewById(R.id.lista_productos);
         lista = new ArrayList<HashMap<String, String>>();
-        FragmentComprasListViewAdapter adapter = new FragmentComprasListViewAdapter(getActivity(), lista);
-        listado_productos.setAdapter(adapter);
         setHasOptionsMenu(true);
-        Calendar miCalendario = Calendar.getInstance();
-        //obtener el dia del sistema
-        Date el_dia = miCalendario.getTime();
-        SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        dia = simpleDate.format(el_dia);
+        supermercado = new Supermercado(getActivity()); //objeto supermercado
+        compras = new Compras(getActivity()); //objeto compras
+        productos = new Productos(getActivity()); // objeto productos
+        listas();
+        obtener_dia();
         mensaje();
+        contexto = getActivity();
         return view;
     }
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    listas();
+        int count;
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            String scanContent = scanningResult.getContents();
+            String scanFormat = scanningResult.getFormatName();
+            String formato = "EAN_13";
+            if (formato.equals(scanFormat)) { ///se tiene que comprobar que solo se scanee EAN 13
+                compras.maximo_compra(); //obtener el id y el supermercado donde compra
+                id_compras = compras.getId();
+                id_supermercado = compras.getSupermercado();
+                productos.setId(scanContent);
+                productos.setId_supermercado(id_supermercado);
+                productos.precio();
+                double precio = productos.getPrecio();
+                if (precio != 0){ //verifico que el producto este en la bd de lo contrario tiene que agregar el usuario
+                    compras.total_productos(scanContent);
+                    count = compras.getCant_total_productos();
+                    if (count == 0) { //verifico que no este en la lista para que no cargue dos veces el mismo producto
+                        lista.clear();
+                        comprar(scanContent, precio);
+                        cargar();
+                    }else {
+                        Toast.makeText(getActivity(), "Este producto ya se encuentra en la lista", Toast.LENGTH_LONG).show();
+                        cargar();
+                    }
+                }else{
+                    productos.setId(scanContent); //me fijo si el usuario no dio de alta en tabla provisoria
+                    productos.producto_no_encontrado();
+                    precio = productos.getPrecio();
+                    if (precio !=0){ //si dio de alta puede comprar el producto
+                        comprar(scanContent, precio);
+                        cargar();
+                    }else{//de lo contrario se da de alta en la tabla provisoria.
+                        productonoencontrado(id_supermercado, scanContent);
+                    }
+                }
+            } else {
+                cargar();
+                Toast.makeText(getActivity(), "Solo se permite codigos de productos a la venta", Toast.LENGTH_LONG).show();}
+            } else {
+            cargar();
+            Toast.makeText(getActivity(), "No se recibe datos", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void comprar(String scanContent, double precio_producto){
+        double suma_total, total_compras_anterior;
+        int acumulador_cantidad_productos, total_de_productos;
+        String txt_cantidad, total;
+        compras.setId(id_compras);
+        compras.setTotal_unitario(precio_producto);
+        compras.agregar_detalle_compra(scanContent);
+         //ComparacionProductos(scanContent); enviar el codigo de barra del producto agregado. Despues de agregar a la tabla
+        text_total_compras = txt_total.getText().toString(); //capturo lo que tiene txttotal
+        total_compras_anterior = Double.parseDouble(text_total_compras);//traigo el precio unitario
+        suma_total = total_compras_anterior + precio_producto;
+        if (max != 0) {
+            if (suma_total > max) {
+                Toast.makeText(contexto, "Estas comprando de más", Toast.LENGTH_SHORT).show();
+            }
+        }
+        total = (df.format(suma_total)).replace(",", ".");
+        txt_total.setText(total);
+        txt_cantidad = cantidad_producto.getText().toString(); //capturo lo que tiene cantidad de productos en el txt
+        total_de_productos = Integer.parseInt(txt_cantidad);
+        acumulador_cantidad_productos = total_de_productos + 1; //acumulo a la cantidad total que habia
+        String cantidad_sumada = Integer.toString(acumulador_cantidad_productos);
+        cantidad_producto.setText(cantidad_sumada); //envio la nueva cantidad total de productos
+    }
+    public void cargar(){
+        lista.clear();
+        compras.maximo_compra(); //obtener el id y el supermercado donde compra
+        id_compras = compras.getId();
+        id_supermercado = compras.getSupermercado();
+        lista = compras.detalle_compras(id_compras);
+        if (lista==null){
+            Toast.makeText(contexto, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void productonoencontrado(final int id_super, final String codigo){
+        final String id_supermercado = Integer.toString(id_super);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+        alertBuilder.setTitle(R.string.tituloProdNoEncontrado);
+        alertBuilder.setCancelable(false);
+        alertBuilder.setMessage(R.string.prodNoEncontrado);
+        alertBuilder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {  //Si acepta el mensaje debe salir otro mensaje para introducir el producto
+                if(getActivity() != null) {
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    IngreseCompraProductoNoEncontrado producto_no_encontrado = new IngreseCompraProductoNoEncontrado();
+                    producto_no_encontrado.show(manager, "ProductoNoEncontrado");
+                    Bundle datos = new Bundle();
+                    datos.putString("idsuper", id_supermercado);
+                    datos.putString("codigo", codigo);
+                    producto_no_encontrado.setArguments(datos);
+                }
+            }
+        });
+        alertBuilder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();//No quiere dar de alta el producto
+            }
+        });
+        Dialog dialogo = alertBuilder.create();
+        dialogo.show();
+    }
     public void mensaje(){
-        //crear un dialogo donde el usuario seleccione de manera obligatoria donde comprara
-        final String[] items = {"Cáceres", "Carrefour", "Chango Más"};
+        final String[] items = {"Cáceres", "Carrefour", "Chango Más"};//crear un dialogo donde el usuario seleccione de manera obligatoria donde comprara
         final AlertDialog.Builder supermercado = new AlertDialog.Builder(getActivity());
         supermercado.setTitle(R.string.supermercado);
         supermercado.setCancelable(false);
@@ -79,8 +196,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         supermercado.setNegativeButton(R.string.atras, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Si cancela el mensaje tiene que entrar igual a la app.
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                startActivity(new Intent(getActivity(), MainActivity.class)); //Si cancela el mensaje tiene que entrar igual a la app.
                 if (getActivity()!= null){
                     getActivity().finish();
                 }
@@ -91,16 +207,12 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     }
 
     private void supermercado_elegido() {
-        //se obtiene el maximo que se trae del mensaje
-        if (getActivity() != null) {
+        if (getActivity() != null) {  //se obtiene el maximo que se trae del mensaje
             max = getActivity().getIntent().getIntExtra("max", 0);
         }
-        //se obtiene el id del supermercado a partir del nombre que eligio.
-        Supermercado supermercado = new Supermercado(getActivity());
-        supermercado.setNombre(seleccion);
+        supermercado.setNombre(seleccion);//se obtiene el id del supermercado a partir del nombre que eligio.
         supermercado.eleccion_supermercado();
         int idsuper = supermercado.getId();
-        Compras compras = new Compras(getActivity());
         compras.setMax(max); //se envia los datos
         compras.setSupermercado(idsuper);
         compras.setFecha(dia);
@@ -112,17 +224,36 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             textView.setText(maximo_compra);
         }
     }
+    public void listas() {
+        if (getActivity()!= null) {
+            listado_productos =  getActivity().findViewById(R.id.lista_productos);
+            FragmentComprasListViewAdapter adapter = new FragmentComprasListViewAdapter(getActivity(), lista);
+            listado_productos.setAdapter(adapter);
+        }
+    }
+    public void obtener_dia(){
+        Calendar miCalendario = Calendar.getInstance();
+        Date el_dia = miCalendario.getTime();  //obtener el dia del sistema
+        SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        dia = simpleDate.format(el_dia);
+    }
+    public TextView actualizar_txt_total()
+    {
+        return txt_total;
+    }
+    public TextView actualizar_txt_cantidad()
+    {
+        return cantidad_producto;
+    }
 
-    //evento del boton scanear
-    public void onClick(View v){
+    public void onClick(View v){ //evento del boton scanear
         if(v.getId()==R.id.scan_button){
             IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
             scanIntegrator.initiateScan();
         }
     }
-    //cada fragment tiene un menu distinto
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) { //cada fragment tiene un menu distinto
         inflater.inflate(R.menu.menu_fragment_compras, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }

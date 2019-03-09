@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/mensajemaximo"
+            android:id="@+id/prodPrecio"
             android:layout_width="245dp"
             android:layout_height="28dp"
             android:layout_alignParentTop="true"
@@ -27,19 +27,19 @@
             android:layout_marginEnd="36dp"
             android:text="@string/msjIngresarMax"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            app:layout_constraintBottom_toTopOf="@+id/Emaximo"
+            app:layout_constraintBottom_toTopOf="@+id/Pprecio"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             tools:ignore="Autofill"
-            android:id="@+id/Emaximo"
+            android:id="@+id/Pprecio"
             android:layout_width="236dp"
             android:layout_height="46dp"
-            android:layout_below="@+id/mensajemaximo"
-            android:layout_alignStart="@+id/mensajemaximo"
-            android:layout_alignEnd="@+id/mensajemaximo"
+            android:layout_below="@+id/prodPrecio"
+            android:layout_alignStart="@+id/prodPrecio"
+            android:layout_alignEnd="@+id/prodPrecio"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="30dp"
             android:hint="@string/formato"
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mensajemaximo" />
+            app:layout_constraintTop_toBottomOf="@+id/prodPrecio" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

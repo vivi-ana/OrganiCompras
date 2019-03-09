@@ -36,4 +36,10 @@
     <string name="precio">Precio</string>
     <string name="uno">1</string>
     <string name="supermercado">¿Donde comprará?</string>
+    <string name="tituloProdNoEncontrado">Producto no encontrado</string>
+    <string name="prodNoEncontrado">Este producto no se encuentra. ¿Desea agregarlo?</string>
+    <string name="msjProd">Debe ingresar un nombre</string>
+    <string name="nombreProducto">Nombre del producto:</string>
+    <string name="precioProducto">Precio:</string>
+    <string name="formatoProducto">Ej: 10.50</string>
 </resources>

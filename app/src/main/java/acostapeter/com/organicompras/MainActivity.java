@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         dialog.dismiss();
                     }
                 });
-        Dialog dialog = alertBuilder.create();
-        dialog.show();
+        Dialog dialogo = alertBuilder.create();
+        dialogo.show();
     }
 }
