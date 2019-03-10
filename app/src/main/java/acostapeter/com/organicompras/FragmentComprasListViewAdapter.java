@@ -56,7 +56,7 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
         final LayoutInflater inflater = activity.getLayoutInflater();
 
         if (convertView == null){ //cargar la interfaz de cada fila
-            convertView = inflater.inflate(R.layout.fragment_compras_columnas, parent);
+            convertView = inflater.inflate(R.layout.fragment_compras_columnas, parent, false);
             holder = new ViewHolder();
             holder.bmas = convertView.findViewById(R.id.mas);
             holder.bmenos = convertView.findViewById(R.id.menos);
@@ -145,8 +145,8 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
                 double calculo_subtotal =  precio_unidad * contador ; //subtotal de cada producto
                 String precio_subtotal = (df.format(calculo_subtotal)).replace(",","."); //enviar al txtsubtotal
                 holder.sub_total.setText(precio_subtotal);
-                if (contador != 1) {
-                    holder.bmenos.setEnabled(true);
+                if (contador == 1) {
+                    holder.bmenos.setEnabled(false);
                 }
                 cantidad_producto = Integer.toString(contador);
                 holder.cantidad_producto.setText(cantidad_producto);

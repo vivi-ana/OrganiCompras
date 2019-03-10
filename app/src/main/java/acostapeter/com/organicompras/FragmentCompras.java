@@ -28,6 +28,16 @@ import java.util.Locale;
 
 import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;
+
+import static acostapeter.com.organicompras.ConstantesFilaCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesFilaCompras.OCTAVA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesFilaCompras.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesFilaCompras.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesFilaCompras.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesFilaCompras.SEPTIMA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMNA;
+
 @SuppressWarnings("all")
 public class FragmentCompras extends android.support.v4.app.Fragment implements View.OnClickListener {
     Button scanBtn;
@@ -58,14 +68,15 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         supermercado = new Supermercado(getActivity()); //objeto supermercado
         compras = new Compras(getActivity()); //objeto compras
         productos = new Productos(getActivity()); // objeto productos
-        listas();
+        listado_productos = view.findViewById(R.id.lista_productos);
+        listas(lista);
         obtener_dia();
         mensaje();
         contexto = getActivity();
         return view;
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    listas();
+    listas(lista);
         int count;
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
@@ -135,14 +146,42 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         cantidad_producto.setText(cantidad_sumada); //envio la nueva cantidad total de productos
     }
     public void cargar(){
+        ArrayList<HashMap<String, String>> listado_compras = new ArrayList<HashMap<String, String>>();
+        String id_producto, cantidades, montos, neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
         lista.clear();
         compras.maximo_compra(); //obtener el id y el supermercado donde compra
         id_compras = compras.getId();
         id_supermercado = compras.getSupermercado();
-        lista = compras.detalle_compras(id_compras);
-        if (lista==null){
+        listado_compras = compras.detalle_compras(id_compras);
+        int bucle = listado_compras.size();
+        if (bucle != 0){
+            for(int i=0; i<bucle; i++) {
+                HashMap<String, String> hashmap= listado_compras.get(i);
+                nombre = hashmap.get(PRIMERA_COLUMNA);
+                marca = hashmap.get(SEGUNDA_COLUMNA);
+                precio_unitario = hashmap.get(TERCERA_COLUMNA);
+                cantidades = hashmap.get(CUARTA_COLUMNA);
+                montos = hashmap.get(QUINTA_COLUMNA);
+                id_producto = hashmap.get(SEXTA_COLUMNA);
+                neto = hashmap.get(SEPTIMA_COLUMNA);
+                medida = hashmap.get(OCTAVA_COLUMNA);
+
+                HashMap<String, String> temporal = new HashMap<String, String>();
+                temporal.put(PRIMERA_COLUMNA, nombre);
+                temporal.put(SEGUNDA_COLUMNA, marca);
+                temporal.put(TERCERA_COLUMNA, precio_unitario);
+                temporal.put(CUARTA_COLUMNA, cantidades);
+                temporal.put(QUINTA_COLUMNA, montos);
+                temporal.put(SEXTA_COLUMNA, id_producto);
+                temporal.put(SEPTIMA_COLUMNA, neto);
+                temporal.put(OCTAVA_COLUMNA, medida);
+                lista.add(temporal);
+            }
+        }else {
             Toast.makeText(contexto, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
+
         }
+
     }
     public void productonoencontrado(final int id_super, final String codigo){
         final String id_supermercado = Integer.toString(id_super);
@@ -224,9 +263,8 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             textView.setText(maximo_compra);
         }
     }
-    public void listas() {
+    public void listas(ArrayList<HashMap<String, String>> lista) {
         if (getActivity()!= null) {
-            listado_productos =  getActivity().findViewById(R.id.lista_productos);
             FragmentComprasListViewAdapter adapter = new FragmentComprasListViewAdapter(getActivity(), lista);
             listado_productos.setAdapter(adapter);
         }

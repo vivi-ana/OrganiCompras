@@ -132,10 +132,10 @@ public class DbCRUD extends DbHelper {
         return compras;
     }
     public Cursor producto(String id_producto){
-        final String query = "SELECT " +  DbTablas.TablaProductos.CAMPO_ID_PROD + " , "
-                + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " , " +  DbTablas.TablaProductos.CAMPO_MARCA + " , " + DbTablas.TablaProductos.CAMPO_CONT_NETO + " , " + DbTablas.TablaProductos.CAMPO_MEDIDA + " FROM "
-                + DbTablas.TablaProductos.TABLA_PRODUCTOS +  " JOIN " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " ON " + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " WHERE "
-                + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto;
+        final String query = "SELECT " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " , "
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_MARCA + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_CONT_NETO + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_MEDIDA + " FROM "
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS +  " JOIN " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " ON " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " WHERE "
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto;
         Cursor lista_producto = db.rawQuery(query,null);
         if (lista_producto != null){
             lista_producto.moveToFirst();
@@ -206,7 +206,7 @@ public class DbCRUD extends DbHelper {
         if (maximo_compra_ingresado != null){
             try {
                 if(maximo_compra_ingresado.moveToFirst()){
-                    maximo = maximo_compra_ingresado.getInt(0);
+                    maximo = maximo_compra_ingresado.getInt(3);
                 }
             }finally {
                 maximo_compra_ingresado.close();
