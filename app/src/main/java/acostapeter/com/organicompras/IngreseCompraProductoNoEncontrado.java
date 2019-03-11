@@ -45,7 +45,7 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                     } else {
                         precio_producto = Double.parseDouble(precio.getText().toString());
                         String preciopro = (df.format(precio_producto)).replace(",", ".");
-                        if (precio.getText().length() < 3) {
+                        if (precio.getText().length() < 3) { //fijarse como poner porque puede haber algo de 9 pesos o de 15 algo exacto y el usuario no puede poner 15.00
                             precio.setError("Mínimo 3 dígitos");
                         } else if (precio.getText().length() >= 6) {
                             precio.setError("Máximo de 5 dígitos");
