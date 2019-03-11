@@ -137,6 +137,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         double suma_total, total_compras_anterior;
         int acumulador_cantidad_productos, total_de_productos;
         String txt_cantidad, total;
+        Compras compras = new Compras(contexto);
         compras.setId(id_compras);
         compras.setTotal_unitario(precio_producto);
         compras.agregar_detalle_compra(scanContent);
@@ -161,6 +162,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         ArrayList<HashMap<String, String>> listado_compras = new ArrayList<HashMap<String, String>>();
         String id_producto, cantidades, montos, neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
         lista.clear();
+        Compras compras = new Compras(contexto);
         compras.maximo_compra(); //obtener el id y el supermercado donde compra
         id_compras = compras.getId();
         id_supermercado = compras.getSupermercado();

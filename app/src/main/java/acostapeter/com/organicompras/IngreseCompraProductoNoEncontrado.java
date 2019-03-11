@@ -7,8 +7,8 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IngreseCompraProductoNoEncontrado extends DialogFragment {
-    ImageButton Botonaceptar, Botoncancelar;
+    Button Botonaceptar, Botoncancelar;
     EditText nombre, precio;
     DecimalFormat df = new DecimalFormat("0.00");
     double precio_producto;

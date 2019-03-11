@@ -34,6 +34,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editNombre" />
 
         <EditText
+            android:inputType="text"
             android:id="@+id/editNombre"
             android:layout_width="238dp"
             android:layout_height="wrap_content"
@@ -42,7 +43,6 @@
             android:layout_alignEnd="@+id/prodPrecio"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:inputType="numberDecimal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/prodPrecio"
             tools:ignore="Autofill" />
