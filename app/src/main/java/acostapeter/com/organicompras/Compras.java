@@ -83,7 +83,7 @@ private DbCRUD admin;
         return total;
     }
 
-    public void setTotal(double total) {
+    void setTotal(double total) {
         this.total = total;
     }
 
@@ -114,7 +114,7 @@ private DbCRUD admin;
         }
     }
     int maximo_detalle_compra() {
-        int id_detalle = 0;
+        int id_detalle;
         id_detalle = admin.maximo_detalle_compra();
         return id_detalle;
     }
@@ -125,7 +125,7 @@ private DbCRUD admin;
         admin.agregar_detalle_compra(id, id_producto, total_unitario);
     }
     ArrayList<HashMap<String, String>> detalle_compras(int id_compra){
-        ArrayList<HashMap<String, String>> lista = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
         String id_producto, cantidades, montos, neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
         DecimalFormat df = new DecimalFormat("0.00");
         long producto_id;
@@ -155,7 +155,7 @@ private DbCRUD admin;
                         precio_unitario = (df.format(preun)).replace(",", ".");
                     }
                 }
-                HashMap<String, String> temporal = new HashMap<String, String>();
+                HashMap<String, String> temporal = new HashMap<>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
                 temporal.put(SEGUNDA_COLUMNA, marca);
                 temporal.put(TERCERA_COLUMNA, precio_unitario);
@@ -188,5 +188,23 @@ private DbCRUD admin;
     }
     void verificar_maximo_compra(){
         max = admin.verificar_maximo(id);
+    }
+    void borrar_compra(){
+        admin.borrar_compras(id);
+    }
+    void actualizar_compra(){
+        admin.actualizar_compra(id, cantidad,total,total_unitario);
+    }
+    void borrar_detalle_compra(){
+        admin.borrar_detalle_compras(id);
+    }
+    void cantidad_producto_editada(String id_producto){
+        admin.cantidad_producto_editada(cantidad, id, id_producto);
+    }
+    void resetear_detalle(int id_detalle, String id_producto, double monto){
+        admin.reset_detalle(id_detalle, id, id_producto,cantidad, monto);
+    }
+    void resetear_compras(){
+        admin.reset_compras(id, supermercado, fecha, max, cantidad, total, total_unitario);
     }
 }

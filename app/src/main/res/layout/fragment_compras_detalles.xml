@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -50,12 +49,11 @@
     <ListView
         android:id="@+id/lista_productos"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="603dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/scan_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
@@ -74,19 +72,23 @@
         android:id="@+id/cantidad_producto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/cero"
-        app:layout_constraintBaseline_toBaselineOf="@+id/lbl_cantidad"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lbl_total"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lbl_cantidad" />
 
     <TextView
         android:id="@+id/lbl_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="152dp"
         android:layout_marginBottom="30dp"
         android:text="@string/total"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cantidad_producto" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/total"
@@ -101,13 +103,11 @@
         android:id="@+id/lbl_maximo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="52dp"
         android:layout_marginBottom="30dp"
         android:text="@string/máximo"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/max_compra"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/total"
         tools:text="@string/máximo" />
 
@@ -115,24 +115,15 @@
         android:id="@+id/max_compra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="30dp"
         android:text="@string/cero"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/scan_button"
-        tools:text="@string/cero" />
-
-    <Button
-        android:id="@+id/scan_button"
-        android:layout_width="71dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/barcode"
-        app:layout_constraintBottom_toTopOf="@+id/lbl_maximo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/total" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lbl_maximo"
+        tools:text="@string/cero" />
 
     <TextView
         android:id="@+id/scan_format"

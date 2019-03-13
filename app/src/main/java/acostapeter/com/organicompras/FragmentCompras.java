@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -49,9 +50,11 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     Compras compras;
     Productos productos;
     static Context contexto;
+    static String datos_no_editados [][], matriz_compras[][], matriz_detalles[][];
     static int max = 0, id_compras =0, id_supermercado = 0;
     static String text_total_compras;
-    String dia = "",seleccion = "", datorecibido = null;
+    static boolean guardar;
+    String dia = "",seleccion = "";
     DecimalFormat df = new DecimalFormat("0.00");
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compras, container, false);
@@ -63,7 +66,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         textView = view.findViewById(R.id.max_compra);
         cantidad_producto = view.findViewById(R.id.cantidad_producto);
         scanBtn.setOnClickListener(this);
-        lista = new ArrayList<HashMap<String, String>>();
+        lista = new ArrayList<>();
         setHasOptionsMenu(true);
         supermercado = new Supermercado(getActivity()); //objeto supermercado
         compras = new Compras(getActivity()); //objeto compras
@@ -147,8 +150,8 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         cantidad_producto.setText(cantidad_sumada); //envio la nueva cantidad total de productos
     }
     public void cargar(){
-        ArrayList<HashMap<String, String>> listado_compras = new ArrayList<HashMap<String, String>>();
-        String id_producto, cantidades, montos, neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
+        ArrayList<HashMap<String, String>> listado_compras;
+        String id_producto, cantidades, montos, neto, medida, nombre, marca, precio_unitario;
         lista.clear();
         Compras compras = new Compras(contexto);
         compras.maximo_compra(); //obtener el id y el supermercado donde compra
@@ -181,9 +184,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             }
         }else {
             Toast.makeText(contexto, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
-
         }
-
     }
     public void productonoencontrado(final int id_super, final String codigo){
         final String id_supermercado = Integer.toString(id_super);
@@ -296,5 +297,52 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) { //cada fragment tiene un menu distinto
         inflater.inflate(R.menu.menu_fragment_compras, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.accion_borrar:
+                return true;
+            case R.id.accion_guardar:
+                if (listado_productos != null){
+                    int count = listado_productos.getAdapter().getCount();
+                    if (count >=1){
+                        Toast.makeText(getActivity(), "La lista ha sido guardada", Toast.LENGTH_SHORT).show();
+                        guardar = true;
+                    } else{
+                        Toast.makeText(getActivity(), "Debe colocar al menos un producto", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(getActivity(), "Debe colocar al menos un producto", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            case R.id.accion_lista:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    public boolean getGuardar(){
+        return guardar;
+    }
+    public ListView getLista(){
+        return listado_productos;
+    }
+    public String retornartotal() {
+        return txt_total.getText().toString();
+    }
+    public String retornarcantidad()
+    {
+        return cantidad_producto.getText().toString();
+    }
+    public String[][] getDatosnoeditados() {
+        return datos_no_editados;
+    }
+    public String[][] getMatriz_compras() {
+        return matriz_compras;
+    }
+    public String[][] getMatriz_detalles() {
+        return matriz_detalles;
     }
 }

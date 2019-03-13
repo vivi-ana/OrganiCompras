@@ -68,8 +68,6 @@ public class DbCRUD extends DbHelper {
         }
         return id_detalle;
     }
-
-
     public double por_supermercado(String id_producto, int id_super){
         double precio_por_supermercado = 0;
         final String query = "SELECT * FROM " + DbTablas.TablaProdXSuper.TABLA_PRODXSUPER + " WHERE "
@@ -86,7 +84,6 @@ public class DbCRUD extends DbHelper {
         }
         return precio_por_supermercado;
     }
-
     public int contar_productos(int id_compras, String scanContent){
         int total = 0;
         final String query = "SELECT count(" + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD +
@@ -104,7 +101,6 @@ public class DbCRUD extends DbHelper {
         }
         return total;
     }
-
     public Cursor compra_producto_no_encontrado(String id_producto){
         final String query = "SELECT " + DbTablas.TablaProdNoEncoCompras.CAMPO_NOMBRE + "," + DbTablas.TablaProdNoEncoCompras.CAMPO_ID_NO_EN + " FROM "
                 + DbTablas.TablaProdNoEncoCompras.TABLA_PROD_NO_EN_COMP +  " WHERE " +  DbTablas.TablaProdNoEncoCompras.CAMPO_ID_NO_EN + " = " + id_producto;
@@ -114,7 +110,6 @@ public class DbCRUD extends DbHelper {
         }
         return producto_no_encontrado;
     }
-
     public void agregar_detalle_compra(int id_compras, String id_productos, double monto){
         ContentValues compras = new ContentValues();
         compras.put(DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA, id_compras);
@@ -165,7 +160,6 @@ public class DbCRUD extends DbHelper {
         nueva_cantidad.put(DbTablas.TablaDetallesCompras.CAMPO_MONTO, monto);
         db.update(DbTablas.TablaDetallesCompras.TABLA_DETALLE , nueva_cantidad, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compra + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto, null);
     }
-    //asi se pone los string?'" + codigo +"'
     public String monto(int id_compra){
         String monto_anterior = "";
         final String query = "SELECT SUM(" + DbTablas.TablaDetallesCompras.CAMPO_MONTO + " ) FROM "
@@ -214,5 +208,43 @@ public class DbCRUD extends DbHelper {
         }
         return maximo;
     }
-
+    public void borrar_compras(int id_compras){
+        db.delete(DbTablas.TablaCompras.TABLA_COMPRAS, DbTablas.TablaCompras.CAMPO_ID_COMPRA + " = " + id_compras,null);
+    }
+    public void actualizar_compra (int id_compra, int cantidad, double total, double total_unitario){
+        ContentValues compras = new ContentValues();
+        compras.put(DbTablas.TablaCompras.CAMPO_CANT_PROD, cantidad);
+        compras.put(DbTablas.TablaCompras.CAMPO_TOTAL, total);
+        compras.put(DbTablas.TablaCompras.CAMPO_TOT_UNITARIO, total_unitario);
+        db.update(DbTablas.TablaCompras.TABLA_COMPRAS, compras, DbTablas.TablaCompras.CAMPO_ID_COMPRA + " = " + id_compra, null);
+    }
+    public void borrar_detalle_compras(int id_compras){
+        db.delete(DbTablas.TablaDetallesCompras.TABLA_DETALLE, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compras,null);
+    }
+    public void cantidad_producto_editada (int cantidad, int id_compra, String codigo){
+        ContentValues edicion_cantidad = new ContentValues();
+        edicion_cantidad.put(DbTablas.TablaDetallesCompras.CAMPO_CANTIDAD, cantidad);
+        db.update(DbTablas.TablaCompras.TABLA_COMPRAS, edicion_cantidad, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compra + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + codigo, null);
+    }
+    public void reset_detalle(int id_detalle, int id_compra, String id_producto, int cantidad, double monto){
+        ContentValues nuevo_detalle = new ContentValues();
+        nuevo_detalle.put(DbTablas.TablaDetallesCompras.CAMPO_ID_DETALLE, id_detalle);
+        nuevo_detalle.put(DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA, id_compra);
+        nuevo_detalle.put(DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD, id_producto);
+        nuevo_detalle.put(DbTablas.TablaDetallesCompras.CAMPO_CANTIDAD, cantidad);
+        nuevo_detalle.put(DbTablas.TablaDetallesCompras.CAMPO_MONTO, monto);
+        db.insert(DbTablas.TablaDetallesCompras.TABLA_DETALLE, null, nuevo_detalle);
+    }
+    public void reset_compras(int id_compra, int id_super, String dia, int max, int cantidad, double total, double total_unitario){
+        ContentValues registros = new ContentValues();
+        registros.put(DbTablas.TablaCompras.CAMPO_ID_COMPRA, id_compra);
+        registros.put(DbTablas.TablaCompras.CAMPO_FK_ID_SUPER, id_super);
+        registros.put(DbTablas.TablaCompras.CAMPO_FECHA, dia);
+        registros.put(DbTablas.TablaCompras.CAMPO_MAX, max); //max puede ser 0 por default o el monto que ingreso
+        registros.put(DbTablas.TablaCompras.CAMPO_CANT_PROD, cantidad);
+        registros.put(DbTablas.TablaCompras.CAMPO_TOTAL, total);
+        registros.put(DbTablas.TablaCompras.CAMPO_TOT_UNITARIO, total_unitario);
+        db.insert(DbTablas.TablaCompras.TABLA_COMPRAS, null, registros);
+    }
+        //asi se pone los string?'" + codigo +"'
 }

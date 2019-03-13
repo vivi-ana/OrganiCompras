@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/signo_pesos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:gravity="fill"
+            android:padding="5dp"
+            android:text="@string/signo"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/subtotal"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/subtotal"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:padding="5dp"
+            android:text="@string/subtotal"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/signo_pesos"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout4">
+
+        <TextView
+            android:id="@+id/cantidad_prod"
+            android:layout_width="30dp"
+            android:layout_height="23dp"
+            android:gravity="center"
+            android:text="@string/uno"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/mas"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/plus"
+            app:layout_constraintEnd_toStartOf="@+id/cantidad_prod"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cantidad_prod" />
+
+        <Button
+            android:id="@+id/menos"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/minus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cantidad_prod"
+            app:layout_constraintTop_toBottomOf="@+id/cantidad_prod" />
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/nombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
+            android:text="@string/nombre"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/marca"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:text="@string/marca"
+            app:layout_constraintEnd_toEndOf="@+id/neto"
+            app:layout_constraintStart_toEndOf="@+id/neto"
+            app:layout_constraintTop_toBottomOf="@+id/nombre" />
+
+
+        <TextView
+            android:id="@+id/neto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/neto"
+            app:layout_constraintBaseline_toBaselineOf="@+id/medida"
+            app:layout_constraintStart_toStartOf="@+id/signo" />
+
+        <TextView
+            android:id="@+id/signo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/signo"
+            app:layout_constraintBaseline_toBaselineOf="@+id/precio"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/medida"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:text="@string/medida"
+            app:layout_constraintEnd_toEndOf="@+id/marca"
+            app:layout_constraintStart_toEndOf="@+id/marca"
+            app:layout_constraintTop_toBottomOf="@+id/marca" />
+
+        <TextView
+            android:id="@+id/precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/precio"
+            app:layout_constraintStart_toEndOf="@+id/signo"
+            app:layout_constraintTop_toBottomOf="@+id/neto" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

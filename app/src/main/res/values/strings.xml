@@ -42,4 +42,6 @@
     <string name="nombreProducto">Nombre del producto:</string>
     <string name="precioProducto">Precio:</string>
     <string name="formatoProducto">Ej: 10.50</string>
+    <string name="salirGuardar">¿Desea guardar la lista?</string>
+    <string name="salirGuardarMsj">Esta lista no esta guardada. ¿Desea guardarla y salir?</string>
 </resources>
