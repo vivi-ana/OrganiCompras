@@ -286,7 +286,6 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     {
         return cantidad_producto;
     }
-
     public void onClick(View v){ //evento del boton scanear
         if(v.getId()==R.id.scan_button){
             IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());

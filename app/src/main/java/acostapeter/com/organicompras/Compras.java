@@ -23,6 +23,7 @@ private int cantidad;
 private double total;
 private double total_unitario;
 private int cant_total_productos;
+private boolean vacio = false;
 private DbCRUD admin;
 
     public Compras(int id, int supermercado, String fecha, int max, int cantidad, double total, double total_unitario, int cant_total_productos) {
@@ -55,8 +56,8 @@ private DbCRUD admin;
         this.supermercado = supermercado;
     }
 
-    public String getFecha() {
-        return fecha;
+    boolean isVacio() {
+        return vacio;
     }
 
     void setFecha(String fecha) {
@@ -107,10 +108,8 @@ private DbCRUD admin;
     void maximo_compra() {
         Cursor lista_compras = admin.maximo_compra();
         if (lista_compras.moveToFirst()) {
-            String idcompra = lista_compras.getString(0);
-            id = Integer.parseInt(idcompra);
-            String idsupermercado = lista_compras.getString(1);
-            supermercado = Integer.parseInt(idsupermercado);
+            id = lista_compras.getInt(0);
+            supermercado = lista_compras.getInt(1);;
         }
     }
     int maximo_detalle_compra() {
@@ -206,5 +205,17 @@ private DbCRUD admin;
     }
     void resetear_compras(){
         admin.reset_compras(id, supermercado, fecha, max, cantidad, total, total_unitario);
+    }
+    void cargar_algunos_detalles_compras(){
+        Cursor datos_compra = admin.compra_datos(id);
+        if (datos_compra.moveToFirst()) {
+            vacio = false;
+            max = datos_compra.getInt(3);
+            cantidad = datos_compra.getInt(4);
+            total = datos_compra.getDouble(5);
+        }else vacio=true;
+    }
+    void borrar_item(String id_producto){
+    admin.borrar_item(id, id_producto);
     }
 }

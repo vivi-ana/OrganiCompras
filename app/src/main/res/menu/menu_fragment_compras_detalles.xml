@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/consumo_mensual"
+        app:showAsAction="never"
+        android:title="@string/consumoMensual"/>
+    <item
+        android:id="@+id/consumo_anual"
+        app:showAsAction="never"
+        android:title="@string/consumoAnual"/>
+    <item
+        android:id="@+id/accion_editar"
+        android:icon="@drawable/ic_editar"
+        android:orderInCategory="100"
+        android:title="@string/editar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/accion_borrar"
+        android:icon="@drawable/ic_borrar"
+        android:title="@string/borrar"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -14,7 +14,8 @@ public class Productos {
     private double precio;
     private int id_supermercado;
     private DbCRUD admin;
-    Productos(Context context){
+
+    Productos(Context context) {
         this.admin = new DbCRUD(context, null);
     }
 
@@ -74,10 +75,11 @@ public class Productos {
         this.precio = precio;
     }
 
-    void precio(){
-    precio = admin.por_supermercado(id_producto, id_supermercado);
+    void precio() {
+        precio = admin.por_supermercado(id_producto, id_supermercado);
     }
-    void producto_no_encontrado(){
+
+    void producto_no_encontrado() {
         Cursor producto_no_encontrado = admin.compra_producto_no_encontrado(id_producto);
         if (producto_no_encontrado.moveToFirst()) {
             nombre = producto_no_encontrado.getString(0);
@@ -86,7 +88,8 @@ public class Productos {
         }
 
     }
-    void agregar_compras_producto_no_encontrado(){
+
+    void agregar_compras_producto_no_encontrado() {
         admin.compras_agregar_prod_no_encontrado(id_producto, id_supermercado, nombre, precio);
     }
 }

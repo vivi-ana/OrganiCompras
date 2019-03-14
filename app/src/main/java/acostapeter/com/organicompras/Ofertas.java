@@ -133,9 +133,8 @@ public class Ofertas extends AppCompatActivity {
         }
         return value;
     }
-    //boton hacia atrás, debe volver al menu principal.
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {   //boton hacia atrás, debe volver al menu principal.
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
             Intent i = new Intent(Ofertas.this, MainActivity.class);

@@ -246,5 +246,17 @@ public class DbCRUD extends DbHelper {
         registros.put(DbTablas.TablaCompras.CAMPO_TOT_UNITARIO, total_unitario);
         db.insert(DbTablas.TablaCompras.TABLA_COMPRAS, null, registros);
     }
+    public Cursor compra_datos(int id_compra){
+        final String query = "SELECT * FROM "
+                + DbTablas.TablaCompras.TABLA_COMPRAS + " WHERE " + DbTablas.TablaCompras.CAMPO_ID_COMPRA + " = " + id_compra;
+        Cursor datos_compras = db.rawQuery(query,null);
+        if (datos_compras != null){
+            datos_compras.moveToFirst();
+        }
+        return datos_compras;
+    }
+    public void borrar_item(int id_compras, String id_producto){
+        db.delete(DbTablas.TablaDetallesCompras.TABLA_DETALLE, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compras + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto,null);
+    }
         //asi se pone los string?'" + codigo +"'
 }

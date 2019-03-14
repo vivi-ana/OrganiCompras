@@ -30,7 +30,6 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
         this.activity = activity;
         this.lista = lista;
     }
-
     @Override
     public int getCount() {
         return lista.size();
@@ -44,12 +43,9 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
         return 0;
     }
     private class ViewHolder {
-
         TextView nombre, sub_total, marca, cantidad_producto, precio_unidad, id_producto, neto, medida;
         Button bmas, bmenos;
-
     }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -69,13 +65,11 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
             holder.sub_total = convertView.findViewById(R.id.subtotal);
             holder.id_producto = convertView.findViewById(R.id.id);
             holder.bmenos.setEnabled(false);
-
             convertView.setTag(holder);
         }
         else{
             holder=(ViewHolder) convertView.getTag();
         }
-
         HashMap<String, String> map = lista.get(position); //cargar cada fila de datos
         holder.nombre.setText(map.get(PRIMERA_COLUMNA));
         holder.marca.setText(map.get(SEGUNDA_COLUMNA));
@@ -172,6 +166,5 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
         txt_total.setText(nuevo_monto);
         TextView txt_cantidad = fragmentCompras.actualizar_txt_cantidad();
         txt_cantidad.setText(cantidad);
-
     }
 }
