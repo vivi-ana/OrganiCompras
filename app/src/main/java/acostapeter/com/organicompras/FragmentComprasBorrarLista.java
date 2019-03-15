@@ -14,8 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,8 +28,7 @@ import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMN
 @SuppressWarnings("all")
 public class FragmentComprasBorrarLista extends AppCompatActivity {
     private ArrayList<HashMap<String, String>> lista;
-    DecimalFormat df = new DecimalFormat("0.00");
-    String nombre = "", marca = "", precio_unitario = "", id_compra = "";
+    String nombre = "";
     static int id_compras = 0;
     ListView lista_compras;
     final ArrayList<String> item_borrar = new ArrayList<String>();

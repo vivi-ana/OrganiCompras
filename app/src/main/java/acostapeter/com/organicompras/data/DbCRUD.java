@@ -258,5 +258,66 @@ public class DbCRUD extends DbHelper {
     public void borrar_item(int id_compras, String id_producto){
         db.delete(DbTablas.TablaDetallesCompras.TABLA_DETALLE, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compras + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto,null);
     }
+    public Cursor cargar_no_producto(int id_supermercado){
+        final String query = "SELECT * FROM "
+                + DbTablas.TablaProdNoEncoCompras.TABLA_PROD_NO_EN_COMP + " WHERE " + DbTablas.TablaProdNoEncoCompras.CAMPO_FK_ID_SUPER + " = " + id_supermercado;
+        Cursor producto_no_encontrado = db.rawQuery(query,null);
+        if (producto_no_encontrado != null){
+            producto_no_encontrado.moveToFirst();
+        }
+        return producto_no_encontrado;
+    }
+    public int contar_productos_detalle(int id_compra){
+        int total_producto = 0;
+        final String query = "SELECT COUNT(" + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + ") FROM "
+                + DbTablas.TablaDetallesCompras.TABLA_DETALLE + " WHERE " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compra;
+        Cursor contar_producto = db.rawQuery(query,null);
+        if (contar_producto != null){
+            try {
+                if(contar_producto.moveToFirst()){
+                    total_producto = contar_producto.getInt(0);
+                }
+            }finally {
+                contar_producto.close();
+            }
+        }
+        return total_producto;
+    }
+
+    public double calcular_total(int id_compra){
+        double total_compras = 0;
+        final String query = "SELECT SUM(" + DbTablas.TablaDetallesCompras.CAMPO_MONTO + ") FROM "
+                + DbTablas.TablaDetallesCompras.TABLA_DETALLE + " WHERE " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compra;
+        Cursor contar_producto = db.rawQuery(query,null);
+        if (contar_producto != null){
+            try {
+                if(contar_producto.moveToFirst()){
+                    total_compras = contar_producto.getDouble(0);
+                }
+            }finally {
+                contar_producto.close();
+            }
+        }
+        return total_compras;
+    }
+    public void editar_producto_no_encontrado (String nombre, double precio, int id_supermercado, String id_producto){
+        ContentValues edicion_producto = new ContentValues();
+        edicion_producto.put(DbTablas.TablaProdNoEncoCompras.CAMPO_NOMBRE, nombre);
+        edicion_producto.put(DbTablas.TablaProdNoEncoCompras.CAMPO_PRECIO, precio);
+        db.update(DbTablas.TablaCompras.TABLA_COMPRAS, edicion_producto, DbTablas.TablaProdNoEncoCompras.CAMPO_FK_ID_SUPER + " = " + id_supermercado + " AND " + DbTablas.TablaProdNoEncoCompras.CAMPO_ID_NO_EN + " = " + id_producto, null);
+    }
+    public Cursor detalle_compra_editada(int id_compras, String id_producto){
+        final String query = "SELECT * FROM " + DbTablas.TablaDetallesCompras.TABLA_DETALLE + " where " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compras + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto;
+        Cursor compras = db.rawQuery(query,null);
+        if (compras != null){
+            compras.moveToFirst();
+        }
+        return compras;
+    }
+    public void actualizar_monto(double monto, int id_compra, String id_producto ){
+        ContentValues nuevo_monto = new ContentValues();
+        nuevo_monto.put(DbTablas.TablaDetallesCompras.CAMPO_MONTO, monto);
+        db.update(DbTablas.TablaDetallesCompras.TABLA_DETALLE , nuevo_monto, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compra + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto, null);
+    }
         //asi se pone los string?'" + codigo +"'
 }

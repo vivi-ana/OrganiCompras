@@ -1,5 +1,6 @@
 package acostapeter.com.organicompras;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -38,7 +39,6 @@ import static acostapeter.com.organicompras.ConstantesFilaCompras.SEGUNDA_COLUMN
 import static acostapeter.com.organicompras.ConstantesFilaCompras.SEPTIMA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMNA;
-
 @SuppressWarnings("all")
 public class FragmentCompras extends android.support.v4.app.Fragment implements View.OnClickListener {
     Button scanBtn;
@@ -50,6 +50,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     Compras compras;
     Productos productos;
     static Context contexto;
+    static Activity activity;
     static String datos_no_editados [][], matriz_compras[][], matriz_detalles[][];
     static int max = 0, id_compras =0, id_supermercado = 0;
     static String text_total_compras;
@@ -301,6 +302,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.accion_borrar:
+                startActivity(new Intent(getActivity(), FragmentComprasBorrarLista.class));
                 return true;
             case R.id.accion_guardar:
                 if (listado_productos != null){
@@ -317,6 +319,9 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 }
                 return true;
             case R.id.accion_lista:
+                Intent i = new Intent (getActivity(), ListaProductoNoEncontrado.class);
+                i.putExtra("idsuper", id_supermercado);
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -343,5 +348,31 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     }
     public String[][] getMatriz_detalles() {
         return matriz_detalles;
+    }
+    public void limpiar(){//se usa en la lista de productos no encontrados
+        listado_productos = getLista();
+        lista.clear();
+    }
+    public void llenar() {//se usa en la lista de productos no encontrados
+        FragmentComprasListViewAdapter adapter = new FragmentComprasListViewAdapter(activity, lista);
+        listado_productos.setAdapter(adapter);
+    }
+    public void cambiarTxtTotal(){ //aca se altera el total general de la tabla compras tambien.
+        compras.maximo_compra();
+        id_compras = compras.getId();
+        compras.contar_productos_compra();
+        int cantidad = compras.getCant_total_productos();
+        String cantidad_productos = String.valueOf(cantidad);
+        if (cantidad != 0) {
+            compras.setId(id_compras);
+            compras.calcular_total_compra();
+            double total_compra = compras.getTotal();
+            String total = String.valueOf(total_compra);
+            txt_total.setText(total);
+            cantidad_producto.setText(cantidad_productos);
+        }else {
+            txt_total.setText("0");
+            cantidad_producto.setText("0");
+        }
     }
 }

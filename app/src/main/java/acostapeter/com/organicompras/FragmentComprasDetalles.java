@@ -28,7 +28,7 @@ import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMN
 @SuppressWarnings("all")
 public class FragmentComprasDetalles extends AppCompatActivity {
     static boolean editar = false;
-    String id, maximo, cantidad, total, supermercado;
+    String id, maximo, cantidad, total;
     ListView lista_compras;
     int id_compra;
     private ArrayList<HashMap<String, String>> lista;

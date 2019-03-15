@@ -3,6 +3,12 @@ package acostapeter.com.organicompras;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
 import acostapeter.com.organicompras.data.DbCRUD;
 @SuppressWarnings("all")
 public class Productos {
@@ -91,5 +97,28 @@ public class Productos {
 
     void agregar_compras_producto_no_encontrado() {
         admin.compras_agregar_prod_no_encontrado(id_producto, id_supermercado, nombre, precio);
+    }
+    ArrayList<HashMap<String, String>> cargar_producto_no_encontrado() {
+        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("0.00");
+        Cursor producto_no_encontrado = admin.cargar_no_producto(id_supermercado);
+        if (producto_no_encontrado.moveToFirst()) {
+            do {
+                long producto_id = producto_no_encontrado.getLong(0);//id del producto
+                id_producto = Long.toString(producto_id); //id del producto
+                nombre = producto_no_encontrado.getString(2);
+                precio = producto_no_encontrado.getDouble(3);
+                String precio_producto = (df.format(precio)).replace(",", ".");
+                HashMap<String, String> temp = new HashMap<String, String>();
+                temp.put(PRIMERA_COLUMNA, nombre);
+                temp.put(SEGUNDA_COLUMNA, precio_producto);
+                temp.put(TERCERA_COLUMNA, id_producto);
+                lista.add(temp);
+            } while (producto_no_encontrado.moveToNext());
+        }
+        return lista;
+    }
+    void actualizar_producto_no_encontrado(){
+        admin.editar_producto_no_encontrado(nombre, precio,id_supermercado,id_producto);
     }
 }

@@ -54,6 +54,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/lbl_cantidad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
@@ -63,12 +65,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="120dp"
         android:text="@string/lbl_cantidad"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lista_productos" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/cantidad_producto"
@@ -76,13 +76,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="120dp"
         android:text="@string/cero"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/lbl_total"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lbl_cantidad"
-        app:layout_constraintTop_toBottomOf="@+id/lista_productos" />
+        app:layout_constraintTop_toBottomOf="@+id/lista_productos"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/lbl_total"
@@ -90,22 +91,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="120dp"
         android:text="@string/total"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lista_productos" />
+        app:layout_constraintTop_toBottomOf="@+id/lista_productos"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="120dp"
         android:text="@string/cero"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lbl_total"
-        app:layout_constraintTop_toBottomOf="@+id/lista_productos" />
+        app:layout_constraintTop_toBottomOf="@+id/lista_productos"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/lbl_maximo"
@@ -113,12 +116,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="120dp"
         android:text="@string/máximo"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/total"
         app:layout_constraintTop_toBottomOf="@+id/lista_productos"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@string/máximo" />
 
     <TextView
@@ -127,7 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="80dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="120dp"
         android:text="@string/cero"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -135,6 +139,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lbl_maximo"
         app:layout_constraintTop_toBottomOf="@+id/lista_productos"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@string/cero" />
 
     <TextView
@@ -160,7 +165,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/lbl_cantidad"
-        app:layout_constraintEnd_toEndOf="@+id/lbl_cantidad"
         app:layout_constraintStart_toEndOf="@+id/lbl_cantidad" />
 
     <Button
@@ -168,17 +172,13 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="32dp"
         android:background="@color/colorPrimary"
         android:text="@string/borrar"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lista_productos"
-        app:layout_constraintVertical_bias="0.659"
+        app:layout_constraintEnd_toStartOf="@+id/lbl_maximo"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_total"
         tools:text="@string/borrar" />
+
 </android.support.constraint.ConstraintLayout>

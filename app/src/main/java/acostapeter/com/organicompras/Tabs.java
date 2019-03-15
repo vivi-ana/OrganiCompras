@@ -22,7 +22,7 @@ public class Tabs extends AppCompatActivity {
     int id_compra = 0;
     static boolean edicion = false;
     FragmentCompras Lista = new FragmentCompras();
-    Compras compras = new Compras(getBaseContext());
+    Compras compras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,24 +31,19 @@ public class Tabs extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Compras"));
         tabLayout.addTab(tabLayout.newTab().setText("Despensa"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
+        compras = new Compras(getBaseContext());
         final ViewPager viewPager = findViewById(R.id.pager);
-        //envia que fragment se quiere mostrar
         final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(adapter); //envia que fragment se quiere mostrar
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            //para saber que fragment se selecciono
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab) {  //para saber que fragment se selecciono
                 viewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
