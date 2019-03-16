@@ -47,7 +47,7 @@
         tools:text="@string/subtotal" />
 
     <ListView
-        android:id="@+id/lista_productos"
+        android:id="@+id/lista_despensa"
         android:layout_width="0dp"
         android:layout_height="603dp"
         android:layout_marginStart="8dp"
@@ -131,8 +131,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/lista_productos"
-        app:layout_constraintStart_toStartOf="@+id/lista_productos" />
+        app:layout_constraintBottom_toBottomOf="@+id/lista_despensa"
+        app:layout_constraintStart_toStartOf="@+id/lista_despensa" />
 
     <TextView
         android:id="@+id/scan_content"
@@ -140,8 +140,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="83dp"
         android:layout_marginBottom="18dp"
-        app:layout_constraintBottom_toBottomOf="@+id/lista_productos"
-        app:layout_constraintStart_toStartOf="@+id/lista_productos" />
+        app:layout_constraintBottom_toBottomOf="@+id/lista_despensa"
+        app:layout_constraintStart_toStartOf="@+id/lista_despensa" />
 
     <TextView
         android:id="@+id/cantidad"

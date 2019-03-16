@@ -8,6 +8,6 @@ public class MiHistorialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mi_historial_activity);
+        setContentView(R.layout.activity_mi_historial);
     }
 }

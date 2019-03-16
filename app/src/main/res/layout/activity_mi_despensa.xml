@@ -1,8 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MiDespensaActivity">
+    tools:context=".MiDespensaActivity"
+    tools:ignore="LabelFor">
+
+    <Button
+        android:id="@+id/btnAgregar"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/agregar"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/autoCompleteTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/agregar" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/productoNombre"
+        app:layout_constraintEnd_toStartOf="@+id/btnAgregar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/lista_despensa"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/scan_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/lbl_cantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/lbl_cantidad"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cantidad_producto"
+        app:layout_constraintEnd_toStartOf="@+id/cantidad_producto"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/cantidad_producto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="46dp"
+        android:text="@string/cero"
+        app:layout_constraintStart_toStartOf="@+id/lista_despensa"
+        app:layout_constraintTop_toBottomOf="@+id/lista_despensa" />
+
+    <Button
+        android:id="@+id/scan_button"
+        android:layout_width="71dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginBottom="75dp"
+        android:background="@drawable/barcode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cantidad_producto" />
 
 </android.support.constraint.ConstraintLayout>

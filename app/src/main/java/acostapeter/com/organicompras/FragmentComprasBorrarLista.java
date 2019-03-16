@@ -39,7 +39,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_compras_borrar_lista);
         lista = new ArrayList<HashMap<String, String>>();
-        lista_compras = findViewById(R.id.lista_productos);
+        lista_compras = findViewById(R.id.lista_despensa);
         FragmentComprasBorrarListaListViewAdapter adapter = new FragmentComprasBorrarListaListViewAdapter(this, lista);
         lista_compras.setAdapter(adapter);
         Button btnborrar = findViewById(R.id.btnBorrar);

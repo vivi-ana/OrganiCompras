@@ -72,7 +72,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         supermercado = new Supermercado(getActivity()); //objeto supermercado
         compras = new Compras(getActivity()); //objeto compras
         productos = new Productos(getActivity()); // objeto productos
-        listado_productos = view.findViewById(R.id.lista_productos);
+        listado_productos = view.findViewById(R.id.lista_despensa);
         listas(lista);
         obtener_dia();
         mensaje();

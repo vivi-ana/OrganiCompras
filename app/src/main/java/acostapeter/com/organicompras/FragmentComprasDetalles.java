@@ -39,7 +39,7 @@ public class FragmentComprasDetalles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_compras_detalles);
         lista = new ArrayList<HashMap<String, String>>();
-        lista_compras = findViewById(R.id.lista_productos);
+        lista_compras = findViewById(R.id.lista_despensa);
         Intent intent = getIntent();
         id = intent.getStringExtra("ID");
         id_compra = Integer.parseInt(id);
