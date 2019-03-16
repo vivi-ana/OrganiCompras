@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ListaProductoNoEncontrado">
+    android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/textProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textPrecio"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
         android:paddingTop="5dp"
         android:text="@string/producto"
         android:textSize="20sp"
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/listaDespensa"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="105dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
         android:paddingTop="5dp"
         android:text="@string/precio"
         android:textSize="20sp"
@@ -38,10 +38,29 @@
     <ListView
         android:id="@+id/listaDespensa"
         android:layout_width="407dp"
-        android:layout_height="680dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/textProducto"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBorrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnBorrar"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/borrar"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listaDespensa"
+        tools:text="@string/borrar" />
+
 </android.support.constraint.ConstraintLayout>

@@ -84,7 +84,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
         }
     }
-    public void mensaje(){
+    public void mensaje() {
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FragmentComprasBorrarLista.this);
         alertBuilder.setTitle(R.string.eliminar);
         alertBuilder.setCancelable(false);
@@ -106,7 +106,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                     lista_compras.setAdapter(adapter);
                     cargar();
                     item_borrar.clear();//borrar
-                } else{
+                } else {
                     Toast.makeText(getBaseContext(), "Debe seleccionar algun producto", Toast.LENGTH_LONG).show();
                 }
             }
@@ -129,9 +129,9 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         id_compras = compras.getId();
         listado_compras = compras.detalle_compras(id_compras);
         int bucle = listado_compras.size();
-        if (bucle != 0){
-            for(int i=0; i<bucle; i++) {
-                HashMap<String, String> hashmap= listado_compras.get(i);
+        if (bucle != 0) {
+            for (int i = 0; i < bucle; i++) {
+                HashMap<String, String> hashmap = listado_compras.get(i);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
                 marca = hashmap.get(SEGUNDA_COLUMNA);
                 precio_unitario = hashmap.get(TERCERA_COLUMNA);
@@ -152,7 +152,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                 temporal.put(OCTAVA_COLUMNA, medida);
                 lista.add(temporal);
             }
-        }else {
+        } else {
             Toast.makeText(getBaseContext(), "No hay datos para borrar", Toast.LENGTH_SHORT).show();
         }
     }

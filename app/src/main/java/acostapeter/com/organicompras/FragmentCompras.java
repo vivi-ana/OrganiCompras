@@ -133,7 +133,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         compras.setId(id_compras);
         compras.setTotal_unitario(precio_producto);
         compras.agregar_detalle_compra(scanContent);
-         //ComparacionProductos(scanContent); enviar el codigo de barra del producto agregado. Despues de agregar a la tabla
+        ComparacionProductos(scanContent); //enviar el codigo de barra del producto agregado. Despues de agregar a la tabla
         text_total_compras = txt_total.getText().toString(); //capturo lo que tiene txttotal
         total_compras_anterior = Double.parseDouble(text_total_compras);//traigo el precio unitario
         suma_total = total_compras_anterior + precio_producto;
@@ -373,6 +373,38 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         }else {
             txt_total.setText("0");
             cantidad_producto.setText("0");
+        }
+    }
+
+    public void ComparacionProductos(String CodBarra) {
+        String id;
+        ArrayList<HashMap<String, String>> listado_despensa;
+        ArrayList<HashMap<String, String>> listado_producto;
+        Despensa despensa = new Despensa(contexto);
+        Productos productos = new Productos(contexto);
+        listado_despensa = despensa.detalle_inventario();//recorro despensa
+        int bucle = listado_despensa.size();
+        if (bucle != 0){
+            HashMap<String, String> hashmap = listado_despensa.get(0);
+            id = hashmap.get(ConstantesDespensa.TERCERA_COLUMNA);
+            for(int i=0; i<bucle; i++) {
+                if (id.equals(CodBarra)) { //pregunto si hay un id igual al codigo de barra
+                    despensa.setId_producto(CodBarra);
+                    despensa.borrar_item();//borra por el codigo de barra.
+                    break;
+                } else {//entonces no esta por codigo de barra hay que buscar por nombre.
+                    productos.setId(CodBarra);
+                    listado_producto = productos.cargar_producto_especifico();
+                    int bucle_producto = listado_despensa.size();
+                    if (bucle_producto != 0) {
+                        HashMap<String, String> hashmapa = listado_despensa.get(0);
+                        String idnombre = hashmapa.get(ConstantesDespensa.TERCERA_COLUMNA);//tengo el id del nombre del producto
+                        despensa.setId_producto(idnombre);
+                        despensa.borrar_item();//borra por el id
+                        break;
+                    }
+                }
+            }
         }
     }
 }

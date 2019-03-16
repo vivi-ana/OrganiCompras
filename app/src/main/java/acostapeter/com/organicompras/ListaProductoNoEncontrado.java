@@ -27,7 +27,7 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_producto_no_encontrado);
-        lista = findViewById(R.id.listaNoProductos);
+        lista = findViewById(R.id.listaDespensa);
         activity = this;
         list = new ArrayList<HashMap<String, String>>();
         id_super = getIntent().getStringExtra("idsuper");

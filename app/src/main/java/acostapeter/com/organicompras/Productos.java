@@ -121,4 +121,20 @@ public class Productos {
     void actualizar_producto_no_encontrado(){
         admin.editar_producto_no_encontrado(nombre, precio,id_supermercado,id_producto);
     }
+    ArrayList<HashMap<String, String>> cargar_producto_especifico(){
+        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+        Cursor producto_especifico = admin.buscar_producto_especifico(id_producto);
+        if (producto_especifico.moveToFirst()) {
+            do {
+                long producto_id = producto_especifico.getLong(0);//id del producto
+                id_producto = Long.toString(producto_id); //id del producto
+                nombre = producto_especifico.getString(1);
+                HashMap<String, String> temp = new HashMap<String, String>();
+                temp.put(PRIMERA_COLUMNA, nombre);
+                temp.put(TERCERA_COLUMNA, id_producto);
+                lista.add(temp);
+            } while (producto_especifico.moveToNext());
+        }
+        return lista;
+    }
 }

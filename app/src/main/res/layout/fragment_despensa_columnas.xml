@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="249dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/nombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="5dp"
+            android:text="@string/nombre"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/check"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/marca"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:text="@string/marca"
+            app:layout_constraintEnd_toEndOf="@+id/neto"
+            app:layout_constraintStart_toEndOf="@+id/neto"
+            app:layout_constraintTop_toBottomOf="@+id/nombre"
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="47dp" />
+
+
+        <TextView
+            android:id="@+id/neto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/neto"
+            app:layout_constraintBaseline_toBaselineOf="@+id/medida"
+            app:layout_constraintStart_toStartOf="@+id/signo"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="82dp" />
+
+        <TextView
+            android:id="@+id/signo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signo"
+            app:layout_constraintBaseline_toBaselineOf="@+id/precio"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="70dp" />
+
+        <TextView
+            android:id="@+id/medida"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:text="@string/medida"
+            app:layout_constraintEnd_toEndOf="@+id/marca"
+            app:layout_constraintStart_toEndOf="@+id/marca"
+            app:layout_constraintTop_toBottomOf="@+id/marca"
+            tools:layout_editor_absoluteX="112dp"
+            tools:layout_editor_absoluteY="89dp" />
+
+        <TextView
+            android:id="@+id/precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/precio"
+            app:layout_constraintStart_toEndOf="@+id/signo"
+            app:layout_constraintTop_toBottomOf="@+id/neto"
+            tools:layout_editor_absoluteX="163dp"
+            tools:layout_editor_absoluteY="70dp" />
+
+        <CheckBox
+            android:id="@+id/check"
+            android:layout_width="27dp"
+            android:layout_height="34dp"
+            android:checked="false"
+            app:layout_constraintBottom_toTopOf="@+id/marca"
+            app:layout_constraintEnd_toStartOf="@+id/nombre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/cantidad_prod"
+        android:layout_width="30dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:text="@string/uno"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

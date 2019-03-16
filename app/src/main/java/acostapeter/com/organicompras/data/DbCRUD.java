@@ -283,7 +283,6 @@ public class DbCRUD extends DbHelper {
         }
         return total_producto;
     }
-
     public double calcular_total(int id_compra){
         double total_compras = 0;
         final String query = "SELECT SUM(" + DbTablas.TablaDetallesCompras.CAMPO_MONTO + ") FROM "
@@ -318,6 +317,47 @@ public class DbCRUD extends DbHelper {
         ContentValues nuevo_monto = new ContentValues();
         nuevo_monto.put(DbTablas.TablaDetallesCompras.CAMPO_MONTO, monto);
         db.update(DbTablas.TablaDetallesCompras.TABLA_DETALLE , nuevo_monto, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compra + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto, null);
+    }
+    public void borrar_item_despensa(String item){
+        db.delete(DbTablas.TablaInventarios.TABLA_INVENTARIOS, DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " = " + item,null);
+    }
+    public void borrar_producto_no_encontrado(String item){
+        db.delete(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " = " + item,null);
+    }
+    public Cursor recargar_despensa(){
+        final String query = "SELECT * FROM " + DbTablas.TablaInventarios.TABLA_INVENTARIOS;
+        Cursor inventario = db.rawQuery(query,null);
+        if (inventario != null){
+            inventario.moveToFirst();
+        }
+        return inventario;
+    }
+    public Cursor recargar_producto_no_encontrado(String id_producto){
+        final String query = "SELECT * FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP + " WHERE " + DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " = " + id_producto;
+        Cursor producto_no_encontrado = db.rawQuery(query,null);
+        if (producto_no_encontrado != null){
+            producto_no_encontrado.moveToFirst();
+        }
+        return producto_no_encontrado;
+    }
+    public Cursor recargar_detalle_producto(String id_producto){
+        final String query = "SELECT * FROM " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " WHERE " + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " = " + id_producto;
+        Cursor detalle = db.rawQuery(query,null);
+        if (detalle != null){
+            detalle.moveToFirst();
+        }
+        return detalle;
+    }
+    public Cursor buscar_producto_especifico(String id_producto){
+        final String query = "SELECT " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " , "
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " FROM "
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS +  " JOIN " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " ON " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " WHERE "
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto;
+        Cursor lista_producto_especifico = db.rawQuery(query,null);
+        if (lista_producto_especifico != null){
+            lista_producto_especifico.moveToFirst();
+        }
+        return lista_producto_especifico;
     }
         //asi se pone los string?'" + codigo +"'
 }
