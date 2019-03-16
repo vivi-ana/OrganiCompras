@@ -19,7 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 @SuppressLint("SetJavaScriptEnabled") //elimina el warning de JS
-public class Ofertas extends AppCompatActivity {
+public class OfertasActivity extends AppCompatActivity {
     private String seleccion;
     public ProgressBar progressBar;
 
@@ -33,7 +33,7 @@ public class Ofertas extends AppCompatActivity {
     public void mensaje(){
         //crear un dialogo donde el usuario seleccione de manera obligatoria de donde quiere conocer las ofertas
         final String[] items = {"Apa", "Carrefour", "Chango Más", "Diarco" };
-        final AlertDialog.Builder supermercado = new AlertDialog.Builder(Ofertas.this);
+        final AlertDialog.Builder supermercado = new AlertDialog.Builder(OfertasActivity.this);
         supermercado.setTitle(R.string.ofertas);
         supermercado.setCancelable(false);
         supermercado.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
@@ -57,7 +57,7 @@ public class Ofertas extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Si cancela el mensaje tiene que volver al menú
-                startActivity(new Intent(Ofertas.this, MainActivity.class));
+                startActivity(new Intent(OfertasActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -106,7 +106,7 @@ public class Ofertas extends AppCompatActivity {
             }
         }
         else{
-            new AlertDialog.Builder(Ofertas.this)
+            new AlertDialog.Builder(OfertasActivity.this)
             .setTitle("Ups")
             .setMessage("Tu conexión a Internet no esta disponible por el momento. Por favor intenta más tarde.")
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -137,7 +137,7 @@ public class Ofertas extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {   //boton hacia atrás, debe volver al menu principal.
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
-            Intent i = new Intent(Ofertas.this, MainActivity.class);
+            Intent i = new Intent(OfertasActivity.this, MainActivity.class);
             startActivity(i);
         }
         return super.onKeyDown(keyCode, event);

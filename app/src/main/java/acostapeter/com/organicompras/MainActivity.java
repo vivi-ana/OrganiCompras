@@ -24,11 +24,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         cardOfertas = findViewById(R.id.cardOfertas);
         cardOfertas.setOnClickListener(this);
     }
-    public void onClick(final View v) {
-        //Evento click por cada boton del menú
+    public void onClick(final View v) {        //Evento click por cada boton del menú
         switch (v.getId()) {
             case R.id.cardCompras:
-                String seleccion = "Apa";
+                String seleccion = "Apa"; //este codigo hay que sacar despues.
                 DbHelper admin;
                 admin = new DbHelper(this, null); //hace correr la bd
                 SQLiteDatabase db = admin.getReadableDatabase();
@@ -37,7 +36,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 dialogoMaximo();
             break;
             case R.id.cardOfertas:
-                startActivity(new Intent(MainActivity.this, Ofertas.class));
+                startActivity(new Intent(MainActivity.this, OfertasActivity.class));
                 finish();
             break;
         }
