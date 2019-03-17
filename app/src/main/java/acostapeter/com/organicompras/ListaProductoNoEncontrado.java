@@ -30,8 +30,8 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
         lista = findViewById(R.id.listaDespensa);
         activity = this;
         list = new ArrayList<HashMap<String, String>>();
-        id_super = getIntent().getStringExtra("idsuper");
-        int id_supermercado = Integer.parseInt(id_super);
+        int id_supermercado = getIntent().getIntExtra("idsuper", 0);
+        id_super = String.valueOf(id_supermercado);
         cargar(id_supermercado);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

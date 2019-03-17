@@ -46,13 +46,13 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     static TextView txt_total, cantidad_producto;
     static ListView listado_productos;
     static ArrayList<HashMap<String, String>> lista;
-    Supermercado supermercado;
-    Compras compras;
-    Productos productos;
+    static Supermercado supermercado;
+    static Compras compras;
+    static Productos productos;
     static Context contexto;
     static Activity activity;
     static String datos_no_editados [][], matriz_compras[][], matriz_detalles[][];
-    static int max = 0, id_compras =0, id_supermercado = 0;
+    static int max, id_compras, id_supermercado;
     static String text_total_compras;
     static boolean guardar;
     String dia = "",seleccion = "";
@@ -255,9 +255,9 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         }
         supermercado.setNombre(seleccion);//se obtiene el id del supermercado a partir del nombre que eligio.
         supermercado.eleccion_supermercado();
-        int idsuper = supermercado.getId();
+        id_supermercado = supermercado.getId();
         compras.setMax(max); //se envia los datos
-        compras.setSupermercado(idsuper);
+        compras.setSupermercado(id_supermercado);
         compras.setFecha(dia);
         compras.agregar_compra(); //se agrega la compra
         if (max !=0){ //si no ingreso monto el maximo por default es 0
