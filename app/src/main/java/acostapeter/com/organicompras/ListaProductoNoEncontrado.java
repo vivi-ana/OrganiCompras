@@ -32,6 +32,8 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
         list = new ArrayList<HashMap<String, String>>();
         int id_supermercado = getIntent().getIntExtra("idsuper", 0);
         id_super = String.valueOf(id_supermercado);
+        ListaProductoNoEncontradoListViewAdapter adapter = new ListaProductoNoEncontradoListViewAdapter(activity, list);
+        lista.setAdapter(adapter);
         cargar(id_supermercado);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -72,8 +74,6 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
                 temp.put(SEGUNDA_COLUMNA, precio);
                 temp.put(TERCERA_COLUMNA, ide);
                 list.add(temp);
-                ListaProductoNoEncontradoListViewAdapter adapter = new ListaProductoNoEncontradoListViewAdapter(activity, list);
-                lista.setAdapter(adapter);
             }
         }else{
             Toast.makeText(this, "No hay datos para borrar", Toast.LENGTH_SHORT).show();
