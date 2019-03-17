@@ -102,7 +102,7 @@ public class DbCRUD extends DbHelper {
         return total;
     }
     public Cursor compra_producto_no_encontrado(String id_producto){
-        final String query = "SELECT " + DbTablas.TablaProdNoEncoCompras.CAMPO_NOMBRE + "," + DbTablas.TablaProdNoEncoCompras.CAMPO_ID_NO_EN + " FROM "
+        final String query = "SELECT " + DbTablas.TablaProdNoEncoCompras.CAMPO_NOMBRE + "," + DbTablas.TablaProdNoEncoCompras.CAMPO_PRECIO + " FROM "
                 + DbTablas.TablaProdNoEncoCompras.TABLA_PROD_NO_EN_COMP +  " WHERE " +  DbTablas.TablaProdNoEncoCompras.CAMPO_ID_NO_EN + " = " + id_producto;
         Cursor producto_no_encontrado = db.rawQuery(query,null);
         if (producto_no_encontrado != null){
