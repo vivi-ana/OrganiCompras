@@ -17,9 +17,9 @@ import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.SEGUN
 import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
 @SuppressWarnings("all")
 public class ListaProductoNoEncontrado extends AppCompatActivity {
-    static private ArrayList<HashMap<String, String>> list;
+    static private ArrayList<HashMap<String, String>> lista;
     String nombre = "", precio, ide = "";
-    static ListView lista;
+    static ListView lista_producto_no_encontrado;
     String id_super;
     static Activity activity;
     ListView listado;
@@ -27,16 +27,13 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_producto_no_encontrado);
-        lista = findViewById(R.id.listaDespensa);
+        lista_producto_no_encontrado = findViewById(R.id.listaProductoNoEncontrado);
         activity = this;
-        list = new ArrayList<HashMap<String, String>>();
+        lista = new ArrayList<>();
         int id_supermercado = getIntent().getIntExtra("idsuper", 0);
         id_super = String.valueOf(id_supermercado);
-        ListaProductoNoEncontradoListViewAdapter adapter = new ListaProductoNoEncontradoListViewAdapter(activity, list);
-        lista.setAdapter(adapter);
         cargar(id_supermercado);
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        lista_producto_no_encontrado.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -56,7 +53,7 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
         });
     }
     public void cargar(int id_super){
-        list.clear();
+        lista.clear();
         Productos productos = new Productos(this);
         ArrayList<HashMap<String, String>> listado_productos;
         productos.setId_supermercado(id_super);
@@ -73,7 +70,9 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
                 temp.put(PRIMERA_COLUMNA, nombre);
                 temp.put(SEGUNDA_COLUMNA, precio);
                 temp.put(TERCERA_COLUMNA, ide);
-                list.add(temp);
+                lista.add(temp);
+                ListaProductoNoEncontradoListViewAdapter adapter = new ListaProductoNoEncontradoListViewAdapter(activity, lista);
+                lista_producto_no_encontrado.setAdapter(adapter);
             }
         }else{
             Toast.makeText(this, "No hay datos para borrar", Toast.LENGTH_SHORT).show();

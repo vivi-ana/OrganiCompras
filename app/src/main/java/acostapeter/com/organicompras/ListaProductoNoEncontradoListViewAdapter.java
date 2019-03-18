@@ -13,7 +13,7 @@ import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.SEGUN
 import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
 public class ListaProductoNoEncontradoListViewAdapter extends BaseAdapter {
     public ArrayList<HashMap<String, String>> lista;
-    private Activity activity;
+    Activity activity;
 
     ListaProductoNoEncontradoListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> lista) {
         super();
@@ -22,16 +22,14 @@ public class ListaProductoNoEncontradoListViewAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return 0;
+        return lista.size();
     }
-
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Object getItem(int position) {
+        return lista.get(position);
     }
-
     @Override
-    public long getItemId(int i) {
+    public long getItemId(int position) {
         return 0;
     }
     private class ViewHolder {
@@ -42,7 +40,7 @@ public class ListaProductoNoEncontradoListViewAdapter extends BaseAdapter {
         final ViewHolder holder;
         LayoutInflater inflater =  activity.getLayoutInflater();
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.lista_producto_no_encontrado_columnas, parent);
+            convertView = inflater.inflate(R.layout.lista_producto_no_encontrado_columnas, parent, false);
             holder = new ViewHolder();
             holder.nombre = convertView.findViewById(R.id.nombre);
             holder.precio = convertView.findViewById(R.id.precio);
