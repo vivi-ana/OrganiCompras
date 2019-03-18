@@ -28,8 +28,8 @@ public class ListaProductoNoEncontradoEditar extends DialogFragment {
         View rootview = inflater.inflate(R.layout.dialogo_producto_no_encontrado_editar, container);
         BtnAaceptar = rootview.findViewById(R.id.btnAceptar);
         BtnCancelar = rootview.findViewById(R.id.btnCancelar);
-        nombre = rootview.findViewById(R.id.editPrecio);
-        precio = rootview.findViewById(R.id.Pprecio);
+        nombre = rootview.findViewById(R.id.editNombre);
+        precio = rootview.findViewById(R.id.editPrecio);
         if (getArguments() != null) {
             id = getArguments().getString("idsuper");
             codigo = getArguments().getString("codigo");
@@ -60,12 +60,12 @@ public class ListaProductoNoEncontradoEditar extends DialogFragment {
                     } else {
                         precioproducto = Double.parseDouble(precio.getText().toString());
                         String preciopro = (df.format(precioproducto)).replace(",", ".");
-                        if (precio.getText().length() < 3) {
+                        if (preciopro.length() < 3) {
                             precio.setError("Mínimo 3 dígitos");
-                        } else if (precio.getText().length() >= 7) {
-                            precio.setError("Máximo de 5 dígitos");
-                        } else if (Double.parseDouble(preciopro) < 0) {
-                            precio.setError("El valor ingresado debe ser mayor a 0");
+                        } else if (preciopro.length() > 8) {
+                            precio.setError("Máximo de 5 dígitos"); //5 digitos + 3 (el punto y 2 decimales mas)
+                        } else if (Double.parseDouble(preciopro) <= 1) {
+                            precio.setError("El valor ingresado debe ser mayor a 1");
                         } else {//validado si esta validado
                             Productos productos = new Productos(getActivity());
                             productos.setNombre(nprod);

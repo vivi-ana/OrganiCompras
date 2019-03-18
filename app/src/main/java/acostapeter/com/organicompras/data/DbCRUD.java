@@ -303,7 +303,7 @@ public class DbCRUD extends DbHelper {
         ContentValues edicion_producto = new ContentValues();
         edicion_producto.put(DbTablas.TablaProdNoEncoCompras.CAMPO_NOMBRE, nombre);
         edicion_producto.put(DbTablas.TablaProdNoEncoCompras.CAMPO_PRECIO, precio);
-        db.update(DbTablas.TablaCompras.TABLA_COMPRAS, edicion_producto, DbTablas.TablaProdNoEncoCompras.CAMPO_FK_ID_SUPER + " = " + id_supermercado + " AND " + DbTablas.TablaProdNoEncoCompras.CAMPO_ID_NO_EN + " = " + id_producto, null);
+        db.update(DbTablas.TablaProdNoEncoCompras.TABLA_PROD_NO_EN_COMP, edicion_producto, DbTablas.TablaProdNoEncoCompras.CAMPO_FK_ID_SUPER + " = " + id_supermercado + " AND " + DbTablas.TablaProdNoEncoCompras.CAMPO_ID_NO_EN + " = " + id_producto, null);
     }
     public Cursor detalle_compra_editada(int id_compras, String id_producto){
         final String query = "SELECT * FROM " + DbTablas.TablaDetallesCompras.TABLA_DETALLE + " where " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compras + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto;

@@ -54,7 +54,7 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
     }
     public void cargar(int id_super){
         lista.clear();
-        Productos productos = new Productos(this);
+        Productos productos = new Productos(activity);
         ArrayList<HashMap<String, String>> listado_productos;
         productos.setId_supermercado(id_super);
         listado_productos = productos.cargar_producto_no_encontrado();

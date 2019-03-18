@@ -59,8 +59,7 @@ public class FragmentComprasBorrarListaListViewAdapter extends BaseAdapter {
             holder.subtotal = convertView.findViewById(R.id.subtotal);
             holder.id =  convertView.findViewById(R.id.check);
             convertView.setTag(holder);
-        }
-        else{
+        } else{
             holder=(ViewHolder) convertView.getTag();
         }
         HashMap<String, String> map = lista.get(position);
