@@ -2,6 +2,8 @@ package acostapeter.com.organicompras;
 
 import android.content.Context;
 import android.database.Cursor;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import static acostapeter.com.organicompras.ConstantesDespensa.CUARTA_COLUMNA;
@@ -88,5 +90,60 @@ public class Despensa {
             } while (lista_inventario.moveToNext());
         }
         return lista;
+    }
+    int cantidad_productos_inventario(){
+        int cantidad =0;
+        cantidad = admin.cantidad_inventario();
+        return cantidad;
+    }
+    void guardar_inventario(){
+        admin.guardar_inventario();
+    }
+    void insertar_inventario(){
+        admin.insertar_inventario(id_producto);
+    }
+    void actualizar_inverntario(){
+        admin.actualizar_inventario(cantidad, id_producto);
+    }
+    void borrar_inventario(){
+        admin.borrar_inventario();
+    }
+
+    double calcular_total_aproximado(int id_supermercado){
+        DecimalFormat df = new DecimalFormat("0.00");
+        double total = 0, subtotal = 0, subtotal2 = 0, multiplicacion = 0;
+        Cursor lista_inventario = admin.recargar_despensa();//traer el inventario
+        if (lista_inventario.moveToFirst()){
+            do {//si no tiene datos el valor quedara por defecto ""
+                id_producto = lista_inventario.getString(0); //id del producto
+                cantidad = lista_inventario.getInt(1);
+                Integer cantidadid = id_producto.length();
+                if (cantidadid == 13){ //es ean 13
+                    Cursor datos1 = admin.calcular_EAN13_despensa(id_producto, id_supermercado);
+                    double mont = Double.parseDouble(datos1.getString(2));
+                    String precio = (df.format(mont)).replace(",",".");
+                    multiplicacion = Double.parseDouble(precio) * cantidad; // sacar el total = precio x cantidad
+                }else{
+                    Integer cantidad_productos = admin.contar_productos_despensa(id_producto);//traer cuantos productos hay con ese id
+                    if (cantidad_productos > 0) { //hay productos.
+                        Cursor datos2 = admin.calcular_productos_despensa(id_producto); //traer todos los productos con ese id
+                        if (datos2.moveToFirst()) {
+                            do {
+                                String idproducto = Long.toString(datos2.getLong(0)); //entrar en la lista y traer el id EAN 13
+                                Cursor datos4 = admin.calcular_EAN13_despensa(idproducto, id_supermercado);
+                                double mont = Double.parseDouble(datos4.getString(2));
+                                String precio = (df.format(mont)).replace(",", ".");
+                                subtotal = subtotal + Double.parseDouble(precio);
+                            } while (datos2.moveToNext());
+                            subtotal2 = subtotal / cantidad_productos; //sacar promedio de todos los productos con ese id
+                            subtotal = 0;
+                        }
+                    }
+                    multiplicacion = subtotal2 * cantidad; //multiplicar ese promedio general por la cantidad
+                }
+                total = total + multiplicacion;
+            } while (lista_inventario.moveToNext());
+        }
+        return total;
     }
 }

@@ -5,6 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import acostapeter.com.organicompras.MiDespensaActivityObjeto;
+
 
 public class DbCRUD extends DbHelper {
 
@@ -359,5 +364,169 @@ public class DbCRUD extends DbHelper {
         }
         return lista_producto_especifico;
     }
-        //asi se pone los string?'" + codigo +"'
+    public Cursor buscar_producto_por_nombre(String nombre){
+        final String query = "SELECT * from" + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " WHERE " + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = " + nombre;
+        Cursor producto_por_nombre = db.rawQuery(query, null);
+        if (producto_por_nombre!= null){
+            producto_por_nombre.moveToFirst();
+        }
+        return producto_por_nombre;
+    }
+    public void insertar_inventario(String id_producto){
+        ContentValues registros = new ContentValues();
+        registros.put(DbTablas.TablaInventarios.CAMPO_FK_ID_PROD, id_producto);
+        registros.put(DbTablas.TablaInventarios.CAMPO_CANT, 1);
+        registros.put(DbTablas.TablaInventarios.CAMPO_GUARDAR, "N");
+        db.insert(DbTablas.TablaInventarios.TABLA_INVENTARIOS, null, registros);
+    }
+    public List<MiDespensaActivityObjeto> editText_busqueda(String itemBuscado) {
+        List<MiDespensaActivityObjeto> lista_productos = new ArrayList<>();
+        final String sql = "SELECT * FROM " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " WHERE " + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " LIKE '" +itemBuscado+ "%'" + " ORDER BY " + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " DESC LIMIT 0,5";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null){
+            try {
+                if(cursor.moveToFirst()){
+                    do {
+                        String objectName = cursor.getString(cursor.getColumnIndex(DbTablas.TablaDetallesProd.CAMPO_NOMBRE));
+                        MiDespensaActivityObjeto objecto = new MiDespensaActivityObjeto(objectName);
+                        lista_productos.add(objecto);
+                    } while (cursor.moveToNext());
+                }
+            }finally {
+                cursor.close();
+            }
+        }
+        return lista_productos;
+    }
+    public void producto_no_encontrado_despensa(String nombre){
+        ContentValues registros = new ContentValues();
+        registros.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_NOMBRE, nombre);
+        registros.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_GUARDAR, "N");
+        db.insert(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, null, registros);
+    }
+    public int maximo_producto_no_encontrado(){
+        int id_producto_no_encontrado = 0;
+        final String query = "SELECT * FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP
+                + " WHERE " + DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " =(SELECT MAX(" + DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " )"  + " FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP + ")";
+        Cursor lista_productos = db.rawQuery(query, null);
+        if (lista_productos != null){
+            try {
+                if(lista_productos.moveToFirst()){
+                    id_producto_no_encontrado = lista_productos.getInt(1);
+                }
+            }finally {
+                lista_productos.close();
+            }
+        }
+        return id_producto_no_encontrado;
+    }
+    public void guardar_inventario(){
+        ContentValues guardar = new ContentValues();
+        guardar.put(DbTablas.TablaInventarios.CAMPO_GUARDAR, "S");
+        db.update(DbTablas.TablaInventarios.TABLA_INVENTARIOS, guardar, null, null);
+    }
+
+    public void guardar_producto_no_encontrado_despensa(){
+        ContentValues guardar = new ContentValues();
+        guardar.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_GUARDAR, "S");
+        db.update(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, guardar, null, null);
+    }
+    public int cantidad_inventario (){
+        int cantidad = 0;
+        final String query = "SELECT SUM(" + DbTablas.TablaInventarios.CAMPO_CANT
+                + ") FROM " + DbTablas.TablaInventarios.TABLA_INVENTARIOS;
+        Cursor cantidad_inventario = db.rawQuery(query, null);
+        if (cantidad_inventario != null){
+            try {
+                if(cantidad_inventario.moveToFirst()){
+                    cantidad = cantidad_inventario.getInt(0);
+                }
+            }finally {
+                cantidad_inventario.close();
+            }
+        }
+        return cantidad;
+    }
+    public Cursor buscar_producto_no_encontrado_despensa(String nombre){
+        final String query = "SELECT * FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP + " WHERE " + DbTablas.TablaProdNoEncoDespensa.CAMPO_NOMBRE + " = " + nombre;
+        Cursor lista_producto = db.rawQuery(query,null);
+        if (lista_producto!= null){
+            lista_producto.moveToFirst();
+        }
+        return lista_producto;
+    }
+    public Cursor buscar_producto_especifico_despensa(String id_producto, String nombre){
+        final String query = "SELECT " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " , "
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " FROM "
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS +  " JOIN " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " ON " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " WHERE "
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto + " AND " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = " + nombre;
+        Cursor lista_producto_especifico = db.rawQuery(query,null);
+        if (lista_producto_especifico != null){
+            lista_producto_especifico.moveToFirst();
+        }
+        return lista_producto_especifico;
+    }
+    public Cursor producto_especifico_despensa(String nombre){
+        final String query = "SELECT " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " , "
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " FROM "
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD +  " JOIN " +  DbTablas.TablaInventarios.TABLA_INVENTARIOS + " ON " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " = " + DbTablas.TablaInventarios.TABLA_INVENTARIOS + "." + DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " WHERE "
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = " + nombre;
+        Cursor lista_producto_especifico = db.rawQuery(query,null);
+        if (lista_producto_especifico != null){
+            lista_producto_especifico.moveToFirst();
+        }
+        return lista_producto_especifico;
+    }
+    public void actualizar_inventario(int cantidad, String id_producto){
+        ContentValues guardar = new ContentValues();
+        guardar.put(DbTablas.TablaInventarios.CAMPO_CANT, cantidad);
+        db.update(DbTablas.TablaInventarios.TABLA_INVENTARIOS, guardar, DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " = " + id_producto, null);
+    }
+    public void borrar_inventario(){
+        db.delete(DbTablas.TablaInventarios.TABLA_INVENTARIOS, DbTablas.TablaInventarios.CAMPO_GUARDAR + " =  'N'",null);
+    }
+    public void borrar_producto_no_encontrado_inventario(){
+        db.delete(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, DbTablas.TablaProdNoEncoDespensa.CAMPO_GUARDAR + " =  'N'",null);
+    }
+    public void agregar_producto_no_encontrado_despensa(String id_producto, String nombre){
+        ContentValues registros = new ContentValues();
+        registros.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN, id_producto);
+        registros.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_NOMBRE, nombre);
+        registros.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_GUARDAR, "S");
+        db.insert(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, null, registros);
+    }
+    public Cursor calcular_EAN13_despensa(String id_producto, int id_supermercado){
+        final String query = "SELECT * FROM " + DbTablas.TablaProdXSuper.TABLA_PRODXSUPER + " WHERE " + DbTablas.TablaProdXSuper.CAMPO_FK_ID_PROD + " = " + id_producto  + " AND " + DbTablas.TablaProdXSuper.CAMPO_FK_ID_SUPER + " = " + id_supermercado;
+        Cursor lista_calculo = db.rawQuery(query,null);
+        if (lista_calculo != null){
+            lista_calculo.moveToFirst();
+        }
+        return lista_calculo;
+    }
+
+    public int contar_productos_despensa(String id_producto){
+        int total_producto = 0;
+        final String query = "SELECT COUNT(" + DbTablas.TablaProductos.CAMPO_ID_PROD + ") FROM "
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + id_producto;
+        Cursor contar_producto = db.rawQuery(query,null);
+        if (contar_producto != null){
+            try {
+                if(contar_producto.moveToFirst()){
+                    total_producto = contar_producto.getInt(0);
+                }
+            }finally {
+                contar_producto.close();
+            }
+        }
+        return total_producto;
+    }
+    public Cursor calcular_productos_despensa(String id_producto){
+        final String query = "SELECT * FROM " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + id_producto;
+        Cursor lista_calculo = db.rawQuery(query,null);
+        if (lista_calculo != null){
+            lista_calculo.moveToFirst();
+        }
+        return lista_calculo;
+    }
+    //asi se pone los string?'" + codigo +"'
 }

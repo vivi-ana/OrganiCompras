@@ -17,12 +17,12 @@
         android:text="@string/agregar"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/autoCompleteTextView"
+        app:layout_constraintStart_toEndOf="@+id/Eproducto"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/agregar" />
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+        android:id="@+id/Eproducto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
+        app:layout_constraintTop_toBottomOf="@+id/Eproducto"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -72,6 +72,7 @@
         android:id="@+id/scan_button"
         android:layout_width="71dp"
         android:layout_height="56dp"
+        android:onClick="agregar"
         android:layout_marginStart="132dp"
         android:layout_marginBottom="75dp"
         android:background="@drawable/barcode"

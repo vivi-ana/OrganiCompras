@@ -54,4 +54,8 @@
     <string name="seleccionar">Seleccionar todo</string>
     <string name="agregar">Agregar</string>
     <string name="productoNombre">Nombre del producto</string>
+    <string name="gastoAproximado">Gasto aproximado</string>
+    <string name="tituloGastoAproximado">Usted gastará aproximadamente:</string>
+    <string name="despensaGuardar">La lista ha sido modificada. ¿Desea guardar las modificaciones y salir?</string>
+    <string name="msjProductoNoEncontrado">Este producto no se encuentra, es probable que en el supermercado tampoco. ¿Desea agregarlo de todas formas?</string>
 </resources>

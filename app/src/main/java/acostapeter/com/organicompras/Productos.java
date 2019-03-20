@@ -6,6 +6,8 @@ import android.database.Cursor;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.SEGUNDA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
@@ -94,7 +96,6 @@ public class Productos {
         }
 
     }
-
     void agregar_compras_producto_no_encontrado() {
         admin.compras_agregar_prod_no_encontrado(id_producto, id_supermercado, nombre, precio);
     }
@@ -136,5 +137,75 @@ public class Productos {
             } while (producto_especifico.moveToNext());
         }
         return lista;
+    }
+    ArrayList<HashMap<String, String>> producto_por_nombre(){
+        ArrayList<HashMap<String, String>> lista_producto = new ArrayList<>();
+        Cursor producto_especifico = admin.buscar_producto_por_nombre(nombre);
+        if (producto_especifico.moveToFirst()) {
+            do {
+                long producto_id = producto_especifico.getLong(0);//id del producto
+                id_producto = Long.toString(producto_id); //id del producto
+                nombre = producto_especifico.getString(1);
+                HashMap<String, String> temp = new HashMap<String, String>();
+                temp.put(PRIMERA_COLUMNA, nombre);
+                temp.put(TERCERA_COLUMNA, id_producto);
+                lista_producto.add(temp);
+            } while (producto_especifico.moveToNext());
+        }
+        return lista_producto;
+    }
+    List<MiDespensaActivityObjeto> editText_buscar(String item){
+        List<MiDespensaActivityObjeto> lista_productos = new ArrayList<MiDespensaActivityObjeto>();
+        lista_productos = admin.editText_busqueda(item);
+        return lista_productos;
+    }
+    void insertar_producto_no_encontrado_despensa(){
+        admin.producto_no_encontrado_despensa(nombre);
+    }
+    int maximo_producto_no_encontrado_despensa(){
+        int maximo = 0;
+        maximo = admin.maximo_producto_no_encontrado();
+        return maximo;
+    }
+    void guardar_producto_no_encontrado_despensa(){
+        admin.guardar_producto_no_encontrado_despensa();
+    }
+    boolean buscar_producto_no_encontrado(){
+        boolean lista = false;
+        Cursor producto_especifico = admin.buscar_producto_no_encontrado_despensa(nombre);
+        if (producto_especifico.moveToFirst()) {
+            lista = true;
+        }
+        return lista;
+    }
+    boolean buscar_producto_no_encontrado_despensa(){
+        boolean lista_productos = false;
+        Cursor producto_especifico = admin.buscar_producto_especifico_despensa(id_producto, nombre);
+        if (producto_especifico.moveToFirst()) {
+            lista_productos = true;
+        }
+        return lista_productos;
+    }
+    boolean producto_no_encontrado_despensa(){
+        boolean lista_producto_no_encontrado = false;
+        Cursor producto_especifico = admin.recargar_producto_no_encontrado(id_producto);
+        if (producto_especifico.moveToFirst()) {
+            lista_producto_no_encontrado = true;
+        }
+        return lista_producto_no_encontrado;
+    }
+    boolean producto_especifico_despensa(){
+        boolean lista_producto_especifico = false;
+        Cursor producto_especifico = admin.producto_especifico_despensa(nombre);
+        if (producto_especifico.moveToFirst()) {
+            lista_producto_especifico = true;
+        }
+        return lista_producto_especifico;
+    }
+    void borrar_producto_no_encontrado_inventario(){
+        admin.borrar_producto_no_encontrado_inventario();
+    }
+    void agregar_despensa_producto_no_encontrado(){
+        admin.agregar_producto_no_encontrado_despensa(id_producto, nombre);
     }
 }

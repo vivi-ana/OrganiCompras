@@ -14,7 +14,7 @@ import android.view.View;
 import acostapeter.com.organicompras.data.DbHelper;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
-    CardView cardCompra, cardOfertas;
+    CardView cardCompra, cardOfertas, cardDespensa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +23,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         cardCompra.setOnClickListener(this);
         cardOfertas = findViewById(R.id.cardOfertas);
         cardOfertas.setOnClickListener(this);
+        cardDespensa = findViewById(R.id.cardDespensa);
+        cardDespensa.setOnClickListener(this);
     }
-    public void onClick(final View v) {        //Evento click por cada boton del menú
+    public void onClick(final View v) {//Evento click por cada boton del menú
         switch (v.getId()) {
             case R.id.cardCompras:
                 String seleccion = "Apa"; //este codigo hay que sacar despues.
@@ -35,6 +37,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 a.close();
                 dialogoMaximo();
             break;
+            case R.id.cardDespensa:
+                startActivity(new Intent(MainActivity.this, MiDespensaActivity.class));
+                finish();
+                break;
             case R.id.cardOfertas:
                 startActivity(new Intent(MainActivity.this, OfertasActivity.class));
                 finish();
@@ -51,22 +57,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             //Si acepta el mensaje debe salir otro mensaje para introducir el maximo.
             public void onClick(DialogInterface dialog, int which) {
-                //se muestra el otro dialogo para ingresar el maximo
-                FragmentManager manager = getSupportFragmentManager();
+                FragmentManager manager = getSupportFragmentManager(); //se muestra el otro dialogo para ingresar el maximo
                 IngreseMax ingreseMax = new IngreseMax();
                 ingreseMax.show(manager, "IngresarMax");
             }
         });
         alertBuilder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Si cancela el mensaje tiene que entrar igual a la app.
+            public void onClick(DialogInterface dialog, int which) {//Si cancela el mensaje tiene que entrar igual a la app.
                 startActivity(new Intent(MainActivity.this, Tabs.class));
                 finish();
             }
         });
-        alertBuilder.setNeutralButton(R.string.atras,
-                //Si quiere volver al menu
+        alertBuilder.setNeutralButton(R.string.atras,//Si quiere volver al menu
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
