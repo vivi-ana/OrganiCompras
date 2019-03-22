@@ -32,22 +32,20 @@ public class MiDespensaActivityBorrarListaListViewAdapter extends BaseAdapter {
         itemborrar = new String[lista.size()];
         despensa = new Despensa(activity);
     }
-    @Override
-    public int getCount() {
-        return 0;
-    }
     String[] getMid(){
         return itemborrar;
     }
-
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+    @Override
+    public int getCount() {
+        return lista.size();
+    }
+    @Override
+    public Object getItem(int position) {
+        return lista.get(position);
     }
     void selectAll() {
         for (int i = 0; i < checked.length; i++) {
@@ -81,7 +79,7 @@ public class MiDespensaActivityBorrarListaListViewAdapter extends BaseAdapter {
         final MiDespensaActivityBorrarListaListViewAdapter.ViewHolder holder;
         LayoutInflater inflater =  activity.getLayoutInflater();
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.activity_mi_despensa_borrar_lista_columnas, parent);
+            convertView = inflater.inflate(R.layout.activity_mi_despensa_borrar_lista_columnas, parent, false);
             holder = new ViewHolder();
             holder.marca = convertView.findViewById(R.id.marca);
             holder.neto = convertView.findViewById(R.id.neto);

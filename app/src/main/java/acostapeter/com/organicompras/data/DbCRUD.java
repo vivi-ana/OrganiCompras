@@ -365,7 +365,7 @@ public class DbCRUD extends DbHelper {
         return lista_producto_especifico;
     }
     public Cursor buscar_producto_por_nombre(String nombre){
-        final String query = "SELECT * from" + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " WHERE " + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = " + nombre;
+        final String query = "SELECT * FROM " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " WHERE " + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = '" + nombre +"'";
         Cursor producto_por_nombre = db.rawQuery(query, null);
         if (producto_por_nombre!= null){
             producto_por_nombre.moveToFirst();
@@ -407,12 +407,12 @@ public class DbCRUD extends DbHelper {
     public int maximo_producto_no_encontrado(){
         int id_producto_no_encontrado = 0;
         final String query = "SELECT * FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP
-                + " WHERE " + DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " =(SELECT MAX(" + DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " )"  + " FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP + ")";
+                + " WHERE " + DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " =(SELECT MAX(" + DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + ") FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP + ")";
         Cursor lista_productos = db.rawQuery(query, null);
         if (lista_productos != null){
             try {
                 if(lista_productos.moveToFirst()){
-                    id_producto_no_encontrado = lista_productos.getInt(1);
+                    id_producto_no_encontrado = lista_productos.getInt(0);
                 }
             }finally {
                 lista_productos.close();
@@ -448,7 +448,7 @@ public class DbCRUD extends DbHelper {
         return cantidad;
     }
     public Cursor buscar_producto_no_encontrado_despensa(String nombre){
-        final String query = "SELECT * FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP + " WHERE " + DbTablas.TablaProdNoEncoDespensa.CAMPO_NOMBRE + " = " + nombre;
+        final String query = "SELECT * FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP + " WHERE " + DbTablas.TablaProdNoEncoDespensa.CAMPO_NOMBRE + " = '" + nombre +"'";
         Cursor lista_producto = db.rawQuery(query,null);
         if (lista_producto!= null){
             lista_producto.moveToFirst();
@@ -459,7 +459,7 @@ public class DbCRUD extends DbHelper {
         final String query = "SELECT " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " , "
                 + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " FROM "
                 + DbTablas.TablaProductos.TABLA_PRODUCTOS +  " JOIN " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " ON " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " WHERE "
-                + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto + " AND " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = " + nombre;
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto + " AND " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = '" + nombre +"'";
         Cursor lista_producto_especifico = db.rawQuery(query,null);
         if (lista_producto_especifico != null){
             lista_producto_especifico.moveToFirst();
@@ -470,7 +470,7 @@ public class DbCRUD extends DbHelper {
         final String query = "SELECT " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " , "
                 + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " FROM "
                 + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD +  " JOIN " +  DbTablas.TablaInventarios.TABLA_INVENTARIOS + " ON " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " = " + DbTablas.TablaInventarios.TABLA_INVENTARIOS + "." + DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " WHERE "
-                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = " + nombre;
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " = '" + nombre +"'";
         Cursor lista_producto_especifico = db.rawQuery(query,null);
         if (lista_producto_especifico != null){
             lista_producto_especifico.moveToFirst();
@@ -480,7 +480,7 @@ public class DbCRUD extends DbHelper {
     public void actualizar_inventario(int cantidad, String id_producto){
         ContentValues guardar = new ContentValues();
         guardar.put(DbTablas.TablaInventarios.CAMPO_CANT, cantidad);
-        db.update(DbTablas.TablaInventarios.TABLA_INVENTARIOS, guardar, DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " = " + id_producto, null);
+        db.update(DbTablas.TablaInventarios.TABLA_INVENTARIOS, guardar, DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " = '" + id_producto +"'", null);
     }
     public void borrar_inventario(){
         db.delete(DbTablas.TablaInventarios.TABLA_INVENTARIOS, DbTablas.TablaInventarios.CAMPO_GUARDAR + " =  'N'",null);

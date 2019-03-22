@@ -110,7 +110,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             Eproducto.setError("El producto no debe contener numeros");
             Eproducto.requestFocus();
         }else{
-            buscar_producto();
+            buscar_producto(); //buscar si esta en la tabla productos
             if (bucle ==0)mensaje(nombre_producto); //hay que agregar el producto porque no se encontro
         }
     }
