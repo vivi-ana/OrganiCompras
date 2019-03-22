@@ -324,7 +324,7 @@ public class DbCRUD extends DbHelper {
         db.update(DbTablas.TablaDetallesCompras.TABLA_DETALLE , nuevo_monto, DbTablas.TablaDetallesCompras.CAMPO_FK_ID_COMPRA + " = " + id_compra + " AND " + DbTablas.TablaDetallesCompras.CAMPO_FK_ID_PROD + " = " + id_producto, null);
     }
     public void borrar_item_despensa(String item){
-        db.delete(DbTablas.TablaInventarios.TABLA_INVENTARIOS, DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " = " + item,null);
+        db.delete(DbTablas.TablaInventarios.TABLA_INVENTARIOS, DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " = '" + item +"'",null);
     }
     public void borrar_producto_no_encontrado(String item){
         db.delete(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " = " + item,null);

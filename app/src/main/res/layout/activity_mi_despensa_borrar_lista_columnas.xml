@@ -63,6 +63,7 @@
             android:id="@+id/check"
             android:layout_width="27dp"
             android:layout_height="34dp"
+            android:layout_marginStart="20dp"
             android:checked="false"
             app:layout_constraintBottom_toTopOf="@+id/marca"
             app:layout_constraintEnd_toStartOf="@+id/nombre"
@@ -83,7 +84,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
