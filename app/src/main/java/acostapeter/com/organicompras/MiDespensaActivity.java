@@ -360,13 +360,9 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             String formato = "EAN_13"; //se tiene que comprobar que solo se scanee EAN 13
             if (formato.equals(scanFormat)) {
                 productos.setId(scanContent);
-                ArrayList<HashMap<String, String>> listado_despensa;
-                listado_despensa = despensa.detalle_inventario();
-                int bucle = listado_despensa.size();
-                if (bucle != 0){
-                    for(int i=0; i<bucle; i++) {
-                        HashMap<String, String> hashmap= listado_despensa.get(i);
-                        String nombre = hashmap.get(PRIMERA_COLUMNA);
+                boolean vacio = productos.nombre_producto();
+                if (vacio != true){
+                        String nombre = productos.getNombre();
                         verificar(nombre);
                         if (!verificado) {
                             guardar = false;//se carga en la lista el dato scanneado.
@@ -375,7 +371,6 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                             cargar();
                             cantidad();
                         }
-                    }
                 }else {
                     verificar(scanContent);
                     if (!verificado)

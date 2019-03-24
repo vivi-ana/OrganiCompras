@@ -208,4 +208,13 @@ public class Productos {
     void agregar_despensa_producto_no_encontrado(){
         admin.agregar_producto_no_encontrado_despensa(id_producto, nombre);
     }
+    boolean nombre_producto(){
+        boolean vacio = true;
+        Cursor nombre_producto = admin.producto(id_producto);
+        if (nombre_producto.moveToFirst()){
+            nombre = nombre_producto.getString(1);
+            vacio = false;
+        }
+        return vacio;
+    }
 }
