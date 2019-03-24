@@ -46,7 +46,7 @@ public class Despensa {
     ArrayList<HashMap<String, String>> detalle_inventario(){
         int cantidad_id;
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-        String nombre, marca = "", neto = "", medida = "", cantidad_producto;
+        String nombre="", marca = "", neto = "", medida = "", cantidad_producto;
         Cursor lista_inventario = admin.recargar_despensa();
         if (lista_inventario.moveToFirst()){
             do {
@@ -62,11 +62,16 @@ public class Despensa {
                 } else {//no tiene N y por ende es un numero preguntar si tiene 13 caracteres o no (EAN 13)
                     if (cantidad_id == 13){//es un producto con codigo de barra sino es un producto sin codigo de barra
                         Cursor datos_producto = admin.producto(id_producto);
-                        datos_producto.moveToFirst();
+                        if(datos_producto.moveToFirst()){
                         nombre = datos_producto.getString(1);
                         marca = datos_producto.getString(2);
                         neto = datos_producto.getString(3);
                         medida = datos_producto.getString(4);
+                        }else{
+                            Cursor datos_producto_no_encontrado = admin.recargar_producto_no_encontrado(id_producto);
+                            if (datos_producto_no_encontrado.moveToFirst())
+                                nombre = datos_producto_no_encontrado.getString(1);
+                        }
                     }else {
                         Cursor detalle_producto = admin.recargar_detalle_producto(id_producto);
                         detalle_producto.moveToFirst();
