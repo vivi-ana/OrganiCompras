@@ -360,7 +360,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             String formato = "EAN_13"; //se tiene que comprobar que solo se scanee EAN 13
             if (formato.equals(scanFormat)) {
                 productos.setId(scanContent);
-                boolean vacio = productos.nombre_producto();
+                boolean vacio = productos.nombre_producto();//Hay que verificar si el producto esta en la tabla productos.
                 if (vacio != true){
                         String nombre = productos.getNombre();
                         verificar(nombre);
