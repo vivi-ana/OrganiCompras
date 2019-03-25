@@ -16,7 +16,7 @@ import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.PRIME
 import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.SEGUNDA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
 @SuppressWarnings("all")
-public class ListaProductoNoEncontrado extends AppCompatActivity {
+public class ComprasProductoNoEncontrado extends AppCompatActivity {
     static private ArrayList<HashMap<String, String>> lista;
     String nombre = "", precio, ide = "";
     static ListView lista_producto_no_encontrado;
@@ -26,7 +26,7 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lista_producto_no_encontrado);
+        setContentView(R.layout.compras_producto_no_encontrado);
         lista_producto_no_encontrado = findViewById(R.id.listaProductoNoEncontrado);
         activity = this;
         lista = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 FragmentManager manager = getSupportFragmentManager();
-                ListaProductoNoEncontradoEditar myDialog = new ListaProductoNoEncontradoEditar();
+                ComprasProductoNoEncontradoEditar myDialog = new ComprasProductoNoEncontradoEditar();
                 myDialog.show(manager, "MyDialog");
                 Bundle args = new Bundle();
                 String precios = ((TextView) view.findViewById(R.id.precio)).getText().toString(); //traer el precio del producto que selecciona
@@ -71,7 +71,7 @@ public class ListaProductoNoEncontrado extends AppCompatActivity {
                 temp.put(SEGUNDA_COLUMNA, precio);
                 temp.put(TERCERA_COLUMNA, ide);
                 lista.add(temp);
-                ListaProductoNoEncontradoListViewAdapter adapter = new ListaProductoNoEncontradoListViewAdapter(activity, lista);
+                ComprasProductoNoEncontradoListViewAdapter adapter = new ComprasProductoNoEncontradoListViewAdapter(activity, lista);
                 lista_producto_no_encontrado.setAdapter(adapter);
             }
         }else{

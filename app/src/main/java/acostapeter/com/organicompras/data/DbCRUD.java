@@ -528,5 +528,13 @@ public class DbCRUD extends DbHelper {
         }
         return lista_calculo;
     }
+    public Cursor listado_productos_no_encontrados_despensa(){
+        final String query = "SELECT * FROM " + DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP;
+        Cursor lista_producto = db.rawQuery(query,null);
+        if (lista_producto != null){
+            lista_producto.moveToFirst();
+        }
+        return lista_producto;
+    }
     //asi se pone los string?'" + codigo +"'
 }

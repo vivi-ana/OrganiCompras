@@ -18,14 +18,14 @@ import java.util.regex.Pattern;
 
 import static acostapeter.com.organicompras.ConstantesFilaCompras.CUARTA_COLUMNA;
 
-public class ListaProductoNoEncontradoEditar extends DialogFragment {
+public class ComprasProductoNoEncontradoEditar extends DialogFragment {
     Button BtnAaceptar, BtnCancelar;
     EditText nombre, precio;
     DecimalFormat df = new DecimalFormat("0.00");
     double precioproducto,  preciounitario;
     String id, codigo, nombre_producto, precio_unitario = "", precio_producto = "";
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.dialogo_producto_no_encontrado_editar, container);
+        View rootview = inflater.inflate(R.layout.dialogo_compras_producto_no_encontrado_editar, container);
         BtnAaceptar = rootview.findViewById(R.id.btnAceptar);
         BtnCancelar = rootview.findViewById(R.id.btnCancelar);
         nombre = rootview.findViewById(R.id.editNombre);
@@ -99,7 +99,7 @@ public class ListaProductoNoEncontradoEditar extends DialogFragment {
                             }
                             dismiss();
                             Toast.makeText(getActivity(), "Se guardó correctamente", Toast.LENGTH_SHORT).show();
-                            ListaProductoNoEncontrado lista = new ListaProductoNoEncontrado();
+                            ComprasProductoNoEncontrado lista = new ComprasProductoNoEncontrado();
                             lista.cargar(id_supermercado);
                         }
                     }

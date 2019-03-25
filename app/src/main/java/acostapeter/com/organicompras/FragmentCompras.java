@@ -319,7 +319,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 }
                 return true;
             case R.id.accion_lista:
-                Intent i = new Intent (getActivity(), ListaProductoNoEncontrado.class);
+                Intent i = new Intent (getActivity(), ComprasProductoNoEncontrado.class);
                 i.putExtra("idsuper", id_supermercado);
                 startActivity(i);
                 return true;

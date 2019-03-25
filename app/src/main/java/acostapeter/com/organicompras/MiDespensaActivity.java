@@ -292,6 +292,9 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             case R.id.gasto:
                 mensaje_supermercado();
                 return  true;
+            case R.id.action_productoNoEncontrado:
+                startActivity(new Intent(MiDespensaActivity.this, DespensaProductoNoEncontrado.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

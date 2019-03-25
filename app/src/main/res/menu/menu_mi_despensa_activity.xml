@@ -18,5 +18,9 @@
         android:id="@+id/gasto"
         app:showAsAction="never"
         android:title="@string/gastoAproximado"/>
+    <item
+        android:id="@+id/action_productoNoEncontrado"
+        app:showAsAction="never"
+        android:title="@string/tituloProdNoEncontrado"/>
 
 </menu>

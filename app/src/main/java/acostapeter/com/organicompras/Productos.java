@@ -217,4 +217,19 @@ public class Productos {
         }
         return vacio;
     }
+    ArrayList<HashMap<String, String>> lista_producto_no_encontrado_despensa(){
+        ArrayList<HashMap<String, String>> lista_producto = new ArrayList<>();
+        Cursor producto_no_encontrado = admin.listado_productos_no_encontrados_despensa();
+        if (producto_no_encontrado.moveToFirst()) {
+            do {
+                id_producto = producto_no_encontrado.getString(0); //id del producto
+                nombre = producto_no_encontrado.getString(1);
+                HashMap<String, String> temp = new HashMap<String, String>();
+                temp.put(PRIMERA_COLUMNA, nombre);
+                temp.put(TERCERA_COLUMNA, id_producto);
+                lista_producto.add(temp);
+            } while (producto_no_encontrado.moveToNext());
+        }
+        return lista_producto;
+    }
 }
