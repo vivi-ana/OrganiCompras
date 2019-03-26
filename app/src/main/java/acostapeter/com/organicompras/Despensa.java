@@ -116,10 +116,11 @@ public class Despensa {
 
     double calcular_total_aproximado(int id_supermercado){
         DecimalFormat df = new DecimalFormat("0.00");
-        double total = 0, subtotal = 0, subtotal2 = 0, multiplicacion = 0;
+        double total = -1, subtotal = 0, subtotal2 = 0, multiplicacion = 0;
         Cursor lista_inventario = admin.recargar_despensa();//traer el inventario
         if (lista_inventario.moveToFirst()){
-            do {//si no tiene datos el valor quedara por defecto ""
+            total = 0;
+            do {//si no tiene datos el valor quedara por defecto "0"
                 id_producto = lista_inventario.getString(0); //id del producto
                 cantidad = lista_inventario.getInt(1);
                 Integer cantidadid = id_producto.length();

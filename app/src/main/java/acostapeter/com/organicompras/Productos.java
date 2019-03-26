@@ -174,6 +174,7 @@ public class Productos {
         boolean lista = false;
         Cursor producto_especifico = admin.buscar_producto_no_encontrado_despensa(nombre);
         if (producto_especifico.moveToFirst()) {
+            id_producto = producto_especifico.getString(0);
             lista = true;
         }
         return lista;

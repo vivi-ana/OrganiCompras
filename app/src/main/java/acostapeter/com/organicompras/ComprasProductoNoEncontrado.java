@@ -75,7 +75,7 @@ public class ComprasProductoNoEncontrado extends AppCompatActivity {
                 lista_producto_no_encontrado.setAdapter(adapter);
             }
         }else{
-            Toast.makeText(this, "No hay datos para borrar", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No hay datos en la lista", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

@@ -98,9 +98,9 @@ public class MiDespensaActivityBorrarLista extends AppCompatActivity {
                         if (item.startsWith("N")) {
                             despensa.setId_producto(item);
                             despensa.borrar_item();
-                            String nuevoitem = item.substring(1);
-                            despensa.setId_producto(nuevoitem);
-                            despensa.borrar_producto_no_encontrado(); //se borra el nuevo producto de la tabla no producto tambien.
+                            //String nuevoitem = item.substring(1);
+                            //despensa.setId_producto(nuevoitem); //no debo dejar que borre el producto que agrego aca.
+                            //despensa.borrar_producto_no_encontrado(); //se borra el nuevo producto de la tabla no producto tambien.
                         } else {
                             despensa.setId_producto(item);
                             despensa.borrar_item();

@@ -507,7 +507,7 @@ public class DbCRUD extends DbHelper {
     public int contar_productos_despensa(String id_producto){
         int total_producto = 0;
         final String query = "SELECT COUNT(" + DbTablas.TablaProductos.CAMPO_ID_PROD + ") FROM "
-                + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + id_producto;
+                + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_NOMBRE + " = '" + id_producto +"'";
         Cursor contar_producto = db.rawQuery(query,null);
         if (contar_producto != null){
             try {

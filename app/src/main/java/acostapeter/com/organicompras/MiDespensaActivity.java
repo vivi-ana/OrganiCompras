@@ -123,16 +123,20 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             @Override
             //Si acepta el mensaje
             public void onClick(DialogInterface dialog, int which) {//dar de alta en la tabla producto_no_encontrado y recien guardar.
-                verificar(nuevo_producto);
-                if (!verificado) {
+                verificar(nuevo_producto, null);
+                if (!verificado) { //si verificado es falso es decir no esta en la despensa.
+                    String id_producto = "";
                     productos.setNombre(nuevo_producto);
-                    productos.insertar_producto_no_encontrado_despensa();
-                    int maximo = productos.maximo_producto_no_encontrado_despensa();
-                    if (maximo != 0) {
-                        String id_nuevo = "N" + Integer.toString(maximo); //id del producto no encontrado que esta insertado en otra tabla.
-                        despensa.setId_producto(id_nuevo);
-                        despensa.insertar_inventario();
+                    boolean lista = productos.buscar_producto_no_encontrado();//hay que verificar que no se haya dado de alta antes.
+                    if (lista) { //si lista es verdadero es porque hay datos
+                        id_producto = productos.getId();
+                    }else{//es un producto nuevo hay que ingresarlo
+                        productos.insertar_producto_no_encontrado_despensa();
+                        int maximo = productos.maximo_producto_no_encontrado_despensa();
+                        if (maximo != 0) id_producto = Integer.toString(maximo); //id del producto no encontrado que esta insertado en otra tabla.
                     }
+                    despensa.setId_producto("N" + id_producto);
+                    despensa.insertar_inventario();
                     guardar = false;
                     cargar();
                     cantidad_nueva();
@@ -158,7 +162,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             for (int i = 0; i < bucle; i++) {
                 HashMap<String, String> hashmap = listado_producto.get(i);
                 String id_producto = hashmap.get(TERCERA_COLUMNA);
-                verificar(nombre_producto);
+                verificar(nombre_producto, null);
                 if (!verificado) {
                     guardar = false; //cuando se inserta un producto nuevo se tiene que obligar al usuario que guarde.
                     despensa.setId_producto(id_producto);
@@ -170,53 +174,30 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             Eproducto.setText("");
         }
     }
-    public void verificar(String nombre){
+    public void verificar(String nombre_producto, String codigo){//verifica que no se este ingresando el mismo producto en la lista
         ArrayList<HashMap<String, String>> listado_despensa;
-        String id_producto;
+        String id_producto, nombre;
         verificado = false;
         listado_despensa = despensa.detalle_inventario();
         int bucle = listado_despensa.size();
         if (bucle != 0){
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_despensa.get(i);
+                nombre = hashmap.get(ConstantesDespensa.PRIMERA_COLUMNA);
                 id_producto = hashmap.get(ConstantesDespensa.TERCERA_COLUMNA);
                 if (id_producto !=null) {
-                    if (id_producto.startsWith("N")) {//si el id tiene N viene de la tabla producto_no_encontrado sino viene de la tabla productos nomas.
-                        productos.setNombre(nombre);
-                        boolean lista = productos.buscar_producto_no_encontrado();
-                        if (lista) { //si lista es verdadero es porque hay datos
+                    int cantidad_id = id_producto.length();
+                    if (cantidad_id == 13) {
+                        if (id_producto.equals(codigo)){
                             Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
                             verificado = true;
                             return;
                         }
-                    } else {//no tiene N y por ende es un numero, preguntar si tiene 13 caracteres o no (EAN 13)
-                        int cantidadid = id_producto.length();
-                        if (cantidadid == 13) {//es un producto con codigo de barra sino es un producto sin codigo de barra
-                            productos.setNombre(nombre);
-                            productos.setId(id_producto);
-                            boolean lista_producto = productos.buscar_producto_no_encontrado_despensa();
-                            if (lista_producto) {
-                                Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
-                                verificado = true;
-                                return;
-                            } else {
-                                productos.setId(id_producto);
-                                boolean lista_inventario = productos.producto_no_encontrado_despensa();
-                                if (lista_inventario) {
-                                    Toast.makeText(this, "Este producto ya se agrego a la lista", Toast.LENGTH_SHORT).show();
-                                    verificado = true;
-                                    return;
-                                }
-                            }
-                        } else {
-                            productos.setNombre(nombre);
-                            boolean producto_especifico = productos.producto_especifico_despensa();
-                            if (producto_especifico) {
-                                Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
-                                verificado = true;
-                                return;
-                            }
-
+                    }else{
+                        if (nombre.equals(nombre_producto)) {
+                            Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
+                            verificado = true;
+                            return;
                         }
                     }
                 }
@@ -366,7 +347,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 boolean vacio = productos.nombre_producto();//Hay que verificar si el producto esta en la tabla productos.
                 if (vacio != true){
                         String nombre = productos.getNombre();
-                        verificar(nombre);
+                        verificar(nombre, scanContent);
                         if (!verificado) {
                             guardar = false;//se carga en la lista el dato scanneado.
                             despensa.setId_producto(scanContent);
@@ -375,7 +356,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                             cantidad();
                         }
                 }else {
-                    verificar(scanContent);
+                    verificar(null,scanContent);
                     if (!verificado)
                     productonoencontrado(scanContent);
                 }
@@ -502,15 +483,17 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
     }
     private void gasto_aproximado(final Integer id_supermercado) {
         double total =  despensa.calcular_total_aproximado(id_supermercado);
-        if (total ==0){
-            Toast.makeText(this, "No tiene productos en la despensa", Toast.LENGTH_LONG).show();
-        }else {
+        if (total ==-1) {
+            Toast.makeText(this, "No se tiene productos en la lista", Toast.LENGTH_LONG).show();
+        }else if(total==0){
+            Toast.makeText(this, "No se puede calcular el gasto total con los productos no encontrados de la lista", Toast.LENGTH_LONG).show();
+        }else{
             DecimalFormat df = new DecimalFormat("0.00");
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MiDespensaActivity.this);
             alertBuilder.setTitle(R.string.tituloGastoAproximado);
             alertBuilder.setCancelable(false);
             String tot = (df.format(total)).replace(",", ".");
-            alertBuilder.setMessage(tot);
+            alertBuilder.setMessage("$" + tot);
             alertBuilder.setPositiveButton(R.string.listo, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {  //Si acepta el mensaje

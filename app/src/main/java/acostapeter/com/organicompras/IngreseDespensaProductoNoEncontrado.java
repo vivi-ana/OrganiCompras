@@ -40,7 +40,10 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                         Productos productos = new Productos(getActivity());
                         productos.setId(codigo);
                         productos.setNombre(nom);
-                        productos.agregar_despensa_producto_no_encontrado();
+                        boolean lista = productos.producto_no_encontrado_despensa();//hay que verificar que no se haya dado de alta antes.
+                        if (!lista) { //si lista es falsa es porque es un producto nuevo que hay que ingresarlo.
+                            productos.agregar_despensa_producto_no_encontrado();
+                        }
                         dismiss();
                         Toast.makeText(getActivity(), "Se guardó correctamente", Toast.LENGTH_SHORT).show();
                         MiDespensaActivity midespensa = new MiDespensaActivity();
