@@ -233,4 +233,7 @@ public class Productos {
         }
         return lista_producto;
     }
+    void editar_producto_no_encontrado(){
+        admin.editar_producto_no_encontrado_despensa(nombre, id_producto);
+    }
 }

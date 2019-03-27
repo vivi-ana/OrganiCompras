@@ -1,9 +1,13 @@
 package acostapeter.com.organicompras;
 
 import android.app.Activity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +29,21 @@ public class DespensaProductoNoEncontrado extends AppCompatActivity {
         lista = new ArrayList<>();
         activity = this;
         cargar();
+        listado.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                FragmentManager manager = getSupportFragmentManager();
+                DespensaProductoNoEncontradoEditar myDialog = new DespensaProductoNoEncontradoEditar();
+                myDialog.show(manager, "MyDialog");
+                Bundle args = new Bundle();
+                String nombres = ((TextView) view.findViewById(R.id.nombre)).getText().toString();
+                String ides = ((TextView) view.findViewById(R.id.id)).getText().toString();
+                args.putString("nombre", nombres);
+                args.putString("codigo", ides);
+                myDialog.setArguments(args);
+            }
+        });
     }
     public void cargar(){
         lista.clear();

@@ -536,5 +536,10 @@ public class DbCRUD extends DbHelper {
         }
         return lista_producto;
     }
+    public void editar_producto_no_encontrado_despensa(String nombre, String id_producto){
+        ContentValues editar = new ContentValues();
+        editar.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_NOMBRE, nombre);
+        db.update(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, editar, DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " = '" + id_producto +"'", null);
+    }
     //asi se pone los string?'" + codigo +"'
 }
