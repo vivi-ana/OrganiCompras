@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 import acostapeter.com.organicompras.data.DbCRUD;
 @SuppressWarnings("all")
 public class Productos {
@@ -163,7 +163,7 @@ public class Productos {
         admin.producto_no_encontrado_despensa(nombre);
     }
     int maximo_producto_no_encontrado_despensa(){
-        int maximo = 0;
+        int maximo;
         maximo = admin.maximo_producto_no_encontrado();
         return maximo;
     }

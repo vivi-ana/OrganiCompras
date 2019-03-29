@@ -31,14 +31,14 @@ import java.util.Locale;
 import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;
 
-import static acostapeter.com.organicompras.ConstantesFilaCompras.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.OCTAVA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEPTIMA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEPTIMA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_COLUMNA;
 @SuppressWarnings("all")
 public class FragmentCompras extends android.support.v4.app.Fragment implements View.OnClickListener {
     Button scanBtn;
@@ -386,7 +386,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         int bucle = listado_despensa.size();
         if (bucle != 0){
             HashMap<String, String> hashmap = listado_despensa.get(0);
-            id = hashmap.get(ConstantesDespensa.TERCERA_COLUMNA);
+            id = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
             for(int i=0; i<bucle; i++) {
                 if (id.equals(CodBarra)) { //pregunto si hay un id igual al codigo de barra
                     despensa.setId_producto(CodBarra);
@@ -398,7 +398,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     int bucle_producto = listado_despensa.size();
                     if (bucle_producto != 0) {
                         HashMap<String, String> hashmapa = listado_despensa.get(0);
-                        String idnombre = hashmapa.get(ConstantesDespensa.TERCERA_COLUMNA);//tengo el id del nombre del producto
+                        String idnombre = hashmapa.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);//tengo el id del nombre del producto
                         despensa.setId_producto(idnombre);
                         despensa.borrar_item();//borra por el id
                         break;

@@ -11,29 +11,29 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static acostapeter.com.organicompras.ConstantesDespensa.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.TERCERA_COLUMNA;
 
 public class MiDespensaActivityBorrarListaListViewAdapter extends BaseAdapter {
     private ArrayList<HashMap<String, String>> lista;
     private Activity activity;
     private static boolean[] checked;
-    private static String [] itemborrar;
+    private static String [] item_borrar;
     private Despensa despensa;
     MiDespensaActivityBorrarListaListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> lista) {
         super();
         this.activity = activity;
         this.lista = lista;
         checked =  new boolean[lista.size()];
-        itemborrar = new String[lista.size()];
+        item_borrar = new String[lista.size()];
         despensa = new Despensa(activity);
     }
     String[] getMid(){
-        return itemborrar;
+        return item_borrar;
     }
     @Override
     public long getItemId(int i) {
@@ -57,7 +57,7 @@ public class MiDespensaActivityBorrarListaListViewAdapter extends BaseAdapter {
         if (bucle != 0){
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_despensa.get(i);
-                itemborrar[i] = hashmap.get(TERCERA_COLUMNA); //traer el id de los productos seleccionados
+                item_borrar[i] = hashmap.get(TERCERA_COLUMNA); //traer el id de los productos seleccionados
             }
         }
     }
@@ -66,7 +66,7 @@ public class MiDespensaActivityBorrarListaListViewAdapter extends BaseAdapter {
             checked[i] = false;
 
         }
-        itemborrar = new String[lista.size()];
+        item_borrar = new String[lista.size()];
     }
 
     private class ViewHolder {
@@ -97,10 +97,10 @@ public class MiDespensaActivityBorrarListaListViewAdapter extends BaseAdapter {
                 holder.id_producto.setTag(position);
                 if (holder.id_producto.isChecked()) {
                     checked[position] = true;
-                    itemborrar[position] = holder.id_producto.getText().toString();
+                    item_borrar[position] = holder.id_producto.getText().toString();
                 } else {
                     checked[position] = false;
-                    itemborrar[position] = null;
+                    item_borrar[position] = null;
                 }
             }
         });

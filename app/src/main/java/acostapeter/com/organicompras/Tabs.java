@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
 
 public class Tabs extends AppCompatActivity {
     int id_compra = 0;
@@ -163,7 +163,7 @@ public class Tabs extends AppCompatActivity {
         dialog.show();
     }
     public void borrar(){
-        FragmentComprasDetalles editar = new FragmentComprasDetalles();
+        MiHistorialActivityDetallesCompras editar = new MiHistorialActivityDetallesCompras();
         edicion = editar.getEditar();
         compras.setId(id_compra);
         if (!edicion){ //si no viene de la edicion.

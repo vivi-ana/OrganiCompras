@@ -58,4 +58,29 @@
     <string name="tituloGastoAproximado">Usted gastará aproximadamente:</string>
     <string name="despensaGuardar">La lista ha sido modificada. ¿Desea guardar las modificaciones y salir?</string>
     <string name="msjProductoNoEncontrado">Este producto no se encuentra, es probable que en el supermercado tampoco. ¿Desea agregarlo de todas formas?</string>
+    <string name="totalUnitario">Total unitario: $</string>
+    <string name="lugar">Lugar:</string>
+    <string name="fecha">Fecha:</string>
+    <string name="cantidadProductos">Cantidad de productos:</string>
+    <string-array name="valores_array">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+    </string-array>
+    <string-array name="valores_año">
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+    </string-array>
 </resources>

@@ -10,8 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 
 public class DespensaProductoNoEncontradoListViewAdapter extends BaseAdapter {
     public ArrayList<HashMap<String, String>> lista;

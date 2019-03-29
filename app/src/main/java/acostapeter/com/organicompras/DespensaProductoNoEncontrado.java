@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,13 +14,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 @SuppressWarnings("all")
 public class DespensaProductoNoEncontrado extends AppCompatActivity {
     static private ArrayList<HashMap<String, String>> lista;
     static Activity activity;
-    ListView listado;
+    static ListView listado;
     String nombre = "", ide = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,16 @@ public class DespensaProductoNoEncontrado extends AppCompatActivity {
                 listado.setAdapter(adapter);
             }
         }else{
-            Toast.makeText(this, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
             finish();
         }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        MiDespensaActivity miDespensaActivity = new MiDespensaActivity();
+        miDespensaActivity.cargar(); //hay que actualizar las otras pantallas.
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

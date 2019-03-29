@@ -21,12 +21,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static acostapeter.com.organicompras.ConstantesDespensa.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesProductoNoEncontrado.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -183,8 +183,8 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         if (bucle != 0){
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_despensa.get(i);
-                nombre = hashmap.get(ConstantesDespensa.PRIMERA_COLUMNA);
-                id_producto = hashmap.get(ConstantesDespensa.TERCERA_COLUMNA);
+                nombre = hashmap.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);
+                id_producto = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
                 if (id_producto !=null) {
                     int cantidad_id = id_producto.length();
                     if (cantidad_id == 13) {
@@ -216,7 +216,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 HashMap<String, String> hashmap= listado_despensa.get(i);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
                 cantidad = hashmap.get(SEGUNDA_COLUMNA);
-                id_producto = hashmap.get(ConstantesDespensa.TERCERA_COLUMNA);
+                id_producto = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
                 marca = hashmap.get(CUARTA_COLUMNA);
                 neto = hashmap.get(QUINTA_COLUMNA);
                 medida = hashmap.get(SEXTA_COLUMNA);
@@ -224,7 +224,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
                 temp.put(SEGUNDA_COLUMNA, cantidad);
-                temp.put(ConstantesDespensa.TERCERA_COLUMNA, id_producto);
+                temp.put(ConstantesColumnasDespensa.TERCERA_COLUMNA, id_producto);
                 temp.put(CUARTA_COLUMNA, marca);
                 temp.put(QUINTA_COLUMNA, neto);
                 temp.put(SEXTA_COLUMNA, medida);
@@ -233,7 +233,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 lista_despensa.setAdapter(adapterDespensa);
             }
         }else{
-            Toast.makeText(this, "No tiene productos en la lista de su despensa", Toast.LENGTH_SHORT).show();
+            Toast.makeText(contexto, "No tiene productos en la lista de su despensa", Toast.LENGTH_SHORT).show();
 
         }
     }

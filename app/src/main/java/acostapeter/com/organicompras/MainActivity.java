@@ -14,7 +14,7 @@ import android.view.View;
 import acostapeter.com.organicompras.data.DbHelper;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
-    CardView cardCompra, cardOfertas, cardDespensa;
+    CardView cardCompra, cardOfertas, cardDespensa, cardHistorial;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +25,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         cardOfertas.setOnClickListener(this);
         cardDespensa = findViewById(R.id.cardDespensa);
         cardDespensa.setOnClickListener(this);
+        cardHistorial = findViewById(R.id.cardHistorial);
+        cardHistorial.setOnClickListener(this);
     }
     public void onClick(final View v) {//Evento click por cada boton del menú
         switch (v.getId()) {
@@ -45,6 +47,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 startActivity(new Intent(MainActivity.this, OfertasActivity.class));
                 finish();
             break;
+            case R.id.cardHistorial:
+                startActivity(new Intent(MainActivity.this, MiHistorialActivity.class));
+                finish();
         }
     }
 

@@ -11,12 +11,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static acostapeter.com.organicompras.ConstantesDespensa.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.TERCERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
 
 public class FragmentDespensaListViewAdapter extends BaseAdapter {
     private ArrayList<HashMap<String, String>> lista;

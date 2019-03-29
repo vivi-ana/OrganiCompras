@@ -17,16 +17,16 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static acostapeter.com.organicompras.ConstantesFilaCompras.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.OCTAVA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEPTIMA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEPTIMA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_COLUMNA;
 @SuppressWarnings("all")
-public class FragmentComprasDetalles extends AppCompatActivity {
+public class MiHistorialActivityDetallesCompras extends AppCompatActivity {
     static boolean editar = false;
     String id, maximo, cantidad, total;
     ListView lista_compras;
@@ -37,13 +37,13 @@ public class FragmentComprasDetalles extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_compras_detalles);
+        setContentView(R.layout.activity_mi_historial_compras_detalles);
         lista = new ArrayList<HashMap<String, String>>();
         lista_compras = findViewById(R.id.lista_despensa);
         Intent intent = getIntent();
         id = intent.getStringExtra("ID");
         id_compra = Integer.parseInt(id);
-        FragmentComprasDetallesListViewAdapter  adapter = new FragmentComprasDetallesListViewAdapter(this, lista,id_compra);
+        MiHistorialActivityDetallesComprasListViewAdapter adapter = new MiHistorialActivityDetallesComprasListViewAdapter(this, lista,id_compra);
         lista_compras.setAdapter(adapter);
         txt_maximo = findViewById(R.id.max_compra);
         label_maximo = findViewById(R.id.lbl_maximo);
@@ -111,7 +111,7 @@ public class FragmentComprasDetalles extends AppCompatActivity {
         }
     }
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_fragment_compras_detalles, menu);
+        getMenuInflater().inflate(R.menu.menu_mi_historial_detalles_compras, menu);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,7 +130,7 @@ public class FragmentComprasDetalles extends AppCompatActivity {
         }
     }
     public void mensaje(){
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FragmentComprasDetalles.this);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MiHistorialActivityDetallesCompras.this);
         alertBuilder.setTitle(R.string.borrarCompra);
         alertBuilder.setCancelable(false);
         alertBuilder.setMessage(R.string.mensajeBorrarCompra);
@@ -141,7 +141,7 @@ public class FragmentComprasDetalles extends AppCompatActivity {
                 Compras compras = new Compras(getBaseContext());
                 compras.setId(id_compra);
                 compras.borrar_compra();
-                Toast.makeText(FragmentComprasDetalles.this, "La compra ha sido eliminada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MiHistorialActivityDetallesCompras.this, "La compra ha sido eliminada", Toast.LENGTH_SHORT).show();
                 finish();
                 Intent i = new Intent(getApplicationContext(), MiHistorialActivity.class);
                 startActivity(i);

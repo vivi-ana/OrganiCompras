@@ -1,6 +1,6 @@
 package acostapeter.com.organicompras;
 
-class ConstantesFilaCompras {
+class ConstantesColumnasCompras {
     static final String PRIMERA_COLUMNA = "nombre";
     static final String SEGUNDA_COLUMNA = "marca";
     static final String TERCERA_COLUMNA = "precio";

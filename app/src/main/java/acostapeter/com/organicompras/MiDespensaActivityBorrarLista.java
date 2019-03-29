@@ -18,12 +18,12 @@ import java.util.HashMap;
 
 import acostapeter.com.organicompras.data.DbHelper;
 
-import static acostapeter.com.organicompras.ConstantesDespensa.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesDespensa.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.TERCERA_COLUMNA;
 import static acostapeter.com.organicompras.MiDespensaActivity.lista_despensa;
 @SuppressWarnings("all")
 public class MiDespensaActivityBorrarLista extends AppCompatActivity {

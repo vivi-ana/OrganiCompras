@@ -3,16 +3,20 @@ import acostapeter.com.organicompras.data.DbCRUD;
 import android.content.Context;
 import android.database.Cursor;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.OCTAVA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEPTIMA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMNA;
+import java.util.Locale;
+
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEPTIMA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_COLUMNA;
 @SuppressWarnings("all")
 public class Compras {
 private int id;
@@ -270,5 +274,43 @@ private DbCRUD admin;
     }
     void actualizar_monto_detalle(String id_producto){
         admin.actualizar_monto(total ,id, id_producto);
+    }
+    ArrayList<HashMap<String, String>> cargar_historial(int year, String mes){
+        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+        SimpleDateFormat fromUser = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String lugar = "", cantidad = "", total = "", id = "", fecha_sin_formato = "", fecha = "";
+        DecimalFormat df = new DecimalFormat("0.00");
+        Cursor lista_historial = admin.cargar_historial(year, mes);
+        if (lista_historial.moveToFirst()){
+            do {
+                fecha_sin_formato = lista_historial.getString(2);
+                try {
+                    fecha = myFormat.format(fromUser.parse(fecha_sin_formato));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                double totaluni = lista_historial.getDouble(6);
+                String total_unitario = df.format(totaluni);
+                int supermercado = lista_historial.getInt(1);
+                Cursor nombre_supermerado = admin.nombre_supermercado(supermercado);
+                if (nombre_supermerado.moveToFirst()) {
+                    lugar = nombre_supermerado.getString(1);
+                }
+                cantidad = lista_historial.getString(4);
+                double t = Double.parseDouble(lista_historial.getString(5));
+                total = df.format(t);
+                id = lista_historial.getString(0);
+                HashMap<String, String> temp = new HashMap<String, String>();
+                temp.put(ConstantesColumnasHistorial.PRIMERA_COLUMNA, fecha);
+                temp.put(ConstantesColumnasHistorial.SEGUNDA_COLUMNA, lugar);
+                temp.put(ConstantesColumnasHistorial.TERCERA_COLUMNA, cantidad);
+                temp.put(ConstantesColumnasHistorial.CUARTA_COLUMNA, total);
+                temp.put(ConstantesColumnasHistorial.QUINTA_COLUMNA, total_unitario);
+                temp.put(ConstantesColumnasHistorial.SEXTA_COLUMNA, id);
+                lista.add(temp);
+            } while (lista_historial.moveToNext());
+        }
+        return lista;
     }
 }

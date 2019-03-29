@@ -541,5 +541,21 @@ public class DbCRUD extends DbHelper {
         editar.put(DbTablas.TablaProdNoEncoDespensa.CAMPO_NOMBRE, nombre);
         db.update(DbTablas.TablaProdNoEncoDespensa.TABLA_PROD_NO_EN_DESP, editar, DbTablas.TablaProdNoEncoDespensa.CAMPO_ID_NO_EN + " = '" + id_producto +"'", null);
     }
+    public Cursor cargar_historial(int year, String mes){
+        final String query = "SELECT * from " + DbTablas.TablaCompras.TABLA_COMPRAS + " WHERE strftime('%Y'," + DbTablas.TablaCompras.CAMPO_FECHA + ") =('" + year +"') AND strftime('%m'," + DbTablas.TablaCompras.CAMPO_FECHA  + ") =('" + mes +"')";
+        Cursor lista_historial = db.rawQuery(query,null);
+        if (lista_historial != null){
+            lista_historial.moveToFirst();
+        }
+        return lista_historial;
+    }
+    public Cursor nombre_supermercado(int supermercado){
+        final String query = "SELECT * from " + DbTablas.TablaSupermercados.TABLA_SUPER + " WHERE " + DbTablas.TablaSupermercados.CAMPO_ID_SUPER + " = " + supermercado;
+        Cursor supermercado_elegido = db.rawQuery(query,null);
+        if (supermercado_elegido != null){
+            supermercado_elegido.moveToFirst();
+        }
+        return supermercado_elegido;
+    }
     //asi se pone los string?'" + codigo +"'
 }

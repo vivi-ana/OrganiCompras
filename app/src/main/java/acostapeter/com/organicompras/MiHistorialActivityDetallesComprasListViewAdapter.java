@@ -8,16 +8,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.OCTAVA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEPTIMA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEPTIMA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_COLUMNA;
 
-public class FragmentComprasDetallesListViewAdapter extends BaseAdapter {
+public class MiHistorialActivityDetallesComprasListViewAdapter extends BaseAdapter {
     private ArrayList<HashMap<String, String>> lista;
     private Activity activity;
     int id;
@@ -25,7 +25,7 @@ public class FragmentComprasDetallesListViewAdapter extends BaseAdapter {
     private Compras compras;
     private Supermercado supermercado;
     private static String [] itemcantidad;
-    FragmentComprasDetallesListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> lista, int id) {
+    MiHistorialActivityDetallesComprasListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> lista, int id) {
         super();
         this.id = id;
         this.activity = activity;
@@ -77,7 +77,7 @@ public class FragmentComprasDetallesListViewAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.fragment_compras_detalles_columnas,parent, false);
+            convertView = inflater.inflate(R.layout.activity_mi_historial_compras_detalles_columnas,parent, false);
             holder = new ViewHolder();
             holder.marca = convertView.findViewById(R.id.marca);
             holder.neto = convertView.findViewById(R.id.neto);

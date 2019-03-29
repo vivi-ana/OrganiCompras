@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/check"
+        android:paddingTop="5dp"
+        android:text="@string/fecha"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtfecha"
+        app:layout_constraintEnd_toStartOf="@+id/txtfecha"
+        app:layout_constraintStart_toEndOf="@+id/check" />
+
+    <TextView
+        android:id="@+id/lblLugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/txtfecha"
+        android:text="@string/lugar"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtlugar"
+        app:layout_constraintStart_toStartOf="@+id/lblFecha" />
+
+    <TextView
+        android:id="@+id/txtfecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:paddingTop="5dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/lblFecha"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtlugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/lblLugar"
+        android:layout_toEndOf="@+id/lblLugar"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/lblLugar"
+        app:layout_constraintTop_toBottomOf="@+id/lblFecha" />
+
+    <TextView
+        android:id="@+id/lblCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblLugar"
+        android:layout_alignStart="@+id/lblLugar"
+        android:text="@string/cantidadProductos"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtcantidadprod"
+        app:layout_constraintStart_toStartOf="@+id/lblLugar" />
+
+    <TextView
+        android:id="@+id/txtcantidadprod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/lblCantidad"
+        android:layout_marginBottom="29dp"
+        android:layout_toEndOf="@+id/lblCantidad"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txttotalunitario"
+        app:layout_constraintStart_toEndOf="@+id/lblCantidad" />
+
+    <TextView
+        android:id="@+id/lblTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblCantidad"
+        android:layout_alignStart="@+id/lblCantidad"
+        android:layout_marginTop="30dp"
+        android:text="@string/total"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@+id/lblCantidad"
+        app:layout_constraintTop_toBottomOf="@+id/lblLugar" />
+
+    <TextView
+        android:id="@+id/txttotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/lblTotal"
+        app:layout_constraintStart_toEndOf="@+id/lblTotal" />
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="31dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
+        android:checked="false"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="@+id/lblFecha"
+        app:layout_constraintEnd_toStartOf="@+id/lblFecha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblTotalUnitario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblTotal"
+        android:layout_alignStart="@+id/lblTotal"
+        android:text="@string/totalUnitario"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="normal"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txttotalunitario"
+        app:layout_constraintStart_toStartOf="@+id/lblTotal" />
+
+    <TextView
+        android:id="@+id/txttotalunitario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/lblTotalUnitario"
+        app:layout_constraintTop_toBottomOf="@+id/txttotal" />
+</android.support.constraint.ConstraintLayout>

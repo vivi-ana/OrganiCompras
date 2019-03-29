@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MiHistorialActivity">
+    tools:context=".MiHistorialActivityBorrarHistorial">
 
     <Spinner
         android:id="@+id/spinnerA"
@@ -30,13 +30,27 @@
     <ListView
         android:id="@+id/listaHistorial"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="567dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBorrar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerA" />
+
+    <Button
+        android:id="@+id/btnBorrar"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/borrar"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/borrar" />
 </android.support.constraint.ConstraintLayout>

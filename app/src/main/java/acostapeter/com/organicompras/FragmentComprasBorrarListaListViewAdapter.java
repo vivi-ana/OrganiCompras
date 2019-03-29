@@ -9,14 +9,14 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.CUARTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.OCTAVA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.PRIMERA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.QUINTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEGUNDA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEPTIMA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesFilaCompras.TERCERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEPTIMA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_COLUMNA;
 
 public class FragmentComprasBorrarListaListViewAdapter extends BaseAdapter {
     public ArrayList<HashMap<String, String>> lista;
