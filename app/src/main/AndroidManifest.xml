@@ -14,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MiHistorialActivityBorrarHistorial"></activity>
+        <activity
+            android:name=".MiHistoriaActivityGraficoAnual"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MiHistorialActivityBorrarHistorial" />
         <activity android:name=".DespensaProductoNoEncontrado" />
         <activity android:name=".MiDespensaActivityBorrarLista" />
         <activity

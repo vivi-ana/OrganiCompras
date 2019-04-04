@@ -4,6 +4,9 @@ package acostapeter.com.organicompras;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import acostapeter.com.organicompras.data.DbCRUD;
 @SuppressWarnings("all")
 public class Supermercado {
@@ -44,4 +47,20 @@ public class Supermercado {
             id = datos_compras.getInt(1);
         }
     }
+    ArrayList<HashMap<String, String>> lista_supermercado(){
+        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+        Cursor supermercado_lista = admin.supermercado();
+        if (supermercado_lista.moveToFirst()) {
+            do {
+                HashMap<String, String> temp = new HashMap<String, String>();
+                String id_supermercado= supermercado_lista.getString(0);
+                nombre = supermercado_lista.getString(1);
+                temp.put("nombre", nombre);
+                temp.put("id", id_supermercado );
+                lista.add(temp);
+            }while (supermercado_lista.moveToNext());
+        }
+        return lista;
+    }
+
 }

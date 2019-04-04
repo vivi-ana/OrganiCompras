@@ -557,5 +557,21 @@ public class DbCRUD extends DbHelper {
         }
         return supermercado_elegido;
     }
+    public Cursor supermercado(){
+        final String query = "SELECT * from " + DbTablas.TablaSupermercados.TABLA_SUPER;
+        Cursor supermercado = db.rawQuery(query,null);
+        if (supermercado != null){
+            supermercado.moveToFirst();
+        }
+        return supermercado;
+    }
+    public Cursor estadistica_mensual(Integer id_supermercado, Integer year, String mes, String dia){
+        final String query = "SELECT * from " + DbTablas.TablaCompras.TABLA_COMPRAS + " WHERE " + DbTablas.TablaCompras.CAMPO_FK_ID_SUPER + " = " + id_supermercado + " AND strftime('%Y'," + DbTablas.TablaCompras.CAMPO_FECHA + ") =('" + year +"') AND strftime('%m'," + DbTablas.TablaCompras.CAMPO_FECHA  + ") =('" + mes +"') AND strftime('%d'," + DbTablas.TablaCompras.CAMPO_FECHA  + ") =('" + dia +"')";
+        Cursor lista_estadistica = db.rawQuery(query,null);
+        if (lista_estadistica != null) {
+            lista_estadistica.moveToFirst();
+        }
+        return lista_estadistica;
+    }
     //asi se pone los string?'" + codigo +"'
 }

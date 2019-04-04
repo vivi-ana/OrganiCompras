@@ -313,4 +313,21 @@ private DbCRUD admin;
         }
         return lista;
     }
+    ArrayList<HashMap<String, String>> estadistica_mensual(int year, String mes, String dia, int id_supermercado){
+        ArrayList<HashMap<String, String>> estadistica = new ArrayList<>();
+        Cursor estadistica_mensual_compras = admin.estadistica_mensual(id_supermercado, year, mes, dia);
+        if (estadistica_mensual_compras.moveToFirst()) {
+            try {
+                do {
+                    String cantidad = estadistica_mensual_compras.getString(6);
+                    HashMap<String, String> temp = new HashMap<String, String>();
+                    temp.put("cantidad", cantidad);
+                    estadistica.add(temp);
+                } while (estadistica_mensual_compras.moveToNext());
+            }finally {
+                estadistica_mensual_compras.close();
+            }
+        }
+        return estadistica;
+    }
 }
