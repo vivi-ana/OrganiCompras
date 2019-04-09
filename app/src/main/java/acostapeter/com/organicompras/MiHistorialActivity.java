@@ -123,9 +123,10 @@ public class MiHistorialActivity extends AppCompatActivity {
                 startActivity(new Intent(MiHistorialActivity.this, MiHistorialActivityBorrarHistorial.class));
                 return true;
             case R.id.consumo_mensual:
+                startActivity(new Intent(MiHistorialActivity.this, MiHistorialActivityGraficoMensual.class));
                 return true;
             case R.id.consumo_anual:
-                startActivity(new Intent(MiHistorialActivity.this, MiHistoriaActivityGraficoAnual.class));
+                startActivity(new Intent(MiHistorialActivity.this, MiHistorialActivityGraficoAnual.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

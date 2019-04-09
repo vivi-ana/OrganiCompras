@@ -315,7 +315,7 @@ private DbCRUD admin;
     }
     ArrayList<HashMap<String, String>> estadistica_mensual(int year, String mes, String dia, int id_supermercado){
         ArrayList<HashMap<String, String>> estadistica = new ArrayList<>();
-        Cursor estadistica_mensual_compras = admin.estadistica_mensual(id_supermercado, year, mes, dia);
+        Cursor estadistica_mensual_compras = admin.estadistica(id_supermercado, year, mes, dia);
         if (estadistica_mensual_compras.moveToFirst()) {
             try {
                 do {

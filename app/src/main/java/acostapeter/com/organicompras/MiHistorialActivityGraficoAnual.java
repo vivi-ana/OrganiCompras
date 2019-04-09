@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 import acostapeter.com.organicompras.data.DbCRUD;
 
-public class MiHistoriaActivityGraficoAnual extends AppCompatActivity {
+public class MiHistorialActivityGraficoAnual extends AppCompatActivity {
     private BarChart barChart;
     private Spinner spinner;
     int spinnerPosition = 0;
@@ -46,7 +46,7 @@ public class MiHistoriaActivityGraficoAnual extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mi_historia_grafico_anual);
+        setContentView(R.layout.activity_mi_historial_grafico_anual);
         barChart = findViewById(R.id.pieChart);
         compras = new Compras(this);
         dbHelper = new DbCRUD(this, null);
@@ -122,7 +122,7 @@ public class MiHistoriaActivityGraficoAnual extends AppCompatActivity {
                         String dia = formatter.format(i); //----01
                         String month = formatter.format(numeromes); // ----> 01
                         //ArrayList<HashMap<String, String>> estadistica;
-                        datos = dbHelper.estadistica_mensual(ide, year, dia, month);
+                        datos = dbHelper.estadistica(ide, year, dia, month);
                        /* try {
                             int cantidad = datos.getCount();
                             if (cantidad != 0) {
