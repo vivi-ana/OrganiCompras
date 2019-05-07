@@ -153,6 +153,7 @@ private DbCRUD admin;
                 }else{
                     Cursor producto_no_encontrado = admin.producto_comprado_no_encontrado(id_producto);
                     if(producto_no_encontrado.moveToFirst()){
+                        marca = ""; neto = ""; medida = "";
                         nombre = producto_no_encontrado.getString(0);
                         double preun = Double.parseDouble(producto_no_encontrado.getString(1));
                         precio_unitario = (df.format(preun)).replace(",", ".");

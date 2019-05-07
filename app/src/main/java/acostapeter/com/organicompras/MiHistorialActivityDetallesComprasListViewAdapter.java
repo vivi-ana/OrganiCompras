@@ -52,14 +52,12 @@ public class MiHistorialActivityDetallesComprasListViewAdapter extends BaseAdapt
     }
     @Override
     public int getCount() {
-        return 0;
+        return lista.size();
     }
-
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Object getItem(int position) {
+        return lista.get(position);
     }
-
     @Override
     public long getItemId(int i) {
         return 0;

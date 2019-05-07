@@ -105,6 +105,8 @@ public class MiHistorialActivityDetallesCompras extends AppCompatActivity {
                 temporal.put(SEPTIMA_COLUMNA, neto);
                 temporal.put(OCTAVA_COLUMNA, medida);
                 lista.add(temporal);
+                MiHistorialActivityDetallesComprasListViewAdapter adapter = new MiHistorialActivityDetallesComprasListViewAdapter(this, lista,id_compra);
+                lista_compras.setAdapter(adapter);
             }
         }else {
             Toast.makeText(getBaseContext(), "No hay datos en el historial", Toast.LENGTH_SHORT).show();
@@ -125,6 +127,12 @@ public class MiHistorialActivityDetallesCompras extends AppCompatActivity {
                 i.putExtra("id", id);
                 startActivity(i);
                 finish();
+            case R.id.consumo_mensual:
+                startActivity(new Intent(MiHistorialActivityDetallesCompras.this, MiHistorialActivityGraficoMensual.class));
+                return true;
+            case R.id.consumo_anual:
+                startActivity(new Intent(MiHistorialActivityDetallesCompras.this, MiHistorialActivityGraficoAnual.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

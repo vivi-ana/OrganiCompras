@@ -119,7 +119,7 @@ public class MiHistorialActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_borrar:
+            case R.id.accion_borrar:
                 startActivity(new Intent(MiHistorialActivity.this, MiHistorialActivityBorrarHistorial.class));
                 return true;
             case R.id.consumo_mensual:

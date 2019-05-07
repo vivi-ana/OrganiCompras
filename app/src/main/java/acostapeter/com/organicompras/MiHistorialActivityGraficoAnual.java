@@ -122,7 +122,7 @@ public class MiHistorialActivityGraficoAnual extends AppCompatActivity {
                         String dia = formatter.format(i); //----01
                         String month = formatter.format(numeromes); // ----> 01
                         //ArrayList<HashMap<String, String>> estadistica;
-                        datos = dbHelper.estadistica(ide, year, dia, month);
+                        datos = dbHelper.estadistica(ide, year, month, dia);
                        /* try {
                             int cantidad = datos.getCount();
                             if (cantidad != 0) {
