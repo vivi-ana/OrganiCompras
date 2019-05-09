@@ -54,6 +54,9 @@ public class MiHistorialActivityBorrarHistorial extends AppCompatActivity {
         listaHistorial.setAdapter(adapter);
         compras = new Compras(this);
         Button btnborrar = findViewById(R.id.btnBorrar);
+        mes = getIntent().getIntExtra("mes", miCalendario.get(Calendar.MONTH)+1);
+        year = Integer.valueOf(getIntent().getStringExtra("year"));
+        month = formatter.format(mes); // ----> 01
         cargar(year, month);
         btnborrar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

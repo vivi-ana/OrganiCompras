@@ -120,7 +120,13 @@ public class MiHistorialActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.accion_borrar:
-                startActivity(new Intent(MiHistorialActivity.this, MiHistorialActivityBorrarHistorial.class));
+                Intent i = new Intent(MiHistorialActivity.this, MiHistorialActivityBorrarHistorial.class);
+                int mesSeleccionado = spinnerM.getSelectedItemPosition();//necesito la posicion del mes que es un numero
+                String yearSeleccionado = spinnerA.getSelectedItem().toString(); //necesito el año que esta en el spinner
+                mesSeleccionado = mesSeleccionado+1; //comienza en 0 el spinner, no hay mes 0
+                i.putExtra("mes", mesSeleccionado);
+                i.putExtra("year", yearSeleccionado);
+                startActivity(i);
                 return true;
             case R.id.consumo_mensual:
                 startActivity(new Intent(MiHistorialActivity.this, MiHistorialActivityGraficoMensual.class));
