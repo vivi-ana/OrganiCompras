@@ -162,14 +162,13 @@ public class MiHistorialActivity extends AppCompatActivity {
                 temporal.put(QUINTA_COLUMNA, total_unitario);
                 temporal.put(SEXTA_COLUMNA, id);
                 lista.add(temporal);
-                MiHistorialListViewAdapter adapterDespensa = new MiHistorialListViewAdapter(MiHistorialActivity.this, lista);
-                listaHistorial.setAdapter(adapterDespensa);
+
             }
         }else{
             Toast.makeText(this, "No hay compras en el historial", Toast.LENGTH_SHORT).show();
-            MiHistorialListViewAdapter adapterDespensa = new MiHistorialListViewAdapter(MiHistorialActivity.this, lista);
-            listaHistorial.setAdapter(adapterDespensa);
         }
+        MiHistorialListViewAdapter adapterDespensa = new MiHistorialListViewAdapter(MiHistorialActivity.this, lista);
+        listaHistorial.setAdapter(adapterDespensa);
     }
     public String getMes(){
         return month;
