@@ -167,6 +167,8 @@ public class MiHistorialActivity extends AppCompatActivity {
             }
         }else{
             Toast.makeText(this, "No hay compras en el historial", Toast.LENGTH_SHORT).show();
+            MiHistorialListViewAdapter adapterDespensa = new MiHistorialListViewAdapter(MiHistorialActivity.this, lista);
+            listaHistorial.setAdapter(adapterDespensa);
         }
     }
     public String getMes(){

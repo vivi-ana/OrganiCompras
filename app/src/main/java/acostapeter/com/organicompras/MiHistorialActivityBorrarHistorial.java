@@ -206,6 +206,8 @@ public class MiHistorialActivityBorrarHistorial extends AppCompatActivity {
             }
         }else{
             if (historial = true) { //quiere decir que el historial esta abierto y no hay solo para esa fecha, no se puede cerrar la ventana de manera brusca;
+                MiHistorialActivityBorrarHistorialListViewAdapter adapterDespensa = new MiHistorialActivityBorrarHistorialListViewAdapter(MiHistorialActivityBorrarHistorial.this, lista);
+                listaHistorial.setAdapter(adapterDespensa);
                 Toast.makeText(this, "No hay compras en el historial para esa fecha", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(this, "No hay compras en el historial", Toast.LENGTH_SHORT).show();
