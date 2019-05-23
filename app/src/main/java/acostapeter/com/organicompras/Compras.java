@@ -331,4 +331,59 @@ private DbCRUD admin;
         }
         return estadistica;
     }
+    ArrayList<HashMap<String, String>> cargar_detalle(int id_compra){
+        ArrayList<HashMap<String, String>> listado_compras = new ArrayList<>();
+        String id_producto, cantidades, montos,precio_unitario = "", id_detalle;
+        DecimalFormat df = new DecimalFormat("0.00");
+        long producto_id;
+        double monto;
+        Cursor lista_compras = admin.detalle_compra(id_compra);
+        if (lista_compras.moveToFirst()){
+            do {
+                id_detalle = lista_compras.getString(0);
+                producto_id = lista_compras.getLong(2);
+                id_producto = Long.toString(producto_id); //id del producto
+                cantidades = lista_compras.getString(3);
+                montos = lista_compras.getString(4);
+                monto = Double.parseDouble(montos);
+                montos = (df.format(monto)).replace(",",".");
+                HashMap<String, String> temporal = new HashMap<>();
+                temporal.put(PRIMERA_COLUMNA, id_detalle);
+                temporal.put(SEGUNDA_COLUMNA, String.valueOf(id_compra));
+                temporal.put(TERCERA_COLUMNA, id_producto);
+                temporal.put(CUARTA_COLUMNA, cantidades);
+                temporal.put(QUINTA_COLUMNA, montos);
+            } while (lista_compras.moveToNext());
+        }
+        return listado_compras;
+    }
+    ArrayList<HashMap<String, String>> cargar_compra(int id_compra){
+        ArrayList<HashMap<String, String>> listado_compras = new ArrayList<>();
+        String montos,precio_unitario = "";
+        DecimalFormat df = new DecimalFormat("0.00");
+        Cursor lista_compras = admin.compra_datos(id_compra);
+        if (lista_compras.moveToFirst()){
+            do {
+                supermercado = lista_compras.getInt(1);
+                fecha = lista_compras.getString(2);
+                max = lista_compras.getInt(3);
+                cantidad = lista_compras.getInt(4);
+                total = lista_compras.getDouble(5);
+                montos = (df.format(total)).replace(",",".");
+                total_unitario = lista_compras.getDouble(6);
+                precio_unitario = (df.format(total_unitario)).replace(",",".");
+
+                HashMap<String, String> temporal = new HashMap<>();
+                temporal.put(PRIMERA_COLUMNA, String.valueOf(id_compra));
+                temporal.put(SEGUNDA_COLUMNA, String.valueOf(supermercado));
+                temporal.put(TERCERA_COLUMNA, fecha);
+                temporal.put(CUARTA_COLUMNA, String.valueOf(max));
+                temporal.put(QUINTA_COLUMNA, String.valueOf(cantidad));
+                temporal.put(SEXTA_COLUMNA, montos);
+                temporal.put(SEPTIMA_COLUMNA, precio_unitario);
+                listado_compras.add(temporal);
+            } while (lista_compras.moveToNext());
+        }
+        return listado_compras;
+    }
 }

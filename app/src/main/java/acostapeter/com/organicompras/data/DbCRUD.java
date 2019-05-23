@@ -581,6 +581,15 @@ public class DbCRUD extends DbHelper {
         }
         return lista_estadistica;
     }
+    public Cursor cargardetalle(String idcompra){
+        SQLiteDatabase db = getReadableDatabase();
+        String query = ("SELECT * from compras WHERE id_compra = " + idcompra);
+        Cursor c = db.rawQuery(query, null);
+        if (c!=null){
+            c.moveToFirst();
+        }
+        return c;
+    }
 
     //asi se pone los string?'" + codigo +"'
 }

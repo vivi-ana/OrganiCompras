@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import google.zxing.integration.android.IntentIntegrator;
@@ -55,7 +56,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     static int max, id_compras, id_supermercado;
     static String text_total_compras;
     static boolean guardar;
-    String dia = "",seleccion = "";
+    String dia = "",seleccion = "", datoRecibido = null;
     DecimalFormat df = new DecimalFormat("0.00");
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compras, container, false);
@@ -73,10 +74,22 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         compras = new Compras(getActivity()); //objeto compras
         productos = new Productos(getActivity()); // objeto productos
         listado_productos = view.findViewById(R.id.lista_despensa);
-        listas(lista);
+        //listas(lista);
         obtener_dia();
         mensaje();
         contexto = getActivity();
+        Intent recibir = getActivity().getIntent();
+        datoRecibido = recibir.getStringExtra("id");
+        if (datoRecibido == null) {
+            mensaje();
+        }
+        else{
+            listas(lista);
+            editar();
+            reestar();
+        }
+
+
         return view;
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -407,4 +420,94 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             }
         }
     }
-}
+    public void editar() {
+        lista.clear();
+        String id_producto, montos, neto, medida, cantidades, nombre, marca, precio_unitario;
+        int supermercado_editar = 0;
+        Compras compras = new Compras(contexto);
+        Supermercado supermercado = new Supermercado(contexto);
+        compras.setId(Integer.getInteger(datoRecibido));
+        compras.cargar_algunos_detalles_compras();
+        if (!compras.isVacio()) {//si no esta vacio el detalle
+            supermercado.supermercado_compra_editada(Integer.getInteger(datoRecibido));
+            supermercado_editar = supermercado.getId();
+            double total_compra = compras.getTotal();
+            txt_total.setText(df.format(total_compra));
+            int cant = compras.getCantidad();
+            cantidad_producto.setText(String.valueOf(cant));
+            int maximo = compras.getMax();
+            if (maximo != 0){
+                textView.setVisibility(View.VISIBLE);
+                lblmx.setVisibility(View.VISIBLE);
+                textView.setText(String.valueOf(max));
+            }
+        }
+        compras.contar_productos_compra();
+        int i = compras.getCant_total_productos();
+        datos_no_editados= new String[i][2];
+        int j = 0;
+        ArrayList<HashMap<String, String>> listado_edicion;
+        listado_edicion = compras.detalle_compras(id_compras);
+        int bucle = listado_edicion.size();
+        if (bucle != 0){
+            for(int inicio=0; inicio<bucle; inicio++) {
+                HashMap<String, String> hashmap= listado_edicion.get(inicio);
+                nombre = hashmap.get(PRIMERA_COLUMNA);
+                marca = hashmap.get(SEGUNDA_COLUMNA);
+                precio_unitario = hashmap.get(TERCERA_COLUMNA);
+                cantidades = hashmap.get(CUARTA_COLUMNA);
+                montos = hashmap.get(QUINTA_COLUMNA);
+                id_producto = hashmap.get(SEXTA_COLUMNA);
+                neto = hashmap.get(SEPTIMA_COLUMNA);
+                medida = hashmap.get(OCTAVA_COLUMNA);
+
+                datos_no_editados[j][0] = id_producto;
+                datos_no_editados [j][1] = cantidades;
+                j++;
+
+                HashMap<String, String> temporal = new HashMap<String, String>();
+                temporal.put(PRIMERA_COLUMNA, nombre);
+                temporal.put(SEGUNDA_COLUMNA, marca);
+                temporal.put(TERCERA_COLUMNA, precio_unitario);
+                temporal.put(CUARTA_COLUMNA, cantidades);
+                temporal.put(QUINTA_COLUMNA, montos);
+                temporal.put(SEXTA_COLUMNA, id_producto);
+                temporal.put(SEPTIMA_COLUMNA, neto);
+                temporal.put(OCTAVA_COLUMNA, medida);
+                lista.add(temporal);
+            }
+        }else {
+            Toast.makeText(contexto, "No hay productos en la lista", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void reestar(){
+        List<String> indice = new ArrayList<String>();
+        indice.add("PRIMERA_COLUMNA");
+        indice.add("SEGUNDA_COLUMNA");
+        indice.add("TERCERA_COLUMNA");
+        indice.add("CUARTA_COLUMNA");
+        indice.add("QUINTA_COLUMNA");
+        indice.add("SEXTA_COLUMNA");
+        indice.add("SEPTIMA_COLUMNA");
+        matriz_compras = new String[1][7];
+        Compras compras = new Compras(contexto);
+        compras.setId(id_compras);
+        compras.contar_productos_compra();
+        int fila = compras.getCant_total_productos();
+        matriz_detalles= new  String[fila][5];
+        ArrayList<HashMap<String, String>> listado_compra;
+        listado_compra =  compras.cargar_compra(id_compras);
+        HashMap<String, String> hashmap= listado_compra.get(0);
+            for(int i=0;i<=6;i++){
+                matriz_compras[0][i] = hashmap.get(indice.get(i)); //carga un vector con el registro de la compra
+            }
+        ArrayList<HashMap<String, String>> listado_detalle;
+        listado_detalle =  compras.cargar_detalle(id_compras);
+            for (int filas = 0; filas <= fila-1; filas++) {
+                HashMap<String, String> map= listado_detalle.get(filas);
+                for (int columnas = 0; columnas <= 4; columnas++) {
+                    matriz_detalles[filas][columnas] = map.get(indice.get(columnas));//matriz de todos los detalles para determinada compra
+                }
+            }
+        }
+    }
