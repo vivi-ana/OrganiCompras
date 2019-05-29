@@ -122,14 +122,15 @@ public class MiHistorialActivityDetallesCompras extends AppCompatActivity {
                 mensaje();
                 return true;
             case R.id.accion_editar:
-                Intent i = new Intent(this, Tabs.class);
+                Intent i = new Intent(MiHistorialActivityDetallesCompras.this, Tabs.class);
                 editar = true;
                 i.putExtra("id", id);
                 startActivity(i);
                 finish();
-            case R.id.consumo_mensual:
-                startActivity(new Intent(MiHistorialActivityDetallesCompras.this, MiHistorialActivityGraficoMensual.class));
                 return true;
+            case R.id.consumo_mensual:
+               startActivity(new Intent(MiHistorialActivityDetallesCompras.this, MiHistorialActivityGraficoMensual.class));
+               return true;
             case R.id.consumo_anual:
                 startActivity(new Intent(MiHistorialActivityDetallesCompras.this, MiHistorialActivityGraficoAnual.class));
                 return true;

@@ -353,6 +353,7 @@ private DbCRUD admin;
                 temporal.put(TERCERA_COLUMNA, id_producto);
                 temporal.put(CUARTA_COLUMNA, cantidades);
                 temporal.put(QUINTA_COLUMNA, montos);
+                listado_compras.add(temporal);
             } while (lista_compras.moveToNext());
         }
         return listado_compras;

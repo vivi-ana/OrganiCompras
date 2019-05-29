@@ -76,7 +76,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         listado_productos = view.findViewById(R.id.lista_despensa);
         //listas(lista);
         obtener_dia();
-        mensaje();
+        //mensaje();
         contexto = getActivity();
         Intent recibir = getActivity().getIntent();
         datoRecibido = recibir.getStringExtra("id");
@@ -426,11 +426,12 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         int supermercado_editar = 0;
         Compras compras = new Compras(contexto);
         Supermercado supermercado = new Supermercado(contexto);
-        compras.setId(Integer.getInteger(datoRecibido));
+        compras.setId(Integer.valueOf(datoRecibido));
         compras.cargar_algunos_detalles_compras();
         if (!compras.isVacio()) {//si no esta vacio el detalle
-            supermercado.supermercado_compra_editada(Integer.getInteger(datoRecibido));
+            supermercado.supermercado_compra_editada(Integer.valueOf(datoRecibido));
             supermercado_editar = supermercado.getId();
+            compras.setSupermercado(supermercado_editar);
             double total_compra = compras.getTotal();
             txt_total.setText(df.format(total_compra));
             int cant = compras.getCantidad();
@@ -447,7 +448,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         datos_no_editados= new String[i][2];
         int j = 0;
         ArrayList<HashMap<String, String>> listado_edicion;
-        listado_edicion = compras.detalle_compras(id_compras);
+        listado_edicion = compras.detalle_compras(Integer.valueOf(datoRecibido));
         int bucle = listado_edicion.size();
         if (bucle != 0){
             for(int inicio=0; inicio<bucle; inicio++) {
@@ -491,18 +492,18 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         indice.add("SEPTIMA_COLUMNA");
         matriz_compras = new String[1][7];
         Compras compras = new Compras(contexto);
-        compras.setId(id_compras);
+        compras.setId(Integer.valueOf(datoRecibido));
         compras.contar_productos_compra();
         int fila = compras.getCant_total_productos();
         matriz_detalles= new  String[fila][5];
         ArrayList<HashMap<String, String>> listado_compra;
-        listado_compra =  compras.cargar_compra(id_compras);
+        listado_compra =  compras.cargar_compra(Integer.valueOf(datoRecibido));
         HashMap<String, String> hashmap= listado_compra.get(0);
             for(int i=0;i<=6;i++){
                 matriz_compras[0][i] = hashmap.get(indice.get(i)); //carga un vector con el registro de la compra
             }
         ArrayList<HashMap<String, String>> listado_detalle;
-        listado_detalle =  compras.cargar_detalle(id_compras);
+        listado_detalle =  compras.cargar_detalle(Integer.valueOf(datoRecibido));
             for (int filas = 0; filas <= fila-1; filas++) {
                 HashMap<String, String> map= listado_detalle.get(filas);
                 for (int columnas = 0; columnas <= 4; columnas++) {
