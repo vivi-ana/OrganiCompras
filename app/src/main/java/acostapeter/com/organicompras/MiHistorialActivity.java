@@ -54,6 +54,7 @@ public class MiHistorialActivity extends AppCompatActivity {
                 Intent i = new Intent(MiHistorialActivity.this, MiHistorialActivityDetallesCompras.class);
                 i.putExtra("ID", ide);
                 startActivity(i);
+                finish();
             }
         });
         addItemsOnSpinner();
