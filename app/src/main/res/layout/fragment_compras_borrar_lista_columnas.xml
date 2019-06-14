@@ -91,7 +91,7 @@
             android:id="@+id/nombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="0dp"
             android:text="@string/nombre"
             android:textColor="#000000"
             android:textSize="16sp"
@@ -105,8 +105,7 @@
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:text="@string/marca"
-            app:layout_constraintEnd_toEndOf="@+id/neto"
-            app:layout_constraintStart_toEndOf="@+id/neto"
+            app:layout_constraintStart_toEndOf="@+id/check"
             app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
 
@@ -116,24 +115,22 @@
             android:layout_height="wrap_content"
             android:text="@string/neto"
             app:layout_constraintBaseline_toBaselineOf="@+id/medida"
-            app:layout_constraintStart_toStartOf="@+id/signo" />
+            app:layout_constraintStart_toStartOf="@+id/marca" />
 
         <TextView
             android:id="@+id/signo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="@string/signo"
             app:layout_constraintBaseline_toBaselineOf="@+id/precio"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/neto" />
 
         <TextView
             android:id="@+id/medida"
-            android:layout_width="62dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/medida"
-            app:layout_constraintEnd_toEndOf="@+id/marca"
-            app:layout_constraintStart_toEndOf="@+id/marca"
+            app:layout_constraintStart_toEndOf="@+id/neto"
             app:layout_constraintTop_toBottomOf="@+id/marca" />
 
         <TextView

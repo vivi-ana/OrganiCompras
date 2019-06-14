@@ -33,9 +33,7 @@
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:text="@string/marca"
-            app:layout_constraintEnd_toEndOf="@+id/neto"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/neto"
+            app:layout_constraintStart_toEndOf="@+id/check"
             app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
 
@@ -43,19 +41,15 @@
             android:id="@+id/neto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="54dp"
             android:text="@string/neto"
-            app:layout_constraintBaseline_toBaselineOf="@+id/medida"
-            app:layout_constraintEnd_toStartOf="@+id/medida"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/medida"
+            app:layout_constraintStart_toStartOf="@+id/marca" />
 
         <TextView
             android:id="@+id/medida"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="76dp"
             android:text="@string/medida"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/neto"
             app:layout_constraintTop_toBottomOf="@+id/marca" />
 

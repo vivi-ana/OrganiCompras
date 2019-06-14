@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textCantidad"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:paddingTop="5dp"
         android:text="@string/producto"
@@ -27,7 +27,7 @@
         android:layout_alignEnd="@+id/listaDespensa"
         android:layout_alignParentTop="true"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="24dp"
         android:paddingTop="5dp"
         android:text="@string/cantidad"
         android:textSize="20sp"
@@ -37,7 +37,7 @@
 
     <ListView
         android:id="@+id/listaDespensa"
-        android:layout_width="407dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_below="@+id/textProducto"
         android:layout_alignParentStart="true"
