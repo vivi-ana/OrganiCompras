@@ -7,10 +7,12 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout4"
-        android:layout_width="249dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/cantidad_prod"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -70,14 +72,12 @@
         android:layout_width="30dp"
         android:layout_height="23dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="40dp"
         android:gravity="center"
         android:text="@string/uno"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
