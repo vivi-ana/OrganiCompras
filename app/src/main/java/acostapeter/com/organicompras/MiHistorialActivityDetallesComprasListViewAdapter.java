@@ -66,7 +66,6 @@ public class MiHistorialActivityDetallesComprasListViewAdapter extends BaseAdapt
     private class ViewHolder {
         TextView nombre, id, neto, marca, medida, precio_unidad;
         TextView producto_cantidad, subtotal;
-        Button btn_mas, btn_menos;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -81,14 +80,10 @@ public class MiHistorialActivityDetallesComprasListViewAdapter extends BaseAdapt
             holder.neto = convertView.findViewById(R.id.neto);
             holder.medida = convertView.findViewById(R.id.medida);
             holder.nombre = convertView.findViewById(R.id.nombre);
-            holder.btn_mas = convertView.findViewById(R.id.mas);
-            holder.btn_menos = convertView.findViewById(R.id.menos);
             holder.subtotal = convertView.findViewById(R.id.subtotal);
             holder.producto_cantidad = convertView.findViewById(R.id.cantidad_prod);
             holder.precio_unidad =  convertView.findViewById(R.id.precio);
             holder.id =  convertView.findViewById(R.id.id);
-            holder.btn_mas.setVisibility(View.INVISIBLE);
-            holder.btn_menos.setVisibility(View.INVISIBLE);
             convertView.setTag(holder);
         }
         else
