@@ -49,9 +49,8 @@
     <ListView
         android:id="@+id/lista_despensa"
         android:layout_width="0dp"
-        android:layout_height="369dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/lbl_total"
@@ -85,7 +84,7 @@
         android:id="@+id/lbl_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
+        android:layout_marginStart="120dp"
         android:layout_marginBottom="30dp"
         android:text="@string/total"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -105,10 +104,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="30dp"
         android:text="@string/máximo"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/total"
         tools:text="@string/máximo" />
 
