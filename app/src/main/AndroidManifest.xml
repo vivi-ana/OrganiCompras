@@ -27,9 +27,19 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MiHistorialActivityBorrarHistorial" />
+        <activity android:name=".MiHistorialActivityBorrarHistorial"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".DespensaProductoNoEncontrado" />
-        <activity android:name=".MiDespensaActivityBorrarLista" />
+        <activity android:name=".MiDespensaActivityBorrarLista"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MiDespensaActivity"
             android:screenOrientation="portrait">
