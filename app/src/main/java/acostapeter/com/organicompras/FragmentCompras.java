@@ -120,14 +120,22 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                         cargar();
                     }
                 }else{
-                    productos.setId(scanContent); //me fijo si el usuario no dio de alta en tabla provisoria
-                    productos.producto_no_encontrado();
-                    precio = productos.getPrecio();
-                    if (precio !=0){ //si dio de alta puede comprar el producto
-                        comprar(scanContent, precio);
+                    compras.total_productos(scanContent);
+                    count = compras.getCant_total_productos();
+                    if (count == 0) { //verifico que no este en la lista para que no cargue dos veces el mismo producto
+                        productos.setId(scanContent); //me fijo si el usuario no dio de alta en tabla provisoria
+                        productos.producto_no_encontrado();
+                        precio = productos.getPrecio();
+                            if (precio !=0){ //si dio de alta puede comprar el producto
+                                lista.clear();
+                                comprar(scanContent, precio);
+                                cargar();
+                            }else{//de lo contrario se da de alta en la tabla provisoria.
+                                productonoencontrado(id_supermercado, scanContent);
+                            }
+                    }else {
+                        Toast.makeText(getActivity(), "Este producto ya se encuentra en la lista", Toast.LENGTH_LONG).show();
                         cargar();
-                    }else{//de lo contrario se da de alta en la tabla provisoria.
-                        productonoencontrado(id_supermercado, scanContent);
                     }
                 }
             } else {
@@ -398,9 +406,11 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         listado_despensa = despensa.detalle_inventario();//recorro despensa
         int bucle = listado_despensa.size();
         if (bucle != 0){
-            HashMap<String, String> hashmap = listado_despensa.get(0);
-            id = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
+            //HashMap<String, String> hashmap = listado_despensa.get(0);
+            //id = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
             for(int i=0; i<bucle; i++) {
+                HashMap<String, String> hashmap = listado_despensa.get(i);
+                id = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
                 if (id.equals(CodBarra)) { //pregunto si hay un id igual al codigo de barra
                     despensa.setId_producto(CodBarra);
                     despensa.borrar_item();//borra por el codigo de barra.
@@ -408,8 +418,9 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 } else {//entonces no esta por codigo de barra hay que buscar por nombre.
                     productos.setId(CodBarra);
                     listado_producto = productos.cargar_producto_especifico();
-                    int bucle_producto = listado_despensa.size();
-                    if (bucle_producto != 0) {
+                    //int bucle_producto = listado_despensa.size();
+                    int comparado = listado_producto.size();
+                    if (comparado != 0) {
                         HashMap<String, String> hashmapa = listado_despensa.get(0);
                         String idnombre = hashmapa.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);//tengo el id del nombre del producto
                         despensa.setId_producto(idnombre);
