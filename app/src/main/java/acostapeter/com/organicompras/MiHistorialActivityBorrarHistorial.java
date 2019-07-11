@@ -212,5 +212,7 @@ public class MiHistorialActivityBorrarHistorial extends AppCompatActivity {
             MiHistorialActivityBorrarHistorialListViewAdapter adapterDespensa = new MiHistorialActivityBorrarHistorialListViewAdapter(MiHistorialActivityBorrarHistorial.this, lista);
             listaHistorial.setAdapter(adapterDespensa);
         }
+        MiHistorialActivityBorrarHistorialListViewAdapter adapterDespensa = new MiHistorialActivityBorrarHistorialListViewAdapter(MiHistorialActivityBorrarHistorial.this, lista);
+        listaHistorial.setAdapter(adapterDespensa);
     }
 }
