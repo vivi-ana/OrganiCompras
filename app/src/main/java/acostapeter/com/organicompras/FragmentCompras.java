@@ -522,4 +522,15 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 }
             }
         }
+    public void onResume(){
+        super.onResume();
+        boolean bandera = FragmentComprasBorrarLista.ReturnCargar();
+        if(bandera) {
+            listado_productos.setAdapter(null);
+            MiHistorialActivityBorrarHistorialListViewAdapter adapter = new MiHistorialActivityBorrarHistorialListViewAdapter(getActivity(), lista);
+            listado_productos.setAdapter(adapter);
+            cargar();
+            FragmentComprasBorrarLista.SetCargar();
+        }
+    }
     }
