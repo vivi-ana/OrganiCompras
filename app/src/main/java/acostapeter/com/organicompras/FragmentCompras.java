@@ -530,6 +530,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             MiHistorialActivityBorrarHistorialListViewAdapter adapter = new MiHistorialActivityBorrarHistorialListViewAdapter(getActivity(), lista);
             listado_productos.setAdapter(adapter);
             cargar();
+            cambiarTxtTotal();
             FragmentComprasBorrarLista.SetCargar();
         }
     }
