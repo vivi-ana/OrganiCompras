@@ -177,4 +177,15 @@ public class MiHistorialActivity extends AppCompatActivity {
     public Integer getYear(){
         return year;
     }
+    public void onResume(){
+        super.onResume();
+        boolean bandera = MiHistorialActivityBorrarHistorial.ReturnCargar();
+        if(bandera) {
+            listaHistorial.setAdapter(null);
+            MiHistorialActivityBorrarHistorialListViewAdapter adapter = new MiHistorialActivityBorrarHistorialListViewAdapter(this, lista);
+            listaHistorial.setAdapter(adapter);
+            cargar(year, month);
+            MiHistorialActivityBorrarHistorial.SettingCargar();
+        }
+    }
 }
