@@ -133,7 +133,7 @@ public class DbCRUD extends DbHelper {
     }
     public Cursor producto(String id_producto){
         final String query = "SELECT " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " , "
-                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_MARCA + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_CONT_NETO + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_MEDIDA + " FROM "
+                + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_NOMBRE + " , "  + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_DESCP + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_MARCA + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_CONT_NETO + " , " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_MEDIDA + " FROM "
                 + DbTablas.TablaProductos.TABLA_PRODUCTOS +  " JOIN " +  DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + " ON " + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD + "." + DbTablas.TablaDetallesProd.CAMPO_ID_PROD + " WHERE "
                 + DbTablas.TablaProductos.TABLA_PRODUCTOS + "." + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto;
         Cursor lista_producto = db.rawQuery(query,null);
