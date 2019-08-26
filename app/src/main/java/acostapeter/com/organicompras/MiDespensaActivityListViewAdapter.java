@@ -91,6 +91,7 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
         }else {
             holder.producto_cantidad.setText(map.get(TERCERA_COLUMNA));
         }
+        holder.descripcion.setText(map.get(SEGUNDA_COLUMNA));
         holder.id.setText(map.get(CUARTA_COLUMNA));
         holder.marca.setText(map.get(QUINTA_COLUMNA));
         holder.neto.setText(map.get(SEXTA_COLUMNA));
