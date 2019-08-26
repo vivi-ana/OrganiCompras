@@ -25,6 +25,7 @@ import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_CO
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEPTIMA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 import java.text.DecimalFormat;
@@ -208,26 +209,28 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         ArrayList<HashMap<String, String>> listado_despensa;
         lista.clear();
         Despensa despensa = new Despensa(contexto);
-        String nombre, cantidad, marca, neto, medida, id_producto;
+        String nombre, cantidad, decripcion, marca, neto, medida, id_producto;
         listado_despensa = despensa.detalle_inventario();
         int bucle = listado_despensa.size();
         if (bucle != 0){
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_despensa.get(i);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
-                cantidad = hashmap.get(SEGUNDA_COLUMNA);
-                id_producto = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
-                marca = hashmap.get(CUARTA_COLUMNA);
-                neto = hashmap.get(QUINTA_COLUMNA);
-                medida = hashmap.get(SEXTA_COLUMNA);
+                decripcion = hashmap.get(SEGUNDA_COLUMNA);
+                cantidad = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
+                id_producto = hashmap.get(CUARTA_COLUMNA);
+                marca = hashmap.get(QUINTA_COLUMNA);
+                neto = hashmap.get(SEXTA_COLUMNA);
+                medida = hashmap.get(SEPTIMA_COLUMNA);
 
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(SEGUNDA_COLUMNA, cantidad);
-                temp.put(ConstantesColumnasDespensa.TERCERA_COLUMNA, id_producto);
-                temp.put(CUARTA_COLUMNA, marca);
-                temp.put(QUINTA_COLUMNA, neto);
-                temp.put(SEXTA_COLUMNA, medida);
+                temp.put(SEGUNDA_COLUMNA, decripcion);
+                temp.put(ConstantesColumnasDespensa.TERCERA_COLUMNA, cantidad);
+                temp.put(CUARTA_COLUMNA, id_producto);
+                temp.put(QUINTA_COLUMNA, marca);
+                temp.put(SEXTA_COLUMNA, neto);
+                temp.put(SEPTIMA_COLUMNA, medida);
                 lista.add(temp);
                 MiDespensaActivityListViewAdapter adapterDespensa = new MiDespensaActivityListViewAdapter(activity, lista);
                 lista_despensa.setAdapter(adapterDespensa);

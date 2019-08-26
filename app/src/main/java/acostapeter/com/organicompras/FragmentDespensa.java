@@ -20,6 +20,7 @@ import java.util.HashMap;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEPTIMA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.TERCERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
@@ -127,7 +128,7 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
     }
     public void cargar(){
         ArrayList<HashMap<String, String>> listado_despensa;
-        String nombre, cantidad, marca, neto, medida, id_producto;
+        String nombre, descripcion, cantidad, marca, neto, medida, id_producto;
         lista.clear();
         Despensa despensa = new Despensa(getActivity());
         listado_despensa = despensa.detalle_inventario();
@@ -136,19 +137,21 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_despensa.get(i);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
-                cantidad = hashmap.get(SEGUNDA_COLUMNA);
-                id_producto = hashmap.get(TERCERA_COLUMNA);
-                marca = hashmap.get(CUARTA_COLUMNA);
-                neto = hashmap.get(QUINTA_COLUMNA);
-                medida = hashmap.get(SEXTA_COLUMNA);
+                descripcion = hashmap.get(SEGUNDA_COLUMNA);
+                cantidad = hashmap.get(TERCERA_COLUMNA);
+                id_producto = hashmap.get(CUARTA_COLUMNA);
+                marca = hashmap.get(QUINTA_COLUMNA);
+                neto = hashmap.get(SEXTA_COLUMNA);
+                medida = hashmap.get(SEPTIMA_COLUMNA);
 
                 HashMap<String, String> temporal = new HashMap<String, String>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
-                temporal.put(SEGUNDA_COLUMNA, cantidad);
-                temporal.put(TERCERA_COLUMNA, id_producto);
-                temporal.put(CUARTA_COLUMNA, marca);
-                temporal.put(QUINTA_COLUMNA, neto);
-                temporal.put(SEXTA_COLUMNA, medida);
+                temporal.put(SEGUNDA_COLUMNA, descripcion);
+                temporal.put(TERCERA_COLUMNA, cantidad);
+                temporal.put(CUARTA_COLUMNA, id_producto);
+                temporal.put(QUINTA_COLUMNA, marca);
+                temporal.put(SEXTA_COLUMNA, neto);
+                temporal.put(SEPTIMA_COLUMNA, medida);
 
                 lista.add(temporal);
                 adapter = new FragmentDespensaListViewAdapter(getActivity(), lista);
