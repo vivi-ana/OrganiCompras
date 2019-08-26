@@ -414,7 +414,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             //id = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap = listado_despensa.get(i);
-                id = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
+                id = hashmap.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);
                 if (id.equals(CodBarra)) { //pregunto si hay un id igual al codigo de barra
                     despensa.setId_producto(CodBarra);
                     despensa.borrar_item();//borra por el codigo de barra.
@@ -426,7 +426,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     int comparado = listado_producto.size();
                     if (comparado != 0) {
                         HashMap<String, String> hashmapa = listado_despensa.get(0);
-                        String idnombre = hashmapa.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);//tengo el id del nombre del producto
+                        String idnombre = hashmapa.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);//tengo el id del nombre del producto
                         despensa.setId_producto(idnombre);
                         despensa.borrar_item();//borra por el id
                         break;
