@@ -17,10 +17,11 @@ class DbDatos {
         detalleProducto.put(DbTablas.TablaDetallesProd.CAMPO_NOMBRE, nombre);
         db.insert(DbTablas.TablaDetallesProd.TABLA_DETALLE_PROD, null, detalleProducto);
     }
-    private void Productos(String id, String nombre, String marca, String neto, String medida, SQLiteDatabase db){
+    private void Productos(String id, String nombre, String descripcion, String marca, String neto, String medida, SQLiteDatabase db){
         ContentValues ingresarProductos = new ContentValues();
         ingresarProductos.put(DbTablas.TablaProductos.CAMPO_ID_PROD, id); //clave valor
         ingresarProductos.put(DbTablas.TablaProductos.CAMPO_NOMBRE, nombre);
+        ingresarProductos.put(DbTablas.TablaProductos.CAMPO_DESCP, descripcion);
         ingresarProductos.put(DbTablas.TablaProductos.CAMPO_MARCA, marca);
         ingresarProductos.put(DbTablas.TablaProductos.CAMPO_CONT_NETO, neto);
         ingresarProductos.put(DbTablas.TablaProductos.CAMPO_MEDIDA, medida);
@@ -48,19 +49,19 @@ class DbDatos {
         Detalle("9", "Chocolate", db);
         Detalle("10", "Arroz", db);
         Detalle("11", "Yerba", db);
-        Productos("7791234567898", "1", "Arcor", "300", "gr", db);
-        Productos("9310779300005", "2", "Alco", "500", "gr", db);
-        Productos("5901234123457", "10", "Gallo", "1000", "gr", db);
-        Productos("8414533043847", "2", "Marolio", "1000", "ml", db);
-        Productos("9788461671113", "12", "Amanda", "1000", "gr", db);
-        Productos("7790070412355", "3", "Exquisita", "60", "gr", db);
-        Productos("7793360108426", "4", "La Campagnola", "300", "gr", db);
-        Productos("7790040932708", "5", "Bagley", "93", "gr", db);
-        Productos("7790398100118", "6", "La Paulina", "40", "gr", db);
-        Productos("7790070318619", "7", "Matarazzo", "500", "gr", db);
-        Productos("7622300868512", "8", "Tang", "18", "gr", db);
-        Productos("7790407031013", "9", "Aguila", "100", "gr", db);
-        Productos("7798116010015", "10", "Itajai", "1000", "gr", db);
+        Productos("7791234567898", "1", "Repostero" ,"Arcor", "300", "gr", db);
+        Productos("9310779300005", "2", "Al natural","Alco", "500", "gr", db);
+        Productos("5901234123457", "10", "Largo fino","Gallo", "1000", "gr", db);
+        Productos("8414533043847", "2", "Al natural","Marolio", "1000", "ml", db);
+        Productos("9788461671113", "11", "Suave","Amanda", "1000", "gr", db);
+        Productos("7790070412355", "3", "Sabor dulce de leche","Exquisita", "60", "gr", db);
+        Productos("7793360108426", "4", "Blanco cremoso","La Campagnola", "300", "gr", db);
+        Productos("7790040932708", "5", "Surtidas","Bagley", "93", "gr", db);
+        Productos("7790398100118", "6", "Reggianito","La Paulina", "40", "gr", db);
+        Productos("7790070318619", "7", "Codito","Matarazzo", "500", "gr", db);
+        Productos("7622300868512", "8", "Sabor naranja","Tang", "18", "gr", db);
+        Productos("7790407031013", "9", "Amargo","Aguila", "100", "gr", db);
+        Productos("7798116010015", "10","Largo Fino", "Itajai", "1000", "gr", db);
         ProductosXSuper("7791234567898", "1", "30.20", db);
         ProductosXSuper("7791234567898", "2", "35", db);
         ProductosXSuper("7791234567898", "3", "40", db);

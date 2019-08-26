@@ -1,5 +1,6 @@
 package acostapeter.com.organicompras;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.NOVENA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
@@ -43,7 +44,7 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
         return 0;
     }
     private class ViewHolder {
-        TextView nombre, sub_total, marca, cantidad_producto, precio_unidad, id_producto, neto, medida;
+        TextView nombre, sub_total, descripcion, marca, cantidad_producto, precio_unidad, id_producto, neto, medida;
         Button bmas, bmenos;
     }
     @Override
@@ -57,6 +58,7 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
             holder.bmas = convertView.findViewById(R.id.mas);
             holder.bmenos = convertView.findViewById(R.id.menos);
             holder.nombre = convertView.findViewById(R.id.nombre);
+            holder.descripcion = convertView.findViewById(R.id.descrip);
             holder.marca =  convertView.findViewById(R.id.marca);
             holder.neto = convertView.findViewById(R.id.neto);
             holder.medida = convertView.findViewById(R.id.medida);
@@ -72,13 +74,14 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
         }
         HashMap<String, String> map = lista.get(position); //cargar cada fila de datos
         holder.nombre.setText(map.get(PRIMERA_COLUMNA));
-        holder.marca.setText(map.get(SEGUNDA_COLUMNA));
-        holder.precio_unidad.setText(map.get(TERCERA_COLUMNA));
-        holder.cantidad_producto.setText(map.get(CUARTA_COLUMNA));
-        holder.sub_total.setText(map.get(QUINTA_COLUMNA));
-        holder.id_producto.setText(map.get(SEXTA_COLUMNA));
-        holder.neto.setText(map.get(SEPTIMA_COLUMNA));
-        holder.medida.setText(map.get(OCTAVA_COLUMNA));
+        holder.descripcion.setText(map.get(SEGUNDA_COLUMNA));
+        holder.marca.setText(map.get(TERCERA_COLUMNA));
+        holder.precio_unidad.setText(map.get(CUARTA_COLUMNA));
+        holder.cantidad_producto.setText(map.get(QUINTA_COLUMNA));
+        holder.sub_total.setText(map.get(SEXTA_COLUMNA));
+        holder.id_producto.setText(map.get(SEPTIMA_COLUMNA));
+        holder.neto.setText(map.get(OCTAVA_COLUMNA));
+        holder.medida.setText(map.get(NOVENA_COLUMNA));
         String txt_cantidad;//verificar el textview del menos en la lista para deshabilitar el menos.
         int contador_cantidad;
         txt_cantidad = holder.cantidad_producto.getText().toString();

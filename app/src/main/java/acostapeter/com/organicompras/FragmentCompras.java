@@ -33,6 +33,7 @@ import google.zxing.integration.android.IntentIntegrator;
 import google.zxing.integration.android.IntentResult;
 
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.NOVENA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
@@ -44,7 +45,7 @@ import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_CO
 public class FragmentCompras extends android.support.v4.app.Fragment implements View.OnClickListener {
     Button scanBtn;
     TextView formatTxt, contentTxt, lblmx, textView;
-    static TextView txt_total, cantidad_producto;
+    static TextView txt_total, cantidad_producto, descrip;
     static ListView listado_productos;
     static ArrayList<HashMap<String, String>> lista;
     static Supermercado supermercado;
@@ -66,6 +67,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         contentTxt = view.findViewById(R.id.scan_content);
         txt_total = view.findViewById(R.id.total);
         textView = view.findViewById(R.id.max_compra);
+        descrip = view.findViewById(R.id.descrip);
         cantidad_producto = view.findViewById(R.id.cantidad_producto);
         scanBtn.setOnClickListener(this);
         lista = new ArrayList<>();
@@ -173,7 +175,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     }
     public void cargar(){
         ArrayList<HashMap<String, String>> listado_compras;
-        String id_producto, cantidades, montos, neto, medida, nombre, marca, precio_unitario;
+        String id_producto, cantidades, montos, descripcion, neto, medida, nombre, marca, precio_unitario;
         lista.clear();
         Compras compras = new Compras(contexto);
         compras.maximo_compra(); //obtener el id y el supermercado donde compra
@@ -185,23 +187,25 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_compras.get(i);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
-                marca = hashmap.get(SEGUNDA_COLUMNA);
-                precio_unitario = hashmap.get(TERCERA_COLUMNA);
-                cantidades = hashmap.get(CUARTA_COLUMNA);
-                montos = hashmap.get(QUINTA_COLUMNA);
-                id_producto = hashmap.get(SEXTA_COLUMNA);
-                neto = hashmap.get(SEPTIMA_COLUMNA);
-                medida = hashmap.get(OCTAVA_COLUMNA);
+                descripcion = hashmap.get(SEGUNDA_COLUMNA);
+                marca = hashmap.get(TERCERA_COLUMNA);
+                precio_unitario = hashmap.get(CUARTA_COLUMNA);
+                cantidades = hashmap.get(QUINTA_COLUMNA);
+                montos = hashmap.get(SEXTA_COLUMNA);
+                id_producto = hashmap.get(SEPTIMA_COLUMNA);
+                neto = hashmap.get(OCTAVA_COLUMNA);
+                medida = hashmap.get(NOVENA_COLUMNA);
 
                 HashMap<String, String> temporal = new HashMap<String, String>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
-                temporal.put(SEGUNDA_COLUMNA, marca);
-                temporal.put(TERCERA_COLUMNA, precio_unitario);
-                temporal.put(CUARTA_COLUMNA, cantidades);
-                temporal.put(QUINTA_COLUMNA, montos);
-                temporal.put(SEXTA_COLUMNA, id_producto);
-                temporal.put(SEPTIMA_COLUMNA, neto);
-                temporal.put(OCTAVA_COLUMNA, medida);
+                temporal.put(SEGUNDA_COLUMNA, descripcion);
+                temporal.put(TERCERA_COLUMNA, marca);
+                temporal.put(CUARTA_COLUMNA, precio_unitario);
+                temporal.put(QUINTA_COLUMNA, cantidades);
+                temporal.put(SEXTA_COLUMNA, montos);
+                temporal.put(SEPTIMA_COLUMNA, id_producto);
+                temporal.put(OCTAVA_COLUMNA, neto);
+                temporal.put(NOVENA_COLUMNA, medida);
                 lista.add(temporal);
             }
         }else {
@@ -433,7 +437,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     }
     public void editar() {
         lista.clear();
-        String id_producto, montos, neto, medida, cantidades, nombre, marca, precio_unitario;
+        String id_producto, montos, neto, medida, cantidades, descripcion, nombre, marca, precio_unitario;
         int supermercado_editar = 0;
         Compras compras = new Compras(contexto);
         Supermercado supermercado = new Supermercado(contexto);
@@ -465,13 +469,14 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             for(int inicio=0; inicio<bucle; inicio++) {
                 HashMap<String, String> hashmap= listado_edicion.get(inicio);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
-                marca = hashmap.get(SEGUNDA_COLUMNA);
-                precio_unitario = hashmap.get(TERCERA_COLUMNA);
-                cantidades = hashmap.get(CUARTA_COLUMNA);
-                montos = hashmap.get(QUINTA_COLUMNA);
-                id_producto = hashmap.get(SEXTA_COLUMNA);
-                neto = hashmap.get(SEPTIMA_COLUMNA);
-                medida = hashmap.get(OCTAVA_COLUMNA);
+                descripcion = hashmap.get(SEGUNDA_COLUMNA);
+                marca = hashmap.get(TERCERA_COLUMNA);
+                precio_unitario = hashmap.get(CUARTA_COLUMNA);
+                cantidades = hashmap.get(QUINTA_COLUMNA);
+                montos = hashmap.get(SEXTA_COLUMNA);
+                id_producto = hashmap.get(SEPTIMA_COLUMNA);
+                neto = hashmap.get(OCTAVA_COLUMNA);
+                medida = hashmap.get(NOVENA_COLUMNA);
 
                 datos_no_editados[j][0] = id_producto;
                 datos_no_editados [j][1] = cantidades;
@@ -479,13 +484,14 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
 
                 HashMap<String, String> temporal = new HashMap<String, String>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
-                temporal.put(SEGUNDA_COLUMNA, marca);
-                temporal.put(TERCERA_COLUMNA, precio_unitario);
-                temporal.put(CUARTA_COLUMNA, cantidades);
-                temporal.put(QUINTA_COLUMNA, montos);
-                temporal.put(SEXTA_COLUMNA, id_producto);
-                temporal.put(SEPTIMA_COLUMNA, neto);
-                temporal.put(OCTAVA_COLUMNA, medida);
+                temporal.put(SEGUNDA_COLUMNA, descripcion);
+                temporal.put(TERCERA_COLUMNA, marca);
+                temporal.put(CUARTA_COLUMNA, precio_unitario);
+                temporal.put(QUINTA_COLUMNA, cantidades);
+                temporal.put(SEXTA_COLUMNA, montos);
+                temporal.put(SEPTIMA_COLUMNA, id_producto);
+                temporal.put(OCTAVA_COLUMNA, neto);
+                temporal.put(NOVENA_COLUMNA, medida);
                 lista.add(temporal);
             }
         }else {

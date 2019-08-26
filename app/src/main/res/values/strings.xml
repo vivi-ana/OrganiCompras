@@ -62,6 +62,7 @@
     <string name="lugar">Lugar:</string>
     <string name="fecha">Fecha:</string>
     <string name="cantidadProductos">Cantidad de productos:</string>
+    <string name="descripcion">Descripcion</string>
     <string-array name="valores_array">
         <item>Enero</item>
         <item>Febrero</item>

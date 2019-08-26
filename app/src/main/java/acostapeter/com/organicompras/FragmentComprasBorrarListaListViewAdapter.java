@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.NOVENA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
@@ -27,7 +28,7 @@ public class FragmentComprasBorrarListaListViewAdapter extends BaseAdapter {
         this.lista = lista;
     }
     private class ViewHolder {
-        TextView nombre, subtotal, marca, cantidad_producto, precio_unidad, neto, medida;
+        TextView nombre, subtotal, descripcion, marca, cantidad_producto, precio_unidad, neto, medida;
         CheckBox id;
     }
     @Override
@@ -51,6 +52,7 @@ public class FragmentComprasBorrarListaListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.fragment_compras_borrar_lista_columnas, parent, false);
             holder = new ViewHolder();
             holder.nombre = convertView.findViewById(R.id.nombre);
+            holder.descripcion = convertView.findViewById(R.id.descrip);
             holder.marca = convertView.findViewById(R.id.marca);
             holder.neto = convertView.findViewById(R.id.neto);
             holder.medida = convertView.findViewById(R.id.medida);
@@ -64,13 +66,14 @@ public class FragmentComprasBorrarListaListViewAdapter extends BaseAdapter {
         }
         HashMap<String, String> map = lista.get(position);
         holder.nombre.setText(map.get(PRIMERA_COLUMNA));
-        holder.marca.setText(map.get(SEGUNDA_COLUMNA));
-        holder.precio_unidad.setText(map.get(TERCERA_COLUMNA));
-        holder.cantidad_producto.setText(map.get(CUARTA_COLUMNA));
-        holder.subtotal.setText(map.get(QUINTA_COLUMNA));
-        holder.id.setText(map.get(SEXTA_COLUMNA));
-        holder.neto.setText(map.get(SEPTIMA_COLUMNA));
-        holder.medida.setText(map.get(OCTAVA_COLUMNA));
+        holder.descripcion.setText(SEGUNDA_COLUMNA);
+        holder.marca.setText(map.get(TERCERA_COLUMNA));
+        holder.precio_unidad.setText(map.get(CUARTA_COLUMNA));
+        holder.cantidad_producto.setText(map.get(QUINTA_COLUMNA));
+        holder.subtotal.setText(map.get(SEXTA_COLUMNA));
+        holder.id.setText(map.get(SEPTIMA_COLUMNA));
+        holder.neto.setText(map.get(OCTAVA_COLUMNA));
+        holder.medida.setText(map.get(NOVENA_COLUMNA));
         return convertView;
     }
 }

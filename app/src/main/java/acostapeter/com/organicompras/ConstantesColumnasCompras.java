@@ -2,11 +2,12 @@ package acostapeter.com.organicompras;
 
 class ConstantesColumnasCompras {
     static final String PRIMERA_COLUMNA = "nombre";
-    static final String SEGUNDA_COLUMNA = "marca";
-    static final String TERCERA_COLUMNA = "precio";
-    static final String CUARTA_COLUMNA = "1";
-    static final String QUINTA_COLUMNA = "subtotal";
-    static final String SEXTA_COLUMNA = "id";
-    static final String SEPTIMA_COLUMNA = "neto";
-    static final String OCTAVA_COLUMNA = "medida";
+    static final String SEGUNDA_COLUMNA = "descripcion";
+    static final String TERCERA_COLUMNA = "marca";
+    static final String CUARTA_COLUMNA = "precio";
+    static final String QUINTA_COLUMNA = "1";
+    static final String SEXTA_COLUMNA = "subtotal";
+    static final String SEPTIMA_COLUMNA = "id";
+    static final String OCTAVA_COLUMNA = "neto";
+    static final String NOVENA_COLUMNA = "medida";
 }

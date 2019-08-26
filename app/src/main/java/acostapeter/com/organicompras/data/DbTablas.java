@@ -24,6 +24,7 @@ class DbTablas {
         static final String TABLA_PRODUCTOS= "productos";
         static final String CAMPO_ID_PROD = "id_producto";
         static final String CAMPO_NOMBRE = "nombre";
+        static final String CAMPO_DESCP = "descripcion";
         static final String CAMPO_MARCA = "marca";
         static final String CAMPO_CONT_NETO = "cont_neto";
         static final String CAMPO_MEDIDA = "medida";
@@ -84,6 +85,7 @@ class DbTablas {
     final String PROD_CREATE = "create table " + TablaProductos.TABLA_PRODUCTOS + " ( "
             + TablaProductos.CAMPO_ID_PROD + " real primary key, "
             + TablaProductos.CAMPO_NOMBRE + " integer not null , "
+            + TablaProductos.CAMPO_DESCP + " text not null , "
             + TablaProductos.CAMPO_MARCA + " text not null , "
             + TablaProductos.CAMPO_CONT_NETO + " real not null , "
             + TablaProductos.CAMPO_MEDIDA + " text not null ) ; ";

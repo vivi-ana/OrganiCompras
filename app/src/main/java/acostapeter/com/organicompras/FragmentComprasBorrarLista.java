@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.NOVENA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.OCTAVA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
@@ -28,7 +29,6 @@ import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_CO
 @SuppressWarnings("all")
 public class FragmentComprasBorrarLista extends AppCompatActivity {
     private ArrayList<HashMap<String, String>> lista;
-    String nombre = "";
     static int id_compras = 0;
     ListView lista_compras;
     final ArrayList<String> item_borrar = new ArrayList<String>();
@@ -122,7 +122,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
     }
     public void cargar() {
         ArrayList<HashMap<String, String>> listado_compras;
-        String id_producto, cantidades, montos, neto, medida, nombre, marca, precio_unitario;
+        String id_producto, cantidades, descripcion, montos, neto, medida, nombre, marca, precio_unitario;
         lista.clear();
         Compras compras = new Compras(getBaseContext());
         compras.maximo_compra(); //obtener el id
@@ -133,23 +133,25 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
             for (int i = 0; i < bucle; i++) {
                 HashMap<String, String> hashmap = listado_compras.get(i);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
-                marca = hashmap.get(SEGUNDA_COLUMNA);
-                precio_unitario = hashmap.get(TERCERA_COLUMNA);
-                cantidades = hashmap.get(CUARTA_COLUMNA);
-                montos = hashmap.get(QUINTA_COLUMNA);
-                id_producto = hashmap.get(SEXTA_COLUMNA);
-                neto = hashmap.get(SEPTIMA_COLUMNA);
-                medida = hashmap.get(OCTAVA_COLUMNA);
+                descripcion = hashmap.get(SEGUNDA_COLUMNA);
+                marca = hashmap.get(TERCERA_COLUMNA);
+                precio_unitario = hashmap.get(CUARTA_COLUMNA);
+                cantidades = hashmap.get(QUINTA_COLUMNA);
+                montos = hashmap.get(SEXTA_COLUMNA);
+                id_producto = hashmap.get(SEPTIMA_COLUMNA);
+                neto = hashmap.get(OCTAVA_COLUMNA);
+                medida = hashmap.get(NOVENA_COLUMNA);
 
                 HashMap<String, String> temporal = new HashMap<String, String>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
-                temporal.put(SEGUNDA_COLUMNA, marca);
-                temporal.put(TERCERA_COLUMNA, precio_unitario);
-                temporal.put(CUARTA_COLUMNA, cantidades);
-                temporal.put(QUINTA_COLUMNA, montos);
-                temporal.put(SEXTA_COLUMNA, id_producto);
-                temporal.put(SEPTIMA_COLUMNA, neto);
-                temporal.put(OCTAVA_COLUMNA, medida);
+                temporal.put(SEGUNDA_COLUMNA, descripcion);
+                temporal.put(TERCERA_COLUMNA, marca);
+                temporal.put(CUARTA_COLUMNA, precio_unitario);
+                temporal.put(QUINTA_COLUMNA, cantidades);
+                temporal.put(SEXTA_COLUMNA, montos);
+                temporal.put(SEPTIMA_COLUMNA, id_producto);
+                temporal.put(OCTAVA_COLUMNA, neto);
+                temporal.put(NOVENA_COLUMNA, medida);
                 lista.add(temporal);
             }
         } else {

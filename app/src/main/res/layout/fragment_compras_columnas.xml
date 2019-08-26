@@ -96,12 +96,20 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="104dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/descrip"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion"
+            app:layout_constraintStart_toStartOf="@+id/nombre"
+            app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
         <TextView
             android:id="@+id/nombre"
@@ -123,8 +131,8 @@
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:text="@string/marca"
-            app:layout_constraintStart_toStartOf="@+id/nombre"
-            app:layout_constraintTop_toBottomOf="@+id/nombre" />
+            app:layout_constraintStart_toStartOf="@+id/descrip"
+            app:layout_constraintTop_toBottomOf="@+id/descrip" />
 
 
         <TextView
