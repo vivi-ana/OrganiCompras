@@ -16,6 +16,7 @@ import acostapeter.com.organicompras.data.DbCRUD;
 public class Productos {
     private String id_producto;
     private String nombre;
+    private String descripcion;
     private String marca;
     private double neto;
     private String medida;
@@ -45,6 +46,14 @@ public class Productos {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public void setNombre(String nombre) {

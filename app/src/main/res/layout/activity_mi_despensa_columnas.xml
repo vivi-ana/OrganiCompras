@@ -91,14 +91,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/descrip"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/nombre"
+            app:layout_constraintTop_toBottomOf="@+id/nombre" />
+
+        <TextView
             android:id="@+id/marca"
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:text="@string/marca"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/neto"
-            app:layout_constraintStart_toStartOf="@+id/neto"
-            app:layout_constraintTop_toBottomOf="@+id/nombre" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descrip" />
 
 
         <TextView

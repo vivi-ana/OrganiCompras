@@ -9,6 +9,7 @@ import java.util.HashMap;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEPTIMA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.TERCERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
@@ -46,7 +47,7 @@ public class Despensa {
     ArrayList<HashMap<String, String>> detalle_inventario(){
         int cantidad_id;
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-        String nombre="", marca = "", neto = "", medida = "", cantidad_producto;
+        String nombre="", descripcion = "", marca = "", neto = "", medida = "", cantidad_producto;
         Cursor lista_inventario = admin.recargar_despensa();
         if (lista_inventario.moveToFirst()){
             do {
@@ -64,9 +65,10 @@ public class Despensa {
                         Cursor datos_producto = admin.producto(id_producto);
                         if(datos_producto.moveToFirst()){
                         nombre = datos_producto.getString(1);
-                        marca = datos_producto.getString(2);
-                        neto = datos_producto.getString(3);
-                        medida = datos_producto.getString(4);
+                        descripcion = datos_producto.getString(2);
+                        marca = datos_producto.getString(3);
+                        neto = datos_producto.getString(4);
+                        medida = datos_producto.getString(5);
                         }else{
                             Cursor datos_producto_no_encontrado = admin.recargar_producto_no_encontrado(id_producto);
                             if (datos_producto_no_encontrado.moveToFirst())
@@ -80,16 +82,18 @@ public class Despensa {
                 }
                 HashMap<String, String> temporal = new HashMap<String, String>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
-                temporal.put(SEGUNDA_COLUMNA, cantidad_producto);
-                temporal.put(TERCERA_COLUMNA, id_producto);
+                temporal.put(TERCERA_COLUMNA, cantidad_producto);
+                temporal.put(CUARTA_COLUMNA, id_producto);
                 if (cantidad_id == 13){
-                    temporal.put(CUARTA_COLUMNA, marca);
-                    temporal.put(QUINTA_COLUMNA, neto);
-                    temporal.put(SEXTA_COLUMNA, medida);
+                    temporal.put(SEGUNDA_COLUMNA, descripcion);
+                    temporal.put(QUINTA_COLUMNA, marca);
+                    temporal.put(SEXTA_COLUMNA, neto);
+                    temporal.put(SEPTIMA_COLUMNA, medida);
                 }else {
-                    temporal.put(CUARTA_COLUMNA, "");
+                    temporal.put(SEGUNDA_COLUMNA, "");
                     temporal.put(QUINTA_COLUMNA, "");
                     temporal.put(SEXTA_COLUMNA, "");
+                    temporal.put(SEPTIMA_COLUMNA, "");
                 }
                 lista.add(temporal);
             } while (lista_inventario.moveToNext());

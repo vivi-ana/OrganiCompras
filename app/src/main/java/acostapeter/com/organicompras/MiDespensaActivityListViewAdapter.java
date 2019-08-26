@@ -13,6 +13,7 @@ import static acostapeter.com.organicompras.ConstantesColumnasDespensa.CUARTA_CO
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEPTIMA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.TERCERA_COLUMNA;
 
@@ -37,7 +38,7 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
         if (bucle != 0) {
             for (int i = 0; i < bucle; i++) {
                 HashMap<String, String> hashmap = listado_despensa.get(i);
-                item_cantidad[i] = hashmap.get(SEGUNDA_COLUMNA);
+                item_cantidad[i] = hashmap.get(TERCERA_COLUMNA);
             }
         }
     }
@@ -54,7 +55,7 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
         return 0;
     }
     private class ViewHolder {
-        TextView nombre, id, neto, marca, medida;
+        TextView nombre, id, neto, marca, medida, descripcion;
         TextView producto_cantidad;
         Button btnMas;
         Button btnMenos;
@@ -67,6 +68,7 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.activity_mi_despensa_columnas, parent, false);
             holder = new ViewHolder();
+            holder.descripcion = convertView.findViewById(R.id.descrip);
             holder.marca = convertView.findViewById(R.id.marca);
             holder.neto = convertView.findViewById(R.id.neto);
             holder.medida = convertView.findViewById(R.id.medida);
@@ -87,13 +89,14 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
             cambiar_cantidad();
             holder.producto_cantidad.setText(item_cantidad[position]);
         }else {
-            holder.producto_cantidad.setText(map.get(SEGUNDA_COLUMNA));
+            holder.producto_cantidad.setText(map.get(TERCERA_COLUMNA));
         }
-        holder.id.setText(map.get(TERCERA_COLUMNA));
-        holder.marca.setText(map.get(CUARTA_COLUMNA));
-        holder.neto.setText(map.get(QUINTA_COLUMNA));
-        holder.medida.setText(map.get(SEXTA_COLUMNA));
-        if (!"".equals(map.get(CUARTA_COLUMNA))){
+        holder.id.setText(map.get(CUARTA_COLUMNA));
+        holder.marca.setText(map.get(QUINTA_COLUMNA));
+        holder.neto.setText(map.get(SEXTA_COLUMNA));
+        holder.medida.setText(map.get(SEPTIMA_COLUMNA));
+        if (!"".equals(map.get(QUINTA_COLUMNA))){
+            holder.descripcion.setVisibility(View.VISIBLE);
             holder.marca.setVisibility(View.VISIBLE);
             holder.neto.setVisibility(View.VISIBLE);
             holder.medida.setVisibility(View.VISIBLE);

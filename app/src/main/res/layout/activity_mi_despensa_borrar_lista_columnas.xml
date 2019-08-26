@@ -29,12 +29,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/descrip"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion"
+            app:layout_constraintStart_toStartOf="@+id/nombre"
+            app:layout_constraintTop_toBottomOf="@+id/nombre" />
+
+        <TextView
             android:id="@+id/marca"
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:text="@string/marca"
-            app:layout_constraintStart_toEndOf="@+id/check"
-            app:layout_constraintTop_toBottomOf="@+id/nombre" />
+            app:layout_constraintStart_toStartOf="@+id/descrip"
+            app:layout_constraintTop_toBottomOf="@+id/descrip" />
 
 
         <TextView
@@ -59,10 +67,11 @@
             android:layout_height="34dp"
             android:layout_marginStart="20dp"
             android:checked="false"
-            app:layout_constraintBottom_toTopOf="@+id/marca"
+            app:layout_constraintBottom_toTopOf="@+id/descrip"
             app:layout_constraintEnd_toStartOf="@+id/nombre"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
     </android.support.constraint.ConstraintLayout>
 
     <TextView

@@ -233,7 +233,7 @@ private DbCRUD admin;
 
     ArrayList<HashMap<String, String>> detalle_compras_editada(String producto){
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-        String id_producto, cantidades, montos, neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
+        String id_producto, cantidades, montos, descripcion = "", neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
         DecimalFormat df = new DecimalFormat("0.00");
         long producto_id;
         double monto;
@@ -249,9 +249,10 @@ private DbCRUD admin;
                 Cursor datos_producto = admin.producto(id_producto);
                 if (datos_producto.moveToFirst()) {
                     nombre = datos_producto.getString(1);
-                    marca = datos_producto.getString(2);
-                    neto = datos_producto.getString(3);
-                    medida = datos_producto.getString(4);
+                    descripcion = datos_producto.getString(2);
+                    marca = datos_producto.getString(3);
+                    neto = datos_producto.getString(4);
+                    medida = datos_producto.getString(5);
                     double preun = admin.por_supermercado(id_producto, supermercado);
                     precio_unitario = (df.format(preun)).replace(",",".");
                 }else{
@@ -264,13 +265,14 @@ private DbCRUD admin;
                 }
                 HashMap<String, String> temporal = new HashMap<>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
-                temporal.put(SEGUNDA_COLUMNA, marca);
-                temporal.put(TERCERA_COLUMNA, precio_unitario);
-                temporal.put(CUARTA_COLUMNA, cantidades);
-                temporal.put(QUINTA_COLUMNA, montos);
-                temporal.put(SEXTA_COLUMNA, id_producto);
-                temporal.put(SEPTIMA_COLUMNA, neto);
-                temporal.put(OCTAVA_COLUMNA, medida);
+                temporal.put(SEGUNDA_COLUMNA, descripcion);
+                temporal.put(TERCERA_COLUMNA, marca);
+                temporal.put(CUARTA_COLUMNA, precio_unitario);
+                temporal.put(QUINTA_COLUMNA, cantidades);
+                temporal.put(SEXTA_COLUMNA, montos);
+                temporal.put(SEPTIMA_COLUMNA, id_producto);
+                temporal.put(OCTAVA_COLUMNA, neto);
+                temporal.put(NOVENA_COLUMNA, medida);
                 lista.add(temporal);
             } while (lista_compras.moveToNext());
         }
