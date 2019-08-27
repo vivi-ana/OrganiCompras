@@ -131,21 +131,16 @@ public class Productos {
     void actualizar_producto_no_encontrado(){
         admin.editar_producto_no_encontrado(nombre, precio,id_supermercado,id_producto);
     }
-    ArrayList<HashMap<String, String>> cargar_producto_especifico(){
-        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+    void cargar_producto_especifico(){
         Cursor producto_especifico = admin.buscar_producto_especifico(id_producto);
-        if (producto_especifico.moveToFirst()) {
-            do {
-                long producto_id = producto_especifico.getLong(0);//id del producto
-                id_producto = Long.toString(producto_id); //id del producto
+        if (producto_especifico.moveToFirst()) {//traigo el nombre del producto desde la tabla productos
                 nombre = producto_especifico.getString(1);
-                HashMap<String, String> temp = new HashMap<String, String>();
-                temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(TERCERA_COLUMNA, id_producto);
-                lista.add(temp);
-            } while (producto_especifico.moveToNext());
+        }else{//traigo el nombre del producto desde la tabla producots no enontrados de compras
+        Cursor producto_no_encontrado_compras = admin.compra_producto_no_encontrado(id_producto);
+            if (producto_no_encontrado_compras.moveToFirst()) {
+                nombre = producto_no_encontrado_compras.getString(0);
+            }
         }
-        return lista;
     }
     ArrayList<HashMap<String, String>> producto_por_nombre(){
         ArrayList<HashMap<String, String>> lista_producto = new ArrayList<>();

@@ -402,9 +402,8 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     }
 
     public void ComparacionProductos(String CodBarra) {
-        String id;
+        String id, nombreProducto;
         ArrayList<HashMap<String, String>> listado_despensa;
-        ArrayList<HashMap<String, String>> listado_producto;
         Despensa despensa = new Despensa(contexto);
         Productos productos = new Productos(contexto);
         listado_despensa = despensa.detalle_inventario();//recorro despensa
@@ -421,12 +420,12 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     break;
                 } else {//entonces no esta por codigo de barra hay que buscar por nombre.
                     productos.setId(CodBarra);
-                    listado_producto = productos.cargar_producto_especifico();
-                    //int bucle_producto = listado_despensa.size();
-                    int comparado = listado_producto.size();
-                    if (comparado != 0) {
+                    productos.cargar_producto_especifico();
+                    nombreProducto = productos.getNombre(); // traigo el nombre del productoCodBarra
+//falta traer el nombre del producto que viene de inventario por su id, tambien puede estar en prod_no_en_Desp ya esta al parecer.
                         HashMap<String, String> hashmapa = listado_despensa.get(0);
-                        String idnombre = hashmapa.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);//tengo el id del nombre del producto
+                        String idnombre = hashmapa.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);//tengo nombre del producto
+                    if (nombreProducto.equals(idnombre)) {
                         despensa.setId_producto(idnombre);
                         despensa.borrar_item();//borra por el id
                         break;
