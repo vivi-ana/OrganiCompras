@@ -37,7 +37,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
     DecimalFormat df = new DecimalFormat("0.00");
     final ArrayList<String> item_borrar = new ArrayList<String>();
     public static boolean cargar = false;
-    TextView txt_maximo, label_maximo, txt_total, cantidad_producto;
+    TextView txt_total, cantidad_producto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +90,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         }
         txt_total = findViewById(R.id.total);
         cantidad_producto = findViewById(R.id.cantidad_producto);
-        label_maximo = findViewById(R.id.lbl_maximo);
-        txt_total = findViewById(R.id.total);
         ArrayList<HashMap<String, String>> listado;
-        cantidad_producto = findViewById(R.id.cantidad_producto);
         Compras compras = new Compras(getBaseContext());
         compras.maximo_compra(); //obtener el id
         id_compras = compras.getId();
