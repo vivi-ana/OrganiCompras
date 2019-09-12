@@ -92,7 +92,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         cantidad_producto = findViewById(R.id.cantidad_producto);
         ArrayList<HashMap<String, String>> listado;
         Compras compras = new Compras(getBaseContext());
-        compras.maximo_compra(); //obtener el id
+        compras.maximo_compra(); //obtener el id de la compra
         id_compras = compras.getId();
         compras.setId(id_compras);
         compras.cargar_algunos_detalles_compras();
