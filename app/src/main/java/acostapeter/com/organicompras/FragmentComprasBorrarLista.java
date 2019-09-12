@@ -90,7 +90,9 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         }
         txt_total = findViewById(R.id.total);
         cantidad_producto = findViewById(R.id.cantidad_producto);
-        ArrayList<HashMap<String, String>> listado;
+        cambiartxt();
+    }
+    public void cambiartxt(){
         Compras compras = new Compras(getBaseContext());
         compras.maximo_compra(); //obtener el id de la compra
         id_compras = compras.getId();
@@ -105,8 +107,6 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
             total = df.format(total_compra);
             txt_total.setText(total);
             cantidad_producto.setText(cantidad);
-        }else{
-            Toast.makeText(this, "No existe el detalle", Toast.LENGTH_SHORT).show();
         }
     }
     public void mensaje() {
@@ -131,6 +131,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                     lista_compras.setAdapter(adapter);
                     cargar();
                     item_borrar.clear();//borrar
+                    cambiartxt();
                 } else {
                     Toast.makeText(getBaseContext(), "Debe seleccionar algun producto", Toast.LENGTH_LONG).show();
                 }
