@@ -74,7 +74,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                     } else {
                         int count = lista_compras.getAdapter().getCount();
                         for (int i = 0; i < count; i++) {
-                            LinearLayout itemLayout = (LinearLayout) lista_compras.getChildAt(i); // Encontrar el objeto dentro del constraint
+                            ConstraintLayout itemLayout = (ConstraintLayout) lista_compras.getChildAt(i); // Encontrar el objeto dentro del constraint
                             CheckBox checkbox = itemLayout.findViewById(R.id.check);
                             checkbox.setChecked(false);
                         }
