@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,9 +32,12 @@ import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_CO
 public class FragmentComprasBorrarLista extends AppCompatActivity {
     private ArrayList<HashMap<String, String>> lista;
     static int id_compras = 0;
+    String cantidad, total;
     ListView lista_compras;
+    DecimalFormat df = new DecimalFormat("0.00");
     final ArrayList<String> item_borrar = new ArrayList<String>();
     public static boolean cargar = false;
+    TextView txt_maximo, label_maximo, txt_total, cantidad_producto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,27 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                 }
             });
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+        }
+        txt_total = findViewById(R.id.total);
+        cantidad_producto = findViewById(R.id.cantidad_producto);
+        label_maximo = findViewById(R.id.lbl_maximo);
+        txt_total = findViewById(R.id.total);
+        ArrayList<HashMap<String, String>> listado;
+        cantidad_producto = findViewById(R.id.cantidad_producto);
+        Compras compras = new Compras(getBaseContext());
+        compras.maximo_compra(); //obtener el id
+        id_compras = compras.getId();
+        compras.setId(id_compras);
+        compras.cargar_algunos_detalles_compras();
+        if (!compras.isVacio()) { //si no esta vacio el detalle
+            int cant = compras.getCantidad();
+            cantidad = String.valueOf(cant);
+            double total_compra = compras.getTotal();
+            total = df.format(total_compra);
+            txt_total.setText(total);
+            cantidad_producto.setText(cantidad);
+        }else{
+            Toast.makeText(this, "No existe el detalle", Toast.LENGTH_SHORT).show();
         }
     }
     public void mensaje() {
