@@ -87,7 +87,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                                     HashMap<String, String> hashmap= listado_compras.get(i);
                                     String cantidad = hashmap.get(CUARTA_COLUMNA);
                                     if (cantidad != null) {
-                                        int cantidad_nueva = Integer.parseInt(cantidad);
+                                        double cantidad_nueva = Double.parseDouble(cantidad);
                                         double multiplicacion = cantidad_nueva * precioproducto; //subtotal producto
                                         String precio_formateado = (df.format(multiplicacion)).replace(",", ".");
                                         double precio_nuevo = Double.parseDouble(precio_formateado);
