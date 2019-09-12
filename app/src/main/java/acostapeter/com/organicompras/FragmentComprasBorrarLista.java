@@ -101,7 +101,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         if (!compras.isVacio()) {
             compras.total_productos_comprados();
             compras.calcular_total_compra();//si no esta vacio el detalle
-            int cant = compras.getCantidad();
+            int cant = compras.getCant_total_productos();
             cantidad = String.valueOf(cant);
             double total_compra = compras.getTotal();
             total = df.format(total_compra);
