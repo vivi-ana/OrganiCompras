@@ -96,7 +96,9 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         id_compras = compras.getId();
         compras.setId(id_compras);
         compras.cargar_algunos_detalles_compras();
-        if (!compras.isVacio()) { //si no esta vacio el detalle
+        if (!compras.isVacio()) {
+            compras.contar_productos_compra();
+            compras.calcular_total_compra();//si no esta vacio el detalle
             int cant = compras.getCantidad();
             cantidad = String.valueOf(cant);
             double total_compra = compras.getTotal();
