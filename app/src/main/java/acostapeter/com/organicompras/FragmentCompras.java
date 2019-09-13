@@ -393,8 +393,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             compras.setId(id_compras);
             compras.calcular_total_compra();
             double total_compra = compras.getTotal();
-            String total = df.format(String.valueOf(total_compra));
-            txt_total.setText(total);
+            txt_total.setText(df.format(total_compra));
             cantidad_producto.setText(cantidad_productos);
         }else {
             txt_total.setText("0");
