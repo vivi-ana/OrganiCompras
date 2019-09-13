@@ -379,7 +379,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         lista.clear();
     }
     public void llenar() {//se usa en la lista de productos no encontrados
-        FragmentComprasListViewAdapter adapter = new FragmentComprasListViewAdapter(activity, lista);
+        FragmentComprasListViewAdapter adapter = new FragmentComprasListViewAdapter(getActivity(), lista);
         listado_productos.setAdapter(adapter);
     }
     public void cambiarTxtTotal(){ //aca se altera el total general de la tabla compras tambien.
