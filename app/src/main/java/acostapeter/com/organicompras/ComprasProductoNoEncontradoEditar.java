@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
 
 public class ComprasProductoNoEncontradoEditar extends DialogFragment {
     Button BtnAaceptar, BtnCancelar;
@@ -85,9 +86,9 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                             if (bucle != 0){ //si hay detalles en esa compra posiblemente se necesite cambiar el precio.
                                 for(int i=0; i<bucle; i++) {
                                     HashMap<String, String> hashmap= listado_compras.get(i);
-                                    String cantidad = hashmap.get(CUARTA_COLUMNA);
+                                    String cantidad = hashmap.get(QUINTA_COLUMNA);
                                     if (cantidad != null) {
-                                        double cantidad_nueva = Double.parseDouble(cantidad);
+                                        int cantidad_nueva = Integer.parseInt(cantidad);
                                         double multiplicacion = cantidad_nueva * precioproducto; //subtotal producto
                                         String precio_formateado = (df.format(multiplicacion)).replace(",", ".");
                                         double precio_nuevo = Double.parseDouble(precio_formateado);
