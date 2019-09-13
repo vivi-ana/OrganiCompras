@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static acostapeter.com.organicompras.ConstantesColumnasCompras.CUARTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COLUMNA;
 
 public class ComprasProductoNoEncontradoEditar extends DialogFragment {
