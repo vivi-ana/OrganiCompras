@@ -425,8 +425,9 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     //falta traer el nombre del producto que viene de inventario por su id, tambien puede estar en prod_no_en_Desp ya esta al parecer.
                         HashMap<String, String> hashmapa = listado_despensa.get(i);
                         String idnombre = hashmapa.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);//tengo nombre del producto
+                        String idborrar = hashmapa.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);
                     if (nombreProducto.equals(idnombre)) {
-                        despensa.setId_producto(idnombre);
+                        despensa.setId_producto(idborrar);
                         despensa.borrar_item();//borra por el id
                         break;
                     }
