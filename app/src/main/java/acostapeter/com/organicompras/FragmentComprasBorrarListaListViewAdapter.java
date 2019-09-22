@@ -66,7 +66,7 @@ public class FragmentComprasBorrarListaListViewAdapter extends BaseAdapter {
         }
         HashMap<String, String> map = lista.get(position);
         holder.nombre.setText(map.get(PRIMERA_COLUMNA));
-        holder.descripcion.setText(SEGUNDA_COLUMNA);
+        holder.descripcion.setText(map.get(SEGUNDA_COLUMNA));
         holder.marca.setText(map.get(TERCERA_COLUMNA));
         holder.precio_unidad.setText(map.get(CUARTA_COLUMNA));
         holder.cantidad_producto.setText(map.get(QUINTA_COLUMNA));
