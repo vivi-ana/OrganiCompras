@@ -422,8 +422,8 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     productos.setId(CodBarra);
                     productos.cargar_producto_especifico();
                     nombreProducto = productos.getNombre(); // traigo el nombre del productoCodBarra
-//falta traer el nombre del producto que viene de inventario por su id, tambien puede estar en prod_no_en_Desp ya esta al parecer.
-                        HashMap<String, String> hashmapa = listado_despensa.get(0);
+                    //falta traer el nombre del producto que viene de inventario por su id, tambien puede estar en prod_no_en_Desp ya esta al parecer.
+                        HashMap<String, String> hashmapa = listado_despensa.get(i);
                         String idnombre = hashmapa.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);//tengo nombre del producto
                     if (nombreProducto.equals(idnombre)) {
                         despensa.setId_producto(idnombre);
