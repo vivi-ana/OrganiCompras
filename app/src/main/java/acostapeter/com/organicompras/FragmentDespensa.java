@@ -26,7 +26,7 @@ import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_CO
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
 @SuppressWarnings("all")
 public class FragmentDespensa extends android.support.v4.app.Fragment{
-    private ArrayList<HashMap<String, String>> lista;
+    static ArrayList<HashMap<String, String>> lista;
     String marca = "";
     ListView lista_despensa;
     final ArrayList<String> item_borrar = new ArrayList<String>();
@@ -154,15 +154,22 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
                 temporal.put(SEPTIMA_COLUMNA, medida);
 
                 lista.add(temporal);
-                adapter = new FragmentDespensaListViewAdapter(getActivity(), lista);
-                lista_despensa.setAdapter(adapter);
+                //adapter = new FragmentDespensaListViewAdapter(getActivity(), lista);
+                //lista_despensa.setAdapter(adapter);
             }
+        }
+    }
+    public void listas(ArrayList<HashMap<String, String>> lista) {
+        if (getActivity()!= null) {
+            FragmentDespensaListViewAdapter adapter = new FragmentDespensaListViewAdapter(getActivity(), lista);
+            lista_despensa.setAdapter(adapter);
         }
     }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
+            listas(lista);
             cargar(); //vuelve a recargar.
         }
     }
