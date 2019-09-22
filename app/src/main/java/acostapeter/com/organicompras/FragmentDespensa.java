@@ -154,8 +154,8 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
                 temporal.put(SEPTIMA_COLUMNA, medida);
 
                 lista.add(temporal);
-                //adapter = new FragmentDespensaListViewAdapter(getActivity(), lista);
-                //lista_despensa.setAdapter(adapter);
+                adapter = new FragmentDespensaListViewAdapter(getActivity(), lista);
+                lista_despensa.setAdapter(adapter);
             }
         }
     }
