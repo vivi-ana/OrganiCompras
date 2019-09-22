@@ -426,7 +426,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                         HashMap<String, String> hashmapa = listado_despensa.get(i);
                         String idnombre = hashmapa.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);//tengo nombre del producto
                         String idborrar = hashmapa.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);
-                    if (nombreProducto.equals(idnombre)) {
+                    if (nombreProducto.equalsIgnoreCase(idnombre)) {
                         despensa.setId_producto(idborrar);
                         despensa.borrar_item();//borra por el id
                         break;
