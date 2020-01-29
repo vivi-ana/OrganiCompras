@@ -23,7 +23,7 @@ class DbTablas {
     static class TablaProductos {
         static final String TABLA_PRODUCTOS= "productos";
         static final String CAMPO_ID_PROD = "id_producto";
-        static final String CAMPO_NOMBRE = "nombre";
+        static final String CAMPO_NOMBRE = "id_detalle_producto";
         static final String CAMPO_DESCP = "descripcion";
         static final String CAMPO_MARCA = "marca";
         static final String CAMPO_CONT_NETO = "cont_neto";
@@ -48,7 +48,7 @@ class DbTablas {
     }
     static class TablaDetallesProd {
         static final String TABLA_DETALLE_PROD = "detalle_producto";
-        static final String CAMPO_ID_PROD = "id_producto";
+        static final String CAMPO_ID_PROD = "id_detalle_producto";
         static final String CAMPO_NOMBRE = "nombre";
     }
     static class TablaProdNoEncoDespensa {
