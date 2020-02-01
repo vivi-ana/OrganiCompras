@@ -185,7 +185,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_despensa.get(i);
                 nombre = hashmap.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);
-                id_producto = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
+                id_producto = hashmap.get(CUARTA_COLUMNA);
                 if (id_producto !=null) {
                     int cantidad_id = id_producto.length();
                     if (cantidad_id == 13) {
