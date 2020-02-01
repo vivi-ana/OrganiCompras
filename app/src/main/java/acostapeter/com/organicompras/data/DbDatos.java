@@ -62,6 +62,7 @@ class DbDatos {
         Productos("7622300868512", "8", "Sabor naranja","Tang", "18", "gr", db);
         Productos("7790407031013", "9", "Amargo","Aguila", "100", "gr", db);
         Productos("7798116010015", "10","Largo Fino", "Itajai", "1000", "gr", db);
+        Productos("8412345678905", "10", "Largo Grueso", "Marolio", "500", "gr", db);
         ProductosXSuper("7791234567898", "1", "30.20", db);
         ProductosXSuper("7791234567898", "2", "35", db);
         ProductosXSuper("7791234567898", "3", "40", db);
@@ -101,5 +102,8 @@ class DbDatos {
         ProductosXSuper("7798116010015", "1", "153.20", db);
         ProductosXSuper("7798116010015", "2", "159.50", db);
         ProductosXSuper("7798116010015", "3", "165.50", db);
+        ProductosXSuper("8412345678905", "1", "50.25", db);
+        ProductosXSuper("8412345678905", "2", "50.70", db);
+        ProductosXSuper("8412345678905", "3", "52.25", db);
     }
 }
