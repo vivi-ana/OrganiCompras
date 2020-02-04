@@ -195,7 +195,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                             return;
                         }
                     }else{
-                        if (nombre.equals(nombre_producto)) {
+                        if (nombre.equalsIgnoreCase(nombre_producto)) {
                             Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
                             verificado = true;
                             return;
