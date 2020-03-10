@@ -9,44 +9,12 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout6"
-        android:layout_width="274dp"
-        android:layout_height="205dp"
+        android:layout_width="267dp"
+        android:layout_height="472dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/prodNombre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/precioProducto"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            app:layout_constraintBottom_toTopOf="@+id/editPrecio"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editNombre" />
-
-        <EditText
-            android:id="@+id/editNombre"
-            android:layout_width="238dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/prodPrecio"
-            android:layout_alignStart="@+id/prodPrecio"
-            android:layout_alignEnd="@+id/prodPrecio"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:inputType="text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prodPrecio"
-            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/prodPrecio"
@@ -55,24 +23,146 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/precioProducto"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintBottom_toTopOf="@+id/editPrecio"
+            app:layout_constraintEnd_toStartOf="@+id/txtObligatorio2"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editNeto"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/editNombre"
+            android:layout_width="238dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prodNombre"
+            android:layout_alignStart="@+id/prodNombre"
+            android:layout_alignEnd="@+id/prodNombre"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prodNombre"
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:id="@+id/prodNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="13dp"
             android:layout_marginBottom="8dp"
             android:text="@string/nombreProducto"
             android:textAppearance="?android:attr/textAppearanceLarge"
             app:layout_constraintBottom_toTopOf="@+id/editNombre"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txtObligatorio"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <TextView
+            android:id="@+id/ProdDescrip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/descripcion"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintBottom_toTopOf="@+id/editDescrip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editNombre" />
+
+        <EditText
+            android:id="@+id/editDescrip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="13dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ProdDescrip"
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:id="@+id/prodMarca"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/marca"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editDescrip" />
+
+        <EditText
+            android:id="@+id/editMarca"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="13dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prodMarca"
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:id="@+id/ProdNeto"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/neto"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editMarca" />
+
+        <EditText
+            android:id="@+id/editNeto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toStartOf="@+id/ProdMedida"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ProdNeto"
+            tools:ignore="Autofill" />
+
+        <Spinner
+            android:id="@+id/ProdMedida"
+            android:layout_width="114dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editNeto"
+            app:layout_constraintTop_toBottomOf="@+id/ProdNeto" />
 
         <EditText
             android:id="@+id/editPrecio"
             android:layout_width="238dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/prodPrecio"
-            android:layout_alignStart="@+id/prodPrecio"
-            android:layout_alignEnd="@+id/prodPrecio"
+            android:layout_below="@+id/prodNombre"
+            android:layout_alignStart="@+id/prodNombre"
+            android:layout_alignEnd="@+id/prodNombre"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="19dp"
             android:layout_marginBottom="16dp"
@@ -82,8 +172,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prodNombre"
+            app:layout_constraintTop_toBottomOf="@+id/prodPrecio"
             tools:ignore="Autofill" />
+
+        <TextView
+            android:id="@+id/txtObligatorio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/obligatorio"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtObligatorio2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:text="@string/obligatorio"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ProdMedida" />
+
 
     </android.support.constraint.ConstraintLayout>
 

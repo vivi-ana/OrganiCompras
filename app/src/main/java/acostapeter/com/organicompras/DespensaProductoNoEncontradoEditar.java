@@ -93,7 +93,7 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
                                     }
                                 }
                             }
-                            productos.setId(codigo);
+                            productos.setCodigo(codigo);
                             productos.setNombre(nom);
                             productos.editar_producto_no_encontrado();
                             dismiss();

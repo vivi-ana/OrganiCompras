@@ -22,7 +22,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(tablas.INVENTARIO_CREATE);
         db.execSQL(tablas.SUPER_CREATE);
         db.execSQL(tablas.PRODXSUPER_CREATE);
-        db.execSQL(tablas.DETALLEPROD_CREATE);
+        db.execSQL(tablas.EXISTENTES_CREATE);
         db.execSQL(tablas.DESPENSANOPROD_CREATE);
         db.execSQL(tablas.SUPERNOPROD_CREATE);
         datos.Ingresar(db);

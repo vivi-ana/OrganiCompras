@@ -97,7 +97,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     listas(lista);
-        int count;
+        int count, id_producto = 0;
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
@@ -107,31 +107,33 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 compras.maximo_compra(); //obtener el id y el supermercado donde compra
                 id_compras = compras.getId();
                 id_supermercado = compras.getSupermercado();
-                productos.setId(scanContent);
+                productos.setCodigo(scanContent);
                 productos.setId_supermercado(id_supermercado);
-                productos.precio();
+                productos.precio_existente();
                 double precio = productos.getPrecio();
+                productos.obtener_id_producto();
+                id_producto = getId();
                 if (precio != 0){ //verifico que el producto este en la bd de lo contrario tiene que agregar el usuario
-                    compras.total_productos(scanContent);
+                    compras.total_productos(id_producto);
                     count = compras.getCant_total_productos();
                     if (count == 0) { //verifico que no este en la lista para que no cargue dos veces el mismo producto
                         lista.clear();
-                        comprar(scanContent, precio);
+                        comprar(id_producto, precio);
                         cargar();
                     }else {
                         Toast.makeText(getActivity(), "Este producto ya se encuentra en la lista", Toast.LENGTH_LONG).show();
                         cargar();
                     }
                 }else{
-                    compras.total_productos(scanContent);
+                    compras.total_productos(id_producto);
                     count = compras.getCant_total_productos();
                     if (count == 0) { //verifico que no este en la lista para que no cargue dos veces el mismo producto
-                        productos.setId(scanContent); //me fijo si el usuario no dio de alta en tabla provisoria
+                        productos.setId_producto(id_producto); //me fijo si el usuario no dio de alta en tabla provisoria
                         productos.producto_no_encontrado();
                         precio = productos.getPrecio();
                             if (precio !=0){ //si dio de alta puede comprar el producto
                                 lista.clear();
-                                comprar(scanContent, precio);
+                                comprar(id_producto, precio);
                                 cargar();
                             }else{//de lo contrario se da de alta en la tabla provisoria.
                                 productonoencontrado(id_supermercado, scanContent);
@@ -149,15 +151,15 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
             Toast.makeText(getActivity(), "No se recibe datos", Toast.LENGTH_SHORT).show();
         }
     }
-    public void comprar(String scanContent, double precio_producto){
+    public void comprar(int id_producto, double precio_producto){
         double suma_total, total_compras_anterior;
         int acumulador_cantidad_productos, total_de_productos;
         String txt_cantidad, total;
         Compras compras = new Compras(contexto);
         compras.setId(id_compras);
         compras.setTotal_unitario(precio_producto);
-        compras.agregar_detalle_compra(scanContent);
-        ComparacionProductos(scanContent); //enviar el codigo de barra del producto agregado. Despues de agregar a la tabla
+        compras.agregar_detalle_compra(id_producto);
+        ComparacionProductos(id_producto); //enviar el codigo de barra del producto agregado. Despues de agregar a la tabla
         text_total_compras = txt_total.getText().toString(); //capturo lo que tiene txttotal
         total_compras_anterior = Double.parseDouble(text_total_compras);//traigo el precio unitario
         suma_total = total_compras_anterior + precio_producto;
@@ -173,6 +175,25 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         acumulador_cantidad_productos = total_de_productos + 1; //acumulo a la cantidad total que habia
         String cantidad_sumada = Integer.toString(acumulador_cantidad_productos);
         cantidad_producto.setText(cantidad_sumada); //envio la nueva cantidad total de productos
+    }
+    public void ComparacionProductos(int id_producto) {
+        String id, nombreProducto;
+        ArrayList<HashMap<String, String>> listado_despensa;
+        Despensa despensa = new Despensa(contexto);
+        Productos productos = new Productos(contexto);
+        listado_despensa = despensa.detalle_inventario();//recorro despensa
+        int bucle = listado_despensa.size();
+        if (bucle != 0){
+            for(int i=0; i<bucle; i++) {
+                HashMap<String, String> hashmap = listado_despensa.get(i);
+                id = hashmap.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);
+                if (id.equals(id_producto)) { //pregunto si hay un id igual al codigo de barra
+                    despensa.setId_producto(id_producto);
+                    despensa.borrar_item();//borra por el codigo de barra.
+                    break;
+                }
+            }
+        }
     }
     public void cargar(){
         ArrayList<HashMap<String, String>> listado_compras;
@@ -398,41 +419,6 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         }else {
             txt_total.setText("0");
             cantidad_producto.setText("0");
-        }
-    }
-
-    public void ComparacionProductos(String CodBarra) {
-        String id, nombreProducto;
-        ArrayList<HashMap<String, String>> listado_despensa;
-        Despensa despensa = new Despensa(contexto);
-        Productos productos = new Productos(contexto);
-        listado_despensa = despensa.detalle_inventario();//recorro despensa
-        int bucle = listado_despensa.size();
-        if (bucle != 0){
-            //HashMap<String, String> hashmap = listado_despensa.get(0);
-            //id = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
-            for(int i=0; i<bucle; i++) {
-                HashMap<String, String> hashmap = listado_despensa.get(i);
-                id = hashmap.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);
-                if (id.equals(CodBarra)) { //pregunto si hay un id igual al codigo de barra
-                    despensa.setId_producto(CodBarra);
-                    despensa.borrar_item();//borra por el codigo de barra.
-                    break;
-                } else {//entonces no esta por codigo de barra hay que buscar por nombre.
-                    productos.setId(CodBarra);
-                    productos.cargar_producto_especifico();
-                    nombreProducto = productos.getNombre(); // traigo el nombre del productoCodBarra
-                    //falta traer el nombre del producto que viene de inventario por su id, tambien puede estar en prod_no_en_Desp ya esta al parecer.
-                        HashMap<String, String> hashmapa = listado_despensa.get(i);
-                        String idnombre = hashmapa.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);//tengo nombre del producto
-                        String idborrar = hashmapa.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);
-                    if (nombreProducto.equalsIgnoreCase(idnombre)) {
-                        despensa.setId_producto(idborrar);
-                        despensa.borrar_item();//borra por el id
-                        break;
-                    }
-                }
-            }
         }
     }
     public void editar() {

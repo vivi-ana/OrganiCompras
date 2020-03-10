@@ -7,19 +7,25 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IngreseCompraProductoNoEncontrado extends DialogFragment {
     Button Botonaceptar, Botoncancelar;
-    EditText nombre, precio;
+    EditText nombre, precio, descripcion, neto, marca;
+    Spinner medida;
     DecimalFormat df = new DecimalFormat("0.00");
     double precio_producto;
+    String medida_producto = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.dialogo_compras_ingrese_producto, container);
@@ -27,18 +33,52 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
         Botoncancelar = rootview.findViewById(R.id.btnCancelar);
         nombre = rootview.findViewById(R.id.editNombre);
         precio = rootview.findViewById(R.id.editPrecio);
+        descripcion = rootview.findViewById(R.id.editDescrip);
+        marca = rootview.findViewById(R.id.editMarca);
+        neto = rootview.findViewById(R.id.editNeto);
+        medida = rootview.findViewById(R.id.ProdMedida);
+        ArrayAdapter<CharSequence> spinneradapter =
+                ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.medidas, android.R.layout.simple_spinner_item);
+        spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        medida.setAdapter(spinneradapter);
+        medida.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                medida_producto = medida.getSelectedItem().toString();
+            }
+        });
         Botonaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre_producto = nombre.getText().toString();
+                String nombre_producto, descripcion_producto, marca_producto, neto_producto;
+                nombre_producto = nombre.getText().toString();
+                descripcion_producto = descripcion.getText().toString();
+                marca_producto = marca.getText().toString();
+                neto_producto = neto.getText().toString();
                 Pattern pn = Pattern.compile("^[a-zA-Z ]+$");
-                Matcher prodn = pn.matcher(nombre_producto);
-                boolean bs = prodn.matches();
+                Matcher prodn = pn.matcher(nombre_producto), prodD = pn.matcher(descripcion_producto);
+                boolean bs = prodn.matches(), dp = prodD.matches();
                 String pre = precio.getText().toString();
                 if (nombre_producto.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
                 }else if(!bs){
                     nombre.setError("El producto no debe contener numeros");
+                }else if(nombre_producto.length() <3){
+                    nombre.setError("Nombre muy corto");
+                }else if(!descripcion_producto.matches("")){//si la descripcion no esta vacia
+                    if(!dp){
+                        descripcion.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
+                    }else if(descripcion_producto.length() <3){
+                        descripcion.setError("Descripcion muy corta");
+                    }
+                }else if(!marca_producto.matches("")) {
+                    if(marca_producto.length() <3){
+                        marca.setError("Nombre de marca muy corto");
+                    }
+                }else if(!neto_producto.matches("")) {
+                    if (Double.parseDouble(neto_producto) < 0) {
+                        neto.setError("El neto debe ser mayor a 0");
+                    }
                 } else {
                     if (pre.matches("")) {
                         Toast.makeText(getActivity(), "Debe ingresar un precio", Toast.LENGTH_SHORT).show();
@@ -58,9 +98,17 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                                 if (id != null) {
                                     int id_super = Integer.parseInt(id);
                                     Productos producto_no_encontrado = new Productos(getActivity());
-                                    producto_no_encontrado.setId(codigo);
-                                    producto_no_encontrado.setId_supermercado(id_super);
                                     producto_no_encontrado.setNombre(nombre_producto);
+                                    producto_no_encontrado.setDescripcion(descripcion_producto);
+                                    producto_no_encontrado.setMarca(marca_producto);
+                                    double neto_prod = Double.parseDouble(neto_producto);
+                                    producto_no_encontrado.setNeto(neto_prod);
+                                    producto_no_encontrado.setMedida(medida_producto);
+                                    producto_no_encontrado.maximo_producto();//traer el id del producto recien agregado
+                                    int id_producto = producto_no_encontrado.getId_producto();
+                                    producto_no_encontrado.setCodigo(codigo);
+                                    producto_no_encontrado.setId_supermercado(id_super);
+                                    producto_no_encontrado.setId_producto(id_producto);
                                     producto_no_encontrado.setPrecio(precio_producto);
                                     producto_no_encontrado.agregar_compras_producto_no_encontrado();
                                     dismiss();
@@ -69,7 +117,7 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                                     double preun = Double.parseDouble(p);
                                     String precioun = (df.format(preun)).replace(",", ".");
                                     FragmentCompras compras = new FragmentCompras();
-                                    compras.comprar(codigo, Double.parseDouble(precioun));
+                                    compras.comprar(id_producto, Double.parseDouble(precioun));
                                     compras.cargar();
                                 }
                             }

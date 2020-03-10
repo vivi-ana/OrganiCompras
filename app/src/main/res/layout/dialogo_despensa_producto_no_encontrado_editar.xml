@@ -19,18 +19,18 @@
             android:id="@+id/editNombre"
             android:layout_width="238dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/prodPrecio"
-            android:layout_alignStart="@+id/prodPrecio"
-            android:layout_alignEnd="@+id/prodPrecio"
+            android:layout_below="@+id/prodNombre"
+            android:layout_alignStart="@+id/prodNombre"
+            android:layout_alignEnd="@+id/prodNombre"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prodPrecio"
+            app:layout_constraintTop_toBottomOf="@+id/prodNombre"
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/prodPrecio"
+            android:id="@+id/prodNombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

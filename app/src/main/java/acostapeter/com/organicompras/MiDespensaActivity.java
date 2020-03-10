@@ -128,19 +128,9 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 if (!verificado) { //si verificado es falso es decir no esta en la despensa.
                     String id_producto = "";
                     productos.setNombre(nuevo_producto);
-                    boolean lista = productos.buscar_producto_no_encontrado();//hay que verificar que no se haya dado de alta antes.
-                    if (lista) { //si lista es verdadero es porque hay datos
-                        id_producto = productos.getId();
-                    }else{//es un producto nuevo hay que ingresarlo
-                        productos.insertar_producto_no_encontrado_despensa();
-                        int maximo = productos.maximo_producto_no_encontrado_despensa();
-                        if (maximo != 0) id_producto = Integer.toString(maximo); //id del producto no encontrado que esta insertado en otra tabla.
-                    }
-                    despensa.setId_producto("N" + id_producto);
-                    despensa.insertar_inventario();
-                    guardar = false;
-                    cargar();
-                    cantidad_nueva();
+                    //boolean lista = productos.buscar_producto_no_encontrado();//hay que verificar que no se haya dado de alta antes.
+                    //es un producto nuevo hay que ingresarlo
+                    agregarmasdatos(nuevo_producto);
                 }
                 Eproducto.setText("");
             }
@@ -162,7 +152,8 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         if (bucle != 0) {
             for (int i = 0; i < bucle; i++) {
                 HashMap<String, String> hashmap = listado_producto.get(i);
-                String id_producto = hashmap.get(TERCERA_COLUMNA);
+                String id = hashmap.get(TERCERA_COLUMNA);
+                int id_producto = Integer.parseInt(id);
                 verificar(nombre_producto, null);
                 if (!verificado) {
                     guardar = false; //cuando se inserta un producto nuevo se tiene que obligar al usuario que guarde.
@@ -178,6 +169,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
     public void verificar(String nombre_producto, String codigo){//verifica que no se este ingresando el mismo producto en la lista
         ArrayList<HashMap<String, String>> listado_despensa;
         String id_producto, nombre;
+        int id = 0;
         verificado = false;
         listado_despensa = despensa.detalle_inventario();
         int bucle = listado_despensa.size();
@@ -187,9 +179,12 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 nombre = hashmap.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);
                 id_producto = hashmap.get(CUARTA_COLUMNA);
                 if (id_producto !=null) {
-                    int cantidad_id = id_producto.length();
-                    if (cantidad_id == 13) {
-                        if (id_producto.equals(codigo)){
+                    int id_p = Integer.parseInt(id_producto);
+                    productos.setCodigo(codigo);
+                    productos.obtener_id_producto();
+                    id = productos.getId_producto();
+                    if (id != 0) {
+                        if (id == id_p){
                             Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
                             verificado = true;
                             return;
@@ -204,6 +199,40 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 }
             }
         }
+    }
+    public void  agregarmasdatos(final String nuevo_producto){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MiDespensaActivity.this);
+        alertBuilder.setTitle(R.string.tituloProdNoEncontrado);
+        alertBuilder.setCancelable(false);
+        alertBuilder.setMessage(R.string.msjMasdatos);
+        alertBuilder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                FragmentManager manager = getSupportFragmentManager();
+                IngreseDespensaProductoNoEncontrado ingreseProducto = new IngreseDespensaProductoNoEncontrado();
+                ingreseProducto.show(manager, "Ingrese producto a la despensa");
+                Bundle args = new Bundle();
+                args.putString("dato", nuevo_producto);
+                ingreseProducto.setArguments(args);
+            }
+        });
+        alertBuilder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                productos.setMedida(""); productos.setNeto(0); productos.setMarca(""); productos.setDescripcion("");
+                productos.agregar_producto();
+                productos.maximo_producto();
+                int maximo = productos.getId_producto();
+                //if (maximo != 0) id_producto = Integer.toString(maximo); //id del producto no encontrado que esta insertado en otra tabla.
+                despensa.setId_producto(maximo);
+                productos.insertar_producto_no_encontrado_despensa();
+                despensa.setId_producto(maximo);
+                despensa.insertar_inventario();
+                guardar = false;
+                cargar();
+                cantidad_nueva();
+            }
+        });
     }
     public void cargar(){
         ArrayList<HashMap<String, String>> listado_despensa;
@@ -297,9 +326,9 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             scanIntegrator.initiateScan();
         }
     }
-    public void almacenar(String scanContent){
+    public void almacenar(int id){
         Despensa despensa = new Despensa(contexto);
-        despensa.setId_producto(scanContent);
+        despensa.setId_producto(id);
         despensa.insertar_inventario();
     }
     private void mensajeguardar() {
@@ -346,18 +375,20 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             String scanFormat = scanningResult.getFormatName(); //el formato del scanneo.
             String formato = "EAN_13"; //se tiene que comprobar que solo se scanee EAN 13
             if (formato.equals(scanFormat)) {
-                productos.setId(scanContent);
+                productos.setCodigo(scanContent);
+                productos.obtener_id_producto();
+                int id_producto = productos.getId_producto();
                 boolean vacio = productos.nombre_producto();//Hay que verificar si el producto esta en la tabla productos.
                 if (vacio != true){
-                        String nombre = productos.getNombre();
-                        verificar(nombre, scanContent);
-                        if (!verificado) {
-                            guardar = false;//se carga en la lista el dato scanneado.
-                            despensa.setId_producto(scanContent);
-                            despensa.insertar_inventario();
-                            cargar();
-                            cantidad();
-                        }
+                    String nombre = productos.getNombre();
+                    verificar(nombre, scanContent);
+                    if (!verificado) {
+                        guardar = false;//se carga en la lista el dato scanneado.
+                        despensa.setId_producto(id_producto);
+                        despensa.insertar_inventario();
+                        cargar();
+                        cantidad();
+                    }
                 }else {
                     verificar(null,scanContent);
                     if (!verificado)
@@ -384,7 +415,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 IngreseDespensaProductoNoEncontrado ingreseProducto = new IngreseDespensaProductoNoEncontrado();
                 ingreseProducto.show(manager, "Ingrese producto a la despensa");
                 Bundle args = new Bundle();
-                args.putString("codigo", codigo);
+                args.putString("dato", codigo);
                 ingreseProducto.setArguments(args);
             }
         });

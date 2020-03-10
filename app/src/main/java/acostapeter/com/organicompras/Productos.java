@@ -8,13 +8,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.CUARTA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.OCTAVA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.PRIMERA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.QUINTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.SEGUNDA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.SEPTIMA_COLUMNA;
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.SEXTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 import acostapeter.com.organicompras.data.DbCRUD;
 @SuppressWarnings("all")
 public class Productos {
-    private String id_producto;
+    private String codigo;
     private String nombre;
     private String descripcion;
     private String marca;
@@ -22,6 +27,7 @@ public class Productos {
     private String medida;
     private double precio;
     private int id_supermercado;
+    private int id_producto;
     private DbCRUD admin;
 
     Productos(Context context) {
@@ -36,12 +42,12 @@ public class Productos {
         this.id_supermercado = id_supermercado;
     }
 
-    public String getId() {
-        return id_producto;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setId(String id) {
-        this.id_producto = id;
+    public void setCodigo(String id) {
+        this.codigo = id;
     }
 
     public String getNombre() {
@@ -92,21 +98,47 @@ public class Productos {
         this.precio = precio;
     }
 
-    void precio() {
-        precio = admin.por_supermercado(id_producto, id_supermercado);
+    public int getId_producto() {
+        return id_producto;
+    }
+
+    public void setId_producto(int id_producto) {
+        this.id_producto = id_producto;
+    }
+//productos existentes
+    void precio_existente() {
+        precio = admin.precio_existente(codigo, id_supermercado);
+    }
+    void agregar_producto(){
+        admin.agregar_producto(nombre, descripcion, marca, neto, medida);
+    }
+    void maximo_producto(){
+        Cursor producto = admin.maximo_producto();
+        if (producto.moveToFirst()) {
+            id_producto = producto.getInt(0);
+        }
+    }
+    void obtener_id_producto(){
+        Cursor datos_producto_existente = admin.datos_producto(codigo);
+        if (datos_producto_existente.moveToFirst()) id_producto = datos_producto_existente.getInt(0);
     }
 
     void producto_no_encontrado() {
         Cursor producto_no_encontrado = admin.compra_producto_no_encontrado(id_producto);
         if (producto_no_encontrado.moveToFirst()) {
-            nombre = producto_no_encontrado.getString(0);
-            String precio_producto = producto_no_encontrado.getString(1);
+            String precio_producto = producto_no_encontrado.getString(3);
             precio = Double.parseDouble(precio_producto);
         }
 
     }
     void agregar_compras_producto_no_encontrado() {
-        admin.compras_agregar_prod_no_encontrado(id_producto, id_supermercado, nombre, precio);
+        admin.compras_agregar_prod_no_encontrado(codigo, id_supermercado, id_producto, precio);
+    }
+    void actualizar_producto_no_encontrado(){
+        admin.editar_producto_no_encontrado(codigo, id_supermercado, id_producto, precio);
+    }
+    void actualizar_producto(){
+        admin.editar_producto(id_producto, nombre, descripcion, marca,neto,medida);
     }
     ArrayList<HashMap<String, String>> cargar_producto_no_encontrado() {
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
@@ -114,45 +146,43 @@ public class Productos {
         Cursor producto_no_encontrado = admin.cargar_no_producto(id_supermercado);
         if (producto_no_encontrado.moveToFirst()) {
             do {
-                long producto_id = producto_no_encontrado.getLong(0);//id del producto
-                id_producto = Long.toString(producto_id); //id del producto
-                nombre = producto_no_encontrado.getString(2);
-                precio = producto_no_encontrado.getDouble(3);
+                descripcion = ""; marca= ""; medida = ""; neto =0.00;
+                nombre = producto_no_encontrado.getString(0);
+                descripcion = producto_no_encontrado.getString(1);
+                marca = producto_no_encontrado.getString(2);
+                neto = producto_no_encontrado.getDouble(3);
+                medida = producto_no_encontrado.getString(4);
+                precio = producto_no_encontrado.getDouble(5);
                 String precio_producto = (df.format(precio)).replace(",", ".");
+                id_producto = producto_no_encontrado.getInt(6);
+                String id = Integer.toString(id_producto), producto_neto = Double.toString(neto);
+                long producto_codigo = producto_no_encontrado.getLong(7);//codigo del producto
+                codigo = Long.toString(producto_codigo);
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(SEGUNDA_COLUMNA, precio_producto);
-                temp.put(TERCERA_COLUMNA, id_producto);
+                temp.put(SEGUNDA_COLUMNA, descripcion);
+                temp.put(TERCERA_COLUMNA, marca);
+                temp.put(CUARTA_COLUMNA, producto_neto);
+                temp.put(QUINTA_COLUMNA, medida);
+                temp.put(SEXTA_COLUMNA, precio_producto);
+                temp.put(SEPTIMA_COLUMNA, id);
+                temp.put(OCTAVA_COLUMNA, codigo);
                 lista.add(temp);
             } while (producto_no_encontrado.moveToNext());
         }
         return lista;
     }
-    void actualizar_producto_no_encontrado(){
-        admin.editar_producto_no_encontrado(nombre, precio,id_supermercado,id_producto);
-    }
-    void cargar_producto_especifico(){
-        Cursor producto_especifico = admin.buscar_producto_especifico(id_producto);
-        if (producto_especifico.moveToFirst()) {//traigo el nombre del producto desde la tabla productos
-                nombre = producto_especifico.getString(1);
-        }else{//traigo el nombre del producto desde la tabla producots no enontrados de compras
-        Cursor producto_no_encontrado_compras = admin.compra_producto_no_encontrado(id_producto);
-            if (producto_no_encontrado_compras.moveToFirst()) {
-                nombre = producto_no_encontrado_compras.getString(0);
-            }
-        }
-    }
     ArrayList<HashMap<String, String>> producto_por_nombre(){
         ArrayList<HashMap<String, String>> lista_producto = new ArrayList<>();
-        Cursor producto_especifico = admin.buscar_producto_por_nombre(nombre);
+        Cursor producto_especifico = admin.calcular_productos_despensa(nombre);
         if (producto_especifico.moveToFirst()) {
             do {
-                long producto_id = producto_especifico.getLong(0);//id del producto
-                id_producto = Long.toString(producto_id); //id del producto
+                id_producto  = producto_especifico.getInt(0);//id del producto
+                String producto_id = String.valueOf(id_producto); //id del producto
                 nombre = producto_especifico.getString(1);
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(TERCERA_COLUMNA, id_producto);
+                temp.put(TERCERA_COLUMNA, producto_id);
                 lista_producto.add(temp);
             } while (producto_especifico.moveToNext());
         }
@@ -164,7 +194,7 @@ public class Productos {
         return lista_productos;
     }
     void insertar_producto_no_encontrado_despensa(){
-        admin.producto_no_encontrado_despensa(nombre);
+        admin.producto_no_encontrado_despensa(id_producto);
     }
     int maximo_producto_no_encontrado_despensa(){
         int maximo;
@@ -174,44 +204,19 @@ public class Productos {
     void guardar_producto_no_encontrado_despensa(){
         admin.guardar_producto_no_encontrado_despensa();
     }
-    boolean buscar_producto_no_encontrado(){
-        boolean lista = false;
-        Cursor producto_especifico = admin.buscar_producto_no_encontrado_despensa(nombre);
-        if (producto_especifico.moveToFirst()) {
-            id_producto = producto_especifico.getString(0);
-            lista = true;
-        }
-        return lista;
-    }
-    boolean buscar_producto_no_encontrado_despensa(){
-        boolean lista_productos = false;
-        Cursor producto_especifico = admin.buscar_producto_especifico_despensa(id_producto, nombre);
-        if (producto_especifico.moveToFirst()) {
-            lista_productos = true;
-        }
-        return lista_productos;
-    }
     boolean producto_no_encontrado_despensa(){
         boolean lista_producto_no_encontrado = false;
-        Cursor producto_especifico = admin.recargar_producto_no_encontrado(id_producto);
+        Cursor producto_especifico = admin.recargar_producto_no_encontrado(codigo);
         if (producto_especifico.moveToFirst()) {
             lista_producto_no_encontrado = true;
         }
         return lista_producto_no_encontrado;
     }
-    boolean producto_especifico_despensa(){
-        boolean lista_producto_especifico = false;
-        Cursor producto_especifico = admin.producto_especifico_despensa(nombre);
-        if (producto_especifico.moveToFirst()) {
-            lista_producto_especifico = true;
-        }
-        return lista_producto_especifico;
-    }
     void borrar_producto_no_encontrado_inventario(){
         admin.borrar_producto_no_encontrado_inventario();
     }
     void agregar_despensa_producto_no_encontrado(){
-        admin.agregar_producto_no_encontrado_despensa(id_producto, nombre);
+        admin.agregar_producto_no_encontrado_despensa(codigo);
     }
     boolean nombre_producto(){
         boolean vacio = true;
@@ -227,17 +232,17 @@ public class Productos {
         Cursor producto_no_encontrado = admin.listado_productos_no_encontrados_despensa();
         if (producto_no_encontrado.moveToFirst()) {
             do {
-                id_producto = producto_no_encontrado.getString(0); //id del producto
+                codigo = producto_no_encontrado.getString(0); //id del producto
                 nombre = producto_no_encontrado.getString(1);
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(TERCERA_COLUMNA, id_producto);
+                temp.put(TERCERA_COLUMNA, codigo);
                 lista_producto.add(temp);
             } while (producto_no_encontrado.moveToNext());
         }
         return lista_producto;
     }
     void editar_producto_no_encontrado(){
-        admin.editar_producto_no_encontrado_despensa(nombre, id_producto);
+        admin.editar_producto_no_encontrado_despensa(nombre, codigo);
     }
 }

@@ -63,6 +63,8 @@
     <string name="fecha">Fecha:</string>
     <string name="cantidadProductos">Cantidad de productos:</string>
     <string name="descripcion">Descripcion</string>
+    <string name="obligatorio">*</string>
+    <string name="msjMasdatos">¿Desea agregar más datos sobre este producto?</string>
     <string-array name="valores_array">
         <item>Enero</item>
         <item>Febrero</item>
@@ -85,5 +87,12 @@
         <item>2019</item>
         <item>2020</item>
         <item>2021</item>
+    </string-array>
+    <string-array name="medidas">
+        <item>Gr</item>
+        <item>Kg</item>
+        <item>Cc</item>
+        <item>Litro</item>
+        <item>Ml</item>
     </string-array>
 </resources>

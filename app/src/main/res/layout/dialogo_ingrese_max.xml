@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/prodPrecio"
+            android:id="@+id/prodNombre"
             android:layout_width="245dp"
             android:layout_height="28dp"
             android:layout_alignParentTop="true"
@@ -37,9 +37,9 @@
             android:id="@+id/Pprecio"
             android:layout_width="236dp"
             android:layout_height="46dp"
-            android:layout_below="@+id/prodPrecio"
-            android:layout_alignStart="@+id/prodPrecio"
-            android:layout_alignEnd="@+id/prodPrecio"
+            android:layout_below="@+id/prodNombre"
+            android:layout_alignStart="@+id/prodNombre"
+            android:layout_alignEnd="@+id/prodNombre"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="30dp"
             android:hint="@string/formato"
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prodPrecio" />
+            app:layout_constraintTop_toBottomOf="@+id/prodNombre" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

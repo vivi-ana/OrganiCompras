@@ -36,7 +36,6 @@
             android:layout_width="87dp"
             android:layout_height="wrap_content"
             android:text="@string/descripcion"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/nombre"
             app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
@@ -45,7 +44,6 @@
             android:layout_width="62dp"
             android:layout_height="wrap_content"
             android:text="@string/marca"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/descrip"
             app:layout_constraintTop_toBottomOf="@+id/descrip" />
 
@@ -55,7 +53,6 @@
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:text="@string/neto"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/marca"
             app:layout_constraintTop_toBottomOf="@+id/marca" />
 
@@ -64,7 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="19dp"
             android:text="@string/medida"
-            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/neto"
             app:layout_constraintTop_toBottomOf="@+id/marca" />
 

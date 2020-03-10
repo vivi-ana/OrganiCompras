@@ -96,17 +96,12 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
                     for (int i = 0; i < item_borrar.size(); i++) {
                         Despensa despensa = new Despensa(getActivity());
                         String item = item_borrar.get(i);
-                        if (item.startsWith("N")) {
-                            despensa.setId_producto(item);
-                            despensa.borrar_item();
-                            String nuevoitem = item.substring(1);
-                            despensa.setId_producto(nuevoitem);
-                            despensa.borrar_producto_no_encontrado(); //se borra el nuevo producto de la tabla no producto tambien.
-                        } else {
-                            despensa.setId_producto(item);
+                        int seleccion = Integer.parseInt(item);
+                            //despensa.setId_producto(nuevoitem);
+                            //despensa.borrar_producto_no_encontrado(); //se borra el nuevo producto de la tabla no producto tambien.
+                            despensa.setId_producto(seleccion);
                             despensa.borrar_item();
                         }
-                    }
                     lista_despensa.setAdapter(null);
                     FragmentDespensaListViewAdapter adapter = new FragmentDespensaListViewAdapter(getActivity(), lista);
                     lista_despensa.setAdapter(adapter);

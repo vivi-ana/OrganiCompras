@@ -123,10 +123,11 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
                 }
                 String txtProducto = Integer.toString(contador);
                 holder.producto_cantidad.setText(txtProducto);
-                String id_producto = holder.id.getText().toString(); //Codigo
+                String id_producto = holder.id.getText().toString(); //id del producto
                 Despensa despensa = new Despensa(v.getContext()); //TRAER CONTEXTO EN LISTVIEW ADAPTER!
                 despensa.setCantidad(contador);
-                despensa.setId_producto(id_producto);
+                int prod_id = Integer.parseInt(id_producto);
+                despensa.setId_producto(prod_id);
                 despensa.actualizar_inverntario();
                 int total= despensa.cantidad_productos_inventario();
                 cantidad_producto = Integer.toString(total);
@@ -149,7 +150,8 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
                 String id_producto = holder.id.getText().toString(); //Codigo de barra
                 Despensa despensa = new Despensa(v.getContext()); //TRAER CONTEXTO EN LISTVIEW ADAPTER!
                 despensa.setCantidad(contador);
-                despensa.setId_producto(id_producto); //hacer el update
+                int prod_id = Integer.parseInt(id_producto);
+                despensa.setId_producto(prod_id); //hacer el update
                 despensa.actualizar_inverntario();
                 int total= despensa.cantidad_productos_inventario();
                 cantidad_producto = Integer.toString(total);

@@ -17,17 +17,17 @@ import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COL
 import acostapeter.com.organicompras.data.DbCRUD;
 @SuppressWarnings("all")
 public class Despensa {
-    private String id_producto;
+    private int id_producto;
     private int cantidad;
     private DbCRUD admin;
     Despensa(Context context){
         this.admin = new DbCRUD(context, null);
     }
-    public String getId_producto() {
+    public int getId_producto() {
         return id_producto;
     }
 
-    public void setId_producto(String id_producto) {
+    public void setId_producto(int id_producto) {
         this.id_producto = id_producto;
     }
 
@@ -38,67 +38,45 @@ public class Despensa {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    void borrar_item(){
-        admin.borrar_item_despensa(id_producto);
-    }
-    void borrar_producto_no_encontrado(){
-        admin.borrar_producto_no_encontrado(id_producto);
-    }
     ArrayList<HashMap<String, String>> detalle_inventario(){
         int cantidad_id;
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-        String nombre="", descripcion = "", marca = "", neto = "", medida = "", cantidad_producto;
+        String nombre="", cantidad_producto;
         Cursor lista_inventario = admin.recargar_despensa();
         if (lista_inventario.moveToFirst()){
             do {
-                id_producto = lista_inventario.getString(0); //id del producto
+                String descripcion = "", marca = "", neto = "", medida = "", id = "";
+                id_producto = lista_inventario.getInt(0); //id del producto
+                id = Integer.toString(id_producto);
                 cantidad = lista_inventario.getInt(1);
                 cantidad_producto = Integer.toString(cantidad);
-                cantidad_id = id_producto.length();
-                if (id_producto.startsWith("N")) { //si el id del  producto tiene N viene de la tabla producto_no_encontrado sino viene de la tabla productos
-                    String idsinN = id_producto.substring(1);
-                    Cursor recargarnoproducto = admin.recargar_producto_no_encontrado(idsinN);
-                    recargarnoproducto.moveToFirst();
-                    nombre = recargarnoproducto.getString(1);
-                } else {//no tiene N y por ende es un numero preguntar si tiene 13 caracteres o no (EAN 13)
-                    if (cantidad_id == 13){//es un producto con codigo de barra sino es un producto sin codigo de barra
-                        Cursor datos_producto = admin.producto(id_producto);
-                        if(datos_producto.moveToFirst()){
-                        nombre = datos_producto.getString(1);
-                        descripcion = datos_producto.getString(2);
-                        marca = datos_producto.getString(3);
-                        neto = datos_producto.getString(4);
-                        medida = datos_producto.getString(5);
-                        }else{
-                            Cursor datos_producto_no_encontrado = admin.recargar_producto_no_encontrado(id_producto);
-                            if (datos_producto_no_encontrado.moveToFirst())
-                                nombre = datos_producto_no_encontrado.getString(1);
-                        }
-                    }else {
-                        Cursor detalle_producto = admin.recargar_detalle_producto(id_producto);
-                        detalle_producto.moveToFirst();
-                        nombre = detalle_producto.getString(1);
-                    }
+                Cursor datos_producto = admin.producto(id_producto);
+                if(datos_producto.moveToFirst()) {
+                    nombre = datos_producto.getString(1);
+                    descripcion = datos_producto.getString(2);
+                    marca = datos_producto.getString(3);
+                    neto = datos_producto.getString(4);
+                    medida = datos_producto.getString(5);
                 }
+                if (neto.equals(0)) neto = "";
                 HashMap<String, String> temporal = new HashMap<String, String>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
                 temporal.put(TERCERA_COLUMNA, cantidad_producto);
-                temporal.put(CUARTA_COLUMNA, id_producto);
-                if (cantidad_id == 13){
-                    temporal.put(SEGUNDA_COLUMNA, descripcion);
-                    temporal.put(QUINTA_COLUMNA, marca);
-                    temporal.put(SEXTA_COLUMNA, neto);
-                    temporal.put(SEPTIMA_COLUMNA, medida);
-                }else {
-                    temporal.put(SEGUNDA_COLUMNA, "");
-                    temporal.put(QUINTA_COLUMNA, "");
-                    temporal.put(SEXTA_COLUMNA, "");
-                    temporal.put(SEPTIMA_COLUMNA, "");
-                }
+                temporal.put(CUARTA_COLUMNA, id);
+                temporal.put(SEGUNDA_COLUMNA, descripcion);
+                temporal.put(QUINTA_COLUMNA, marca);
+                temporal.put(SEXTA_COLUMNA, neto);
+                temporal.put(SEPTIMA_COLUMNA, medida);
                 lista.add(temporal);
             } while (lista_inventario.moveToNext());
         }
         return lista;
+    }
+    void borrar_item(){
+        admin.borrar_item_despensa(id_producto);
+    }
+    void insertar_inventario(){
+        admin.insertar_inventario(id_producto);
     }
     int cantidad_productos_inventario(){
         int cantidad =0;
@@ -108,42 +86,43 @@ public class Despensa {
     void guardar_inventario(){
         admin.guardar_inventario();
     }
-    void insertar_inventario(){
-        admin.insertar_inventario(id_producto);
-    }
     void actualizar_inverntario(){
         admin.actualizar_inventario(cantidad, id_producto);
     }
     void borrar_inventario(){
         admin.borrar_inventario();
     }
-
     double calcular_total_aproximado(int id_supermercado){
         DecimalFormat df = new DecimalFormat("0.00");
+        String codigo = "";
         double total = -1, subtotal = 0, subtotal2 = 0, multiplicacion = 0;
         Cursor lista_inventario = admin.recargar_despensa();//traer el inventario
         if (lista_inventario.moveToFirst()){
             total = 0;
             do {//si no tiene datos el valor quedara por defecto "0"
-                id_producto = lista_inventario.getString(0); //id del producto
+                id_producto = lista_inventario.getInt(0); //id del producto
                 cantidad = lista_inventario.getInt(1);
-                Integer cantidadid = id_producto.length();
-                if (cantidadid == 13){ //es ean 13
-                    Cursor datos1 = admin.calcular_EAN13_despensa(id_producto, id_supermercado);
+                codigo = admin.getCodigo(id_producto);
+                Cursor datos1 = admin.calcular_despensa(codigo, id_supermercado);
+                if (datos1.moveToFirst()){ //esta en la tabla productosxsuper
                     double mont = Double.parseDouble(datos1.getString(2));
                     String precio = (df.format(mont)).replace(",",".");
                     multiplicacion = Double.parseDouble(precio) * cantidad; // sacar el total = precio x cantidad
                 }else{
-                    Integer cantidad_productos = admin.contar_productos_despensa(id_producto);//traer cuantos productos hay con ese id
+                    String nombre = admin.por_nombre(id_producto);
+                    int cantidad_productos = admin.contar_productos_despensa(nombre);
                     if (cantidad_productos > 0) { //hay productos.
-                        Cursor datos2 = admin.calcular_productos_despensa(id_producto); //traer todos los productos con ese id
+                        Cursor datos2 = admin.calcular_productos_despensa(nombre); //traer todos los productos con ese id
                         if (datos2.moveToFirst()) {
                             do {
-                                String idproducto = Long.toString(datos2.getLong(0)); //entrar en la lista y traer el id EAN 13
-                                Cursor datos4 = admin.calcular_EAN13_despensa(idproducto, id_supermercado);
-                                double mont = Double.parseDouble(datos4.getString(2));
-                                String precio = (df.format(mont)).replace(",", ".");
-                                subtotal = subtotal + Double.parseDouble(precio);
+                                id_producto = datos2.getInt(0); //entrar en la lista y traer el id
+                                codigo = admin.getCodigo(id_producto);
+                                Cursor datos4 = admin.calcular_despensa(codigo, id_supermercado);
+                                if (datos4.moveToFirst()) {
+                                    double mont = Double.parseDouble(datos4.getString(2));
+                                    String precio = (df.format(mont)).replace(",", ".");
+                                    subtotal = subtotal + Double.parseDouble(precio);
+                                }
                             } while (datos2.moveToNext());
                             subtotal2 = subtotal / cantidad_productos; //sacar promedio de todos los productos con ese id
                             subtotal = 0;

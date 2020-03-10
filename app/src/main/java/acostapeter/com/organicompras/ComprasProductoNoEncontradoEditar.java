@@ -6,13 +6,17 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,40 +24,87 @@ import static acostapeter.com.organicompras.ConstantesColumnasCompras.QUINTA_COL
 
 public class ComprasProductoNoEncontradoEditar extends DialogFragment {
     Button BtnAaceptar, BtnCancelar;
-    EditText nombre, precio;
+    EditText nombre, precio, descripcion, marca, neto;
+    Spinner  medida;
     DecimalFormat df = new DecimalFormat("0.00");
     double precioproducto,  preciounitario;
-    String id, codigo, nombre_producto, precio_unitario = "", precio_producto = "";
+    String id, codigo, nombre_producto, producto_codigo = "", producto_neto = "", producto_descripcion = "", producto_marca ="", producto_medida ="", producto_id = "", precio_unitario = "", precio_producto = "", id_producto;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.dialogo_compras_producto_no_encontrado_editar, container);
         BtnAaceptar = rootview.findViewById(R.id.btnAceptar);
         BtnCancelar = rootview.findViewById(R.id.btnCancelar);
         nombre = rootview.findViewById(R.id.editNombre);
+        descripcion = rootview.findViewById(R.id.editDescrip);
+        marca = rootview.findViewById(R.id.editMarca);
+        neto = rootview.findViewById(R.id.editNeto);
+        medida =rootview.findViewById(R.id.ProdMedida);
+        ArrayAdapter<CharSequence> spinneradapter =
+                ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.medidas, android.R.layout.simple_spinner_item);
+        spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        medida.setAdapter(spinneradapter);
         precio = rootview.findViewById(R.id.editPrecio);
         if (getArguments() != null) {
             id = getArguments().getString("idsuper");
-            codigo = getArguments().getString("codigo");
             nombre_producto = getArguments().getString("nombre");
+            producto_descripcion = getArguments().getString("descrip");
+            producto_marca = getArguments().getString("marca");
+            producto_neto = getArguments().getString("neto");
+            producto_medida = getArguments().getString("medida");
             precio_producto = getArguments().getString("precio");
+            producto_id = getArguments().getString("id");
+            producto_codigo = getArguments().getString("codigo");
             if (precio_producto!=null) {
                 preciounitario = Double.parseDouble(precio_producto);
                 precio_unitario = (df.format(preciounitario)).replace(",", ".");
                 nombre.setText(nombre_producto);
+                descripcion.setText(producto_descripcion);
+                marca.setText(producto_marca);
+                neto.setText(producto_neto);
                 precio.setText(precio_unitario);
+                if (producto_medida != null) {
+                    int spinnerPosition = spinneradapter.getPosition(producto_medida);
+                    medida.setSelection(spinnerPosition);
+                }
             }
         }
+        medida.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                producto_medida = medida.getSelectedItem().toString();
+            }
+        });
         BtnAaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nprod = nombre.getText().toString();
+                String nprod, descripcion_producto, marca_producto, neto_producto;
+                nprod = nombre.getText().toString();
+                descripcion_producto = descripcion.getText().toString();
+                marca_producto = marca.getText().toString();
+                neto_producto = neto.getText().toString();
                 Pattern pn = Pattern.compile("^[a-zA-Z ]+$");
-                Matcher prodn = pn.matcher(nprod);
-                boolean bs = prodn.matches();
+                Matcher prodn = pn.matcher(nprod), prodD = pn.matcher(descripcion_producto);
+                boolean bs = prodn.matches(), dp = prodD.matches();
                 String pre = precio.getText().toString();
                 if (nprod.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
                 }else if(!bs){
                     nombre.setError("El producto no debe contener numeros");
+                }else if(nombre_producto.length() <3){
+                    nombre.setError("Nombre muy corto");
+                }else if(!descripcion_producto.matches("")){//si la descripcion no esta vacia
+                    if(!dp){
+                        descripcion.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
+                    }else if(descripcion_producto.length() <3){
+                        descripcion.setError("Descripcion muy corta");
+                    }
+                }else if(!marca_producto.matches("")) {
+                    if(marca_producto.length() <3){
+                        marca.setError("Nombre de marca muy corto");
+                    }
+                }else if(!neto_producto.matches("")) {
+                    if (Double.parseDouble(neto_producto) < 0) {
+                        neto.setError("El neto debe ser mayor a 0");
+                    }
                 } else {
                     if (pre.matches("")) {
                         Toast.makeText(getActivity(), "Debe ingresar un precio", Toast.LENGTH_SHORT).show();
@@ -69,18 +120,26 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                         } else {//validado si esta validado
                             Productos productos = new Productos(getActivity());
                             productos.setNombre(nprod);
-                            double precio = Double.parseDouble(preciopro);
+                            productos.setDescripcion(descripcion_producto);
+                            productos.setMarca(marca_producto);
+                            double neto_prod = Double.parseDouble(neto_producto);
+                            productos.setNeto(neto_prod);
+                            productos.setMedida(producto_medida);
+                            productos.actualizar_producto();
+                            double precio = Double.parseDouble(preciopro);//estos datos son para actualizar la tabla de productos super
                             productos.setPrecio(precio);
                             int id_supermercado = Integer.parseInt(id);
                             productos.setId_supermercado(id_supermercado);
-                            productos.setId(codigo);
+                            productos.setCodigo(codigo);
+                            int prod_id = Integer.parseInt(id_producto);
+                            productos.setId_producto(prod_id);
                             productos.actualizar_producto_no_encontrado();
                             Compras compras = new Compras(getActivity());
                             compras.maximo_compra(); //obtener el id de compra
                             int id_compras = compras.getId();
                             compras.setSupermercado(id_supermercado);
                             ArrayList<HashMap<String, String>> listado_compras;
-                            listado_compras = compras.detalle_compras_editada(codigo);
+                            listado_compras = compras.detalle_compras_editada(prod_id);
                             int bucle = listado_compras.size();
                             if (bucle != 0){ //si hay detalles en esa compra posiblemente se necesite cambiar el precio.
                                 for(int i=0; i<bucle; i++) {
@@ -93,7 +152,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                                         double precio_nuevo = Double.parseDouble(precio_formateado);
                                         compras.setTotal(precio_nuevo);
                                         compras.setId(id_compras);
-                                        compras.actualizar_monto_detalle(codigo); //editar el nuevo precio del producto en la compra;
+                                        compras.actualizar_monto_detalle(prod_id); //editar el nuevo precio del producto en la compra;
                                     }
                                 }
                             }

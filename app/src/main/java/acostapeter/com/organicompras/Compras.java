@@ -107,6 +107,63 @@ private DbCRUD admin;
     void setTotal_unitario(double total_unitario) {
         this.total_unitario = total_unitario;
     }
+    void agregar_detalle_compra(int id_producto){
+        admin.agregar_detalle_compra(id, id_producto, total_unitario);
+    }
+    ArrayList<HashMap<String, String>> detalle_compras(int id_compra){
+        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+        String producto_id = "", cantidades, montos, descripcion ="", neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
+        DecimalFormat df = new DecimalFormat("0.00");
+        int id_producto;
+        double monto;
+        Cursor lista_compras = admin.detalle_compra(id_compra);
+        if (lista_compras.moveToFirst()){
+            do {
+                id_producto  = lista_compras.getInt(2);
+                producto_id = Integer.toString(id_producto); //id del producto
+                cantidades = lista_compras.getString(3);
+                montos = lista_compras.getString(4);
+                monto = Double.parseDouble(montos);
+                montos = (df.format(monto)).replace(",",".");
+                Cursor datos_producto = admin.producto(id_producto);
+                if (datos_producto.moveToFirst()) {
+                    marca = "";
+                    neto = "";
+                    medida = "";
+                    descripcion = "";
+                    nombre = datos_producto.getString(1);
+                    descripcion = datos_producto.getString(2);
+                    marca = datos_producto.getString(3);
+                    neto = datos_producto.getString(4);
+                    medida = datos_producto.getString(5);
+                    String codigo = admin.getCodigo(id_producto);
+                    double preun = 0;
+                    if(!codigo.equals("")){
+                    preun = admin.por_supermercado(codigo, supermercado); //se busca primero en la tabla existentes
+                    precio_unitario = (df.format(preun)).replace(",", ".");
+                    }else{
+                        Cursor producto_no_encontrado = admin.producto_comprado_no_encontrado(id_producto, supermercado);
+                        if(producto_no_encontrado.moveToFirst()){
+                            preun = Double.parseDouble(producto_no_encontrado.getString(0));
+                            precio_unitario = (df.format(preun)).replace(",", ".");
+                        }
+                    }
+                }
+                HashMap<String, String> temporal = new HashMap<>();
+                temporal.put(PRIMERA_COLUMNA, nombre);
+                temporal.put(SEGUNDA_COLUMNA, descripcion);
+                temporal.put(TERCERA_COLUMNA, marca);
+                temporal.put(CUARTA_COLUMNA, precio_unitario);
+                temporal.put(QUINTA_COLUMNA, cantidades);
+                temporal.put(SEXTA_COLUMNA, montos);
+                temporal.put(SEPTIMA_COLUMNA, producto_id);
+                temporal.put(OCTAVA_COLUMNA, neto);
+                temporal.put(NOVENA_COLUMNA, medida);
+                lista.add(temporal);
+            } while (lista_compras.moveToNext());
+        }
+        return lista;
+    }
     void agregar_compra(){
         admin.agregar_compra(max, supermercado, fecha);
     }
@@ -122,60 +179,11 @@ private DbCRUD admin;
         id_detalle = admin.maximo_detalle_compra();
         return id_detalle;
     }
-    void total_productos(String id_producto){
+    void total_productos(int id_producto){
     cant_total_productos = admin.contar_productos(id, id_producto);
     }
-    void agregar_detalle_compra(String id_producto){
-        admin.agregar_detalle_compra(id, id_producto, total_unitario);
-    }
-    ArrayList<HashMap<String, String>> detalle_compras(int id_compra){
-        ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-        String id_producto, cantidades, montos, descripcion ="", neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
-        DecimalFormat df = new DecimalFormat("0.00");
-        long producto_id;
-        double monto;
-        Cursor lista_compras = admin.detalle_compra(id_compra);
-        if (lista_compras.moveToFirst()){
-            do {
-                producto_id = lista_compras.getLong(2);
-                id_producto = Long.toString(producto_id); //id del producto
-                cantidades = lista_compras.getString(3);
-                montos = lista_compras.getString(4);
-                monto = Double.parseDouble(montos);
-                montos = (df.format(monto)).replace(",",".");
-                Cursor datos_producto = admin.producto(id_producto);
-                if (datos_producto.moveToFirst()) {
-                    nombre = datos_producto.getString(1);
-                    descripcion = datos_producto.getString(2);
-                    marca = datos_producto.getString(3);
-                    neto = datos_producto.getString(4);
-                    medida = datos_producto.getString(5);
-                    double preun = admin.por_supermercado(id_producto, supermercado);
-                    precio_unitario = (df.format(preun)).replace(",",".");
-                }else{
-                    Cursor producto_no_encontrado = admin.producto_comprado_no_encontrado(id_producto);
-                    if(producto_no_encontrado.moveToFirst()){
-                        marca = ""; neto = ""; medida = ""; descripcion = "";
-                        nombre = producto_no_encontrado.getString(0);
-                        double preun = Double.parseDouble(producto_no_encontrado.getString(1));
-                        precio_unitario = (df.format(preun)).replace(",", ".");
-                    }
-                }
-                HashMap<String, String> temporal = new HashMap<>();
-                temporal.put(PRIMERA_COLUMNA, nombre);
-                temporal.put(SEGUNDA_COLUMNA, descripcion);
-                temporal.put(TERCERA_COLUMNA, marca);
-                temporal.put(CUARTA_COLUMNA, precio_unitario);
-                temporal.put(QUINTA_COLUMNA, cantidades);
-                temporal.put(SEXTA_COLUMNA, montos);
-                temporal.put(SEPTIMA_COLUMNA, id_producto);
-                temporal.put(OCTAVA_COLUMNA, neto);
-                temporal.put(NOVENA_COLUMNA, medida);
-                lista.add(temporal);
-            } while (lista_compras.moveToNext());
-        }
-        return lista;
-    }
+
+
     void actializar_cantidad_comprada(String id_producto){
         admin.actualizar_cantidad(cantidad, total_unitario, id, id_producto);
     }
@@ -232,37 +240,40 @@ private DbCRUD admin;
         total = admin.calcular_total(id);
     }
 
-    ArrayList<HashMap<String, String>> detalle_compras_editada(String producto){
+    ArrayList<HashMap<String, String>> detalle_compras_editada(int id_producto){
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
-        String id_producto, cantidades, montos, descripcion = "", neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
+        String prod_id, cantidades, montos, descripcion = "", neto = "", medida = "", nombre = "", marca = "", precio_unitario = "";
         DecimalFormat df = new DecimalFormat("0.00");
-        long producto_id;
+        int producto_id;
         double monto;
-        Cursor lista_compras = admin.detalle_compra_editada(id, producto);
+        Cursor lista_compras = admin.detalle_compra_editada(id, id_producto);
         if (lista_compras.moveToFirst()){
             do {
-                producto_id = lista_compras.getLong(2);
-                id_producto = Long.toString(producto_id); //id del producto
+                producto_id = lista_compras.getInt(2);//id del producto
+                prod_id = Integer.toString(producto_id);
                 cantidades = lista_compras.getString(3);
                 montos = lista_compras.getString(4);
                 monto = Double.parseDouble(montos);
                 montos = (df.format(monto)).replace(",",".");
-                Cursor datos_producto = admin.producto(id_producto);
+                Cursor datos_producto = admin.producto(producto_id);
                 if (datos_producto.moveToFirst()) {
+                    marca = ""; neto = ""; medida = ""; descripcion = "";
                     nombre = datos_producto.getString(1);
                     descripcion = datos_producto.getString(2);
                     marca = datos_producto.getString(3);
                     neto = datos_producto.getString(4);
                     medida = datos_producto.getString(5);
-                    double preun = admin.por_supermercado(id_producto, supermercado);
-                    precio_unitario = (df.format(preun)).replace(",",".");
-                }else{
-                    Cursor producto_no_encontrado = admin.producto_comprado_no_encontrado(id_producto);
-                    if(producto_no_encontrado.moveToFirst()){
-                        marca = ""; neto = ""; medida = ""; descripcion = "";
-                        nombre = producto_no_encontrado.getString(0);
-                        double preun = Double.parseDouble(producto_no_encontrado.getString(1));
+                    String codigo = admin.getCodigo(id_producto);
+                    double preun = 0;
+                    if(!codigo.equals("")) {
+                        preun = admin.por_supermercado(codigo, supermercado); //se busca primero en la tabla existentes
                         precio_unitario = (df.format(preun)).replace(",", ".");
+                    }else{
+                        Cursor producto_no_encontrado = admin.producto_comprado_no_encontrado(id_producto, supermercado);
+                        if(producto_no_encontrado.moveToFirst()){
+                           preun = Double.parseDouble(producto_no_encontrado.getString(0));
+                            precio_unitario = (df.format(preun)).replace(",", ".");
+                        }
                     }
                 }
                 HashMap<String, String> temporal = new HashMap<>();
@@ -272,7 +283,7 @@ private DbCRUD admin;
                 temporal.put(CUARTA_COLUMNA, precio_unitario);
                 temporal.put(QUINTA_COLUMNA, cantidades);
                 temporal.put(SEXTA_COLUMNA, montos);
-                temporal.put(SEPTIMA_COLUMNA, id_producto);
+                temporal.put(SEPTIMA_COLUMNA, prod_id);
                 temporal.put(OCTAVA_COLUMNA, neto);
                 temporal.put(NOVENA_COLUMNA, medida);
                 lista.add(temporal);
@@ -280,7 +291,7 @@ private DbCRUD admin;
         }
         return lista;
     }
-    void actualizar_monto_detalle(String id_producto){
+    void actualizar_monto_detalle(int id_producto){
         admin.actualizar_monto(total ,id, id_producto);
     }
     ArrayList<HashMap<String, String>> cargar_historial(int year, String mes){
@@ -321,26 +332,9 @@ private DbCRUD admin;
         }
         return lista;
     }
-    ArrayList<HashMap<String, String>> estadistica_mensual(int year, String mes, String dia, int id_supermercado){
-        ArrayList<HashMap<String, String>> estadistica = new ArrayList<>();
-        Cursor estadistica_mensual_compras = admin.estadistica(id_supermercado, year, mes, dia);
-        if (estadistica_mensual_compras.moveToFirst()) {
-            try {
-                do {
-                    String cantidad = estadistica_mensual_compras.getString(6);
-                    HashMap<String, String> temp = new HashMap<String, String>();
-                    temp.put("cantidad", cantidad);
-                    estadistica.add(temp);
-                } while (estadistica_mensual_compras.moveToNext());
-            }finally {
-                estadistica_mensual_compras.close();
-            }
-        }
-        return estadistica;
-    }
     ArrayList<HashMap<String, String>> cargar_detalle(int id_compra){
         ArrayList<HashMap<String, String>> listado_compras = new ArrayList<>();
-        String id_producto, cantidades, montos,precio_unitario = "", id_detalle;
+        String id_producto, cantidades, montos, id_detalle;
         DecimalFormat df = new DecimalFormat("0.00");
         long producto_id;
         double monto;

@@ -96,16 +96,17 @@ public class MiDespensaActivityBorrarLista extends AppCompatActivity {
                     for (int i = 0; i < item_borrar.size(); i++) {
                         Despensa despensa = new Despensa(MiDespensaActivityBorrarLista.this);
                         String item = item_borrar.get(i);
-                        if (item.startsWith("N")) {
-                            despensa.setId_producto(item);
+                        int id_item = Integer.parseInt(item);
+                        //if (item.startsWith("N")) {
+                            despensa.setId_producto(id_item);
                             despensa.borrar_item();
                             //String nuevoitem = item.substring(1);
                             //despensa.setId_producto(nuevoitem); //no debo dejar que borre el producto que agrego aca.
                             //despensa.borrar_producto_no_encontrado(); //se borra el nuevo producto de la tabla no producto tambien.
-                        } else {
-                            despensa.setId_producto(item);
-                            despensa.borrar_item();
-                        }
+                        //} else {
+                        //    despensa.setId_producto(item);
+                        //    despensa.borrar_item();
+                        //}
                     }
                     listaDespensa.setAdapter(null);
                     MiDespensaActivityBorrarListaListViewAdapter adapter = new MiDespensaActivityBorrarListaListViewAdapter(MiDespensaActivityBorrarLista.this, lista);
