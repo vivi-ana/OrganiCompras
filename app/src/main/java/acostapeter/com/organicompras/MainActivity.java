@@ -31,12 +31,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(final View v) {//Evento click por cada boton del menú
         switch (v.getId()) {
             case R.id.cardCompras:
-                String seleccion = "Apa"; //este codigo hay que sacar despues.
-                DbHelper admin;
-                admin = new DbHelper(this, null); //hace correr la bd
-                SQLiteDatabase db = admin.getReadableDatabase();
-                Cursor a = db.rawQuery("Select * from supermercados where descripcion =  '" + seleccion + "'", null);
-                a.close();
+                //String seleccion = "Apa"; //este codigo hay que sacar despues.
+                //DbHelper admin;
+                //admin = new DbHelper(this, null); //hace correr la bd
+                //SQLiteDatabase db = admin.getReadableDatabase();
+                //Cursor a = db.rawQuery("Select * from supermercados where descripcion =  '" + seleccion + "'", null);
+                //a.close();
                 dialogoMaximo();
             break;
             case R.id.cardDespensa:
