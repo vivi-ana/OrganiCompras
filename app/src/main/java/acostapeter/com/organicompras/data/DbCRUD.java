@@ -386,7 +386,7 @@ public class DbCRUD extends DbHelper {
         return total_producto;
     }
     public Cursor calcular_productos_despensa(String nombre){
-        final String query = "SELECT * FROM " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + nombre;
+        final String query = "SELECT * FROM " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_NOMBRE + " = " + "'nombre'";
         Cursor lista_calculo = db.rawQuery(query,null);
         if (lista_calculo != null){
             lista_calculo.moveToFirst();
