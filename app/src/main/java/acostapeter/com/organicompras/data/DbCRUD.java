@@ -47,7 +47,7 @@ public class DbCRUD extends DbHelper {
         return fila;
     }
     public Cursor producto(int id_producto){
-        final String query = "SELECT * FROM " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " = " + id_producto;
+        final String query = "SELECT * FROM " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_ID_PROD +" = " + id_producto;
         Cursor lista_producto = db.rawQuery(query,null);
         if (lista_producto != null){
             lista_producto.moveToFirst();
