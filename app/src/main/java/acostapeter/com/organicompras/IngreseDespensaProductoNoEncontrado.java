@@ -47,10 +47,15 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                 ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.medidas, android.R.layout.simple_spinner_item);
         spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Smedida.setAdapter(spinneradapter);
-        Smedida.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Smedida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 medida_producto = Smedida.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
         BotonAceptar.setOnClickListener(new View.OnClickListener() {
@@ -75,14 +80,10 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                     }else if(descripcion_producto.length() <3){
                         Edescripcion.setError("Descripcion muy corta");
                     }
-                }else if(!marca_producto.matches("")) {
-                    if(marca_producto.length() <3){
+                }else if(!marca_producto.matches("") & marca_producto.length()<3) {
                         Emarca.setError("Nombre de marca muy corto");
-                    }
-                }else if(!neto_producto.matches("")) {
-                    if (Double.parseDouble(neto_producto) < 0) {
+                }else if(!neto_producto.matches("") & Double.parseDouble(neto_producto) < 0) {
                         Eneto.setError("El neto debe ser mayor a 0");
-                    }
                 } else {
                     String nom = Enombre.getText().toString();
                     Productos productos = new Productos(getActivity());

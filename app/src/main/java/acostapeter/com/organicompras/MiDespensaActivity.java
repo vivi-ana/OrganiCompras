@@ -150,9 +150,9 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         listado_producto = productos.producto_por_nombre();
         bucle = listado_producto.size();
         if (bucle != 0) {
-            for (int i = 0; i < bucle; i++) {
-                HashMap<String, String> hashmap = listado_producto.get(i);
-                String id = hashmap.get(TERCERA_COLUMNA);
+            //for (int i = 0; i < bucle; i++) {
+                HashMap<String, String> hashmap = listado_producto.get(0);
+                String id = hashmap.get(CUARTA_COLUMNA);
                 int id_producto = Integer.parseInt(id);
                 verificar(nombre_producto, null);
                 if (!verificado) {
@@ -162,7 +162,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                     cargar();
                     cantidad_nueva();
                 }
-            }
+            //}
             Eproducto.setText("");
         }
     }
@@ -179,6 +179,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 nombre = hashmap.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);
                 id_producto = hashmap.get(CUARTA_COLUMNA);
                 if (id_producto !=null) {
+                    if (codigo != null){
                     int id_p = Integer.parseInt(id_producto);
                     productos.setCodigo(codigo);
                     productos.obtener_id_producto();
@@ -189,6 +190,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                             verificado = true;
                             return;
                         }
+                    }
                     }else{
                         if (nombre.equalsIgnoreCase(nombre_producto)) {
                             Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
@@ -233,6 +235,8 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 cantidad_nueva();
             }
         });
+        Dialog dialog = alertBuilder.create();
+        dialog.show();
     }
     public void cargar(){
         ArrayList<HashMap<String, String>> listado_despensa;

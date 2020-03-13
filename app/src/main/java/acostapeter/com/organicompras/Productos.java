@@ -182,7 +182,7 @@ public class Productos {
                 nombre = producto_especifico.getString(1);
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(TERCERA_COLUMNA, producto_id);
+                temp.put(SEPTIMA_COLUMNA, producto_id);
                 lista_producto.add(temp);
             } while (producto_especifico.moveToNext());
         }
