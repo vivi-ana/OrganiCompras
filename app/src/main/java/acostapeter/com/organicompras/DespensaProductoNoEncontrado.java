@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.OCTAVA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 @SuppressWarnings("all")
@@ -56,11 +57,11 @@ public class DespensaProductoNoEncontrado extends AppCompatActivity {
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_productos.get(i);
                 nombre = hashmap.get(PRIMERA_COLUMNA);
-                ide = hashmap.get(TERCERA_COLUMNA);
+                ide = hashmap.get(OCTAVA_COLUMNA);
 
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(TERCERA_COLUMNA, ide);
+                temp.put(OCTAVA_COLUMNA, ide);
                 lista.add(temp);
                 DespensaProductoNoEncontradoListViewAdapter adapter = new DespensaProductoNoEncontradoListViewAdapter(activity, lista);
                 listado.setAdapter(adapter);

@@ -227,7 +227,8 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 int maximo = productos.getId_producto();
                 //if (maximo != 0) id_producto = Integer.toString(maximo); //id del producto no encontrado que esta insertado en otra tabla.
                 despensa.setId_producto(maximo);
-                productos.insertar_producto_no_encontrado_despensa();
+                String dato = String.valueOf(maximo);
+                productos.agregar_despensa_producto_no_encontrado(dato);
                 despensa.setId_producto(maximo);
                 despensa.insertar_inventario();
                 guardar = false;
@@ -262,6 +263,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 temp.put(ConstantesColumnasDespensa.TERCERA_COLUMNA, cantidad);
                 temp.put(CUARTA_COLUMNA, id_producto);
                 temp.put(QUINTA_COLUMNA, marca);
+                if (neto.equals("0")){neto ="";}
                 temp.put(SEXTA_COLUMNA, neto);
                 temp.put(SEPTIMA_COLUMNA, medida);
                 lista.add(temp);

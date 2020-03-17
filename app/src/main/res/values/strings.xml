@@ -89,6 +89,7 @@
         <item>2021</item>
     </string-array>
     <string-array name="medidas">
+        <item> </item>
         <item>Gr</item>
         <item>Kg</item>
         <item>Cc</item>

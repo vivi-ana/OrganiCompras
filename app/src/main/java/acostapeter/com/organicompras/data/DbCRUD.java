@@ -56,7 +56,7 @@ public class DbCRUD extends DbHelper {
     }
     public String por_nombre(int id_producto){
         String nombre = "";
-        final String query = "SELECT " + DbTablas.TablaProductos.CAMPO_NOMBRE + " FROM " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " = " + id_producto;
+        final String query = "SELECT " + DbTablas.TablaProductos.CAMPO_NOMBRE + " FROM " + DbTablas.TablaProductos.TABLA_PRODUCTOS + " WHERE " + DbTablas.TablaProductos.CAMPO_ID_PROD + " = " + id_producto;
         Cursor lista_producto = db.rawQuery(query,null);
         if (lista_producto != null){
             try {
@@ -211,12 +211,6 @@ public class DbCRUD extends DbHelper {
         return producto_no_encontrado;
     }
     //no encontrado despensa
-    public void producto_no_encontrado_despensa(int id){
-        ContentValues registros = new ContentValues();
-        registros.put(DbTablas.TablaProductosCasa.CAMPO_FK_ID_PROD, id);
-        registros.put(DbTablas.TablaProductosCasa.CAMPO_GUARDAR, "N");
-        db.insert(DbTablas.TablaProductosCasa.TABLA_PROD_CASA, null, registros);
-    }
     public Cursor recargar_producto_no_encontrado(String id_producto){
         final String query = "SELECT * FROM " + DbTablas.TablaProductosCasa.TABLA_PROD_CASA + " WHERE " + DbTablas.TablaProductosCasa.CAMPO_FK_ID_PROD + " = " + id_producto;
         Cursor producto_no_encontrado = db.rawQuery(query,null);
@@ -225,8 +219,9 @@ public class DbCRUD extends DbHelper {
         }
         return producto_no_encontrado;
     }
-    public void agregar_producto_no_encontrado_despensa(String id_producto){
+    public void agregar_producto_no_encontrado_despensa(String dato, int id_producto){
         ContentValues registros = new ContentValues();
+        registros.put(DbTablas.TablaProductosCasa.CAMPO_ID_CASA, dato);
         registros.put(DbTablas.TablaProductosCasa.CAMPO_FK_ID_PROD, id_producto);
         registros.put(DbTablas.TablaProductosCasa.CAMPO_GUARDAR, "S");
         db.insert(DbTablas.TablaProductosCasa.TABLA_PROD_CASA, null, registros);

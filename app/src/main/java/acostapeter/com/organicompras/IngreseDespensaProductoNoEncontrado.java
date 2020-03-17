@@ -23,7 +23,7 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
     EditText Enombre, Edescripcion, Emarca, Eneto;
     Spinner Smedida;
     Pattern pn = Pattern.compile("^[a-zA-Z ]+$");
-    String medida_producto = "", codigo = "";
+    String medida_producto = "", codigo = "", dato ="";
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.dialogo_despensa_ingrese_producto, container);
         BotonAceptar = rootview.findViewById(R.id.btnAceptar);
@@ -34,13 +34,13 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
         Eneto = rootview.findViewById(R.id.editNeto);
         Smedida = rootview.findViewById(R.id.prodMedida);
         if(getArguments()!=null) {
-            String dato = getArguments().getString("dato");
-            Matcher validacion = pn.matcher(dato);
+            String dato_despensa = getArguments().getString("dato");
+            Matcher validacion = pn.matcher(dato_despensa);
             boolean val = validacion.matches();
             if(val){
-                Enombre.setText(dato);
+                Enombre.setText(dato_despensa);
             }else{
-                codigo = dato;
+                codigo = dato_despensa;
             }
         }
         ArrayAdapter<CharSequence> spinneradapter =
@@ -67,6 +67,8 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                 marca_producto = Emarca.getText().toString();
                 neto_producto = Eneto.getText().toString();
                 Matcher prodn = pn.matcher(nombre_producto), prodD = pn.matcher(descripcion_producto);
+                double neto = 0;
+                if (!neto_producto.equals("")) { neto = Double.parseDouble(neto_producto);}
                 boolean bs = prodn.matches(), dp = prodD.matches();
                 if (nombre_producto.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
@@ -74,35 +76,35 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                     Enombre.setError("El producto no debe contener numeros");
                 }else if(nombre_producto.length() <3){
                     Enombre.setError("Nombre muy corto");
-                }else if(!descripcion_producto.matches("")){//si la descripcion no esta vacia
-                    if(!dp){
+                }else if(!descripcion_producto.matches("")& (!dp)){//si la descripcion no esta vacia
                         Edescripcion.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
-                    }else if(descripcion_producto.length() <3){
+                }else if(!descripcion_producto.matches("")& descripcion_producto.length() <3) {
                         Edescripcion.setError("Descripcion muy corta");
-                    }
                 }else if(!marca_producto.matches("") & marca_producto.length()<3) {
                         Emarca.setError("Nombre de marca muy corto");
-                }else if(!neto_producto.matches("") & Double.parseDouble(neto_producto) < 0) {
+                }else if(!neto_producto.matches("") & neto < 0) {
                         Eneto.setError("El neto debe ser mayor a 0");
                 } else {
                     String nom = Enombre.getText().toString();
                     Productos productos = new Productos(getActivity());
-                    if(!codigo.equals("")) {
-                        productos.setCodigo(codigo);
-                        boolean lista = productos.producto_no_encontrado_despensa();//hay que verificar que no se haya dado de alta antes.
-                        if (!lista) { //si lista es falsa es porque es un producto nuevo que hay que ingresarlo.
-                            productos.agregar_despensa_producto_no_encontrado();
-                        }
-                    }
                     productos.setNombre(nom);
                     productos.setDescripcion(descripcion_producto);
                     productos.setMarca(marca_producto);
                     productos.setMedida(medida_producto);
-                    double neto = Double.parseDouble(neto_producto);
                     productos.setNeto(neto);
                     productos.agregar_producto();
                     productos.maximo_producto();
                     int maximo = productos.getId_producto();
+                    productos.setId_producto(maximo);
+                    if(!codigo.equals("")) {
+                        dato = codigo;
+                    }else{
+                        dato = String.valueOf(maximo);
+                    }
+                    boolean lista = productos.producto_no_encontrado_despensa(dato);//hay que verificar que no se haya dado de alta antes.
+                    if (!lista) { //si lista es falsa es porque es un producto nuevo que hay que ingresarlo.
+                        productos.agregar_despensa_producto_no_encontrado(dato);
+                    }
                     dismiss();
                     Toast.makeText(getActivity(), "Se guardó correctamente", Toast.LENGTH_SHORT).show();
                     MiDespensaActivity midespensa = new MiDespensaActivity();

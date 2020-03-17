@@ -145,6 +145,7 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
                 temporal.put(TERCERA_COLUMNA, cantidad);
                 temporal.put(CUARTA_COLUMNA, id_producto);
                 temporal.put(QUINTA_COLUMNA, marca);
+                if(neto.equals("0")){neto = "";}
                 temporal.put(SEXTA_COLUMNA, neto);
                 temporal.put(SEPTIMA_COLUMNA, medida);
 

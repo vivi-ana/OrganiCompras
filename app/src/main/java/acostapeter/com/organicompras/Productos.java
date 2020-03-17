@@ -193,9 +193,6 @@ public class Productos {
         lista_productos = admin.editText_busqueda(item);
         return lista_productos;
     }
-    void insertar_producto_no_encontrado_despensa(){
-        admin.producto_no_encontrado_despensa(id_producto);
-    }
     int maximo_producto_no_encontrado_despensa(){
         int maximo;
         maximo = admin.maximo_producto_no_encontrado();
@@ -204,9 +201,9 @@ public class Productos {
     void guardar_producto_no_encontrado_despensa(){
         admin.guardar_producto_no_encontrado_despensa();
     }
-    boolean producto_no_encontrado_despensa(){
+    boolean producto_no_encontrado_despensa(String dato){
         boolean lista_producto_no_encontrado = false;
-        Cursor producto_especifico = admin.recargar_producto_no_encontrado(codigo);
+        Cursor producto_especifico = admin.recargar_producto_no_encontrado(dato);
         if (producto_especifico.moveToFirst()) {
             lista_producto_no_encontrado = true;
         }
@@ -215,8 +212,8 @@ public class Productos {
     void borrar_producto_no_encontrado_inventario(){
         admin.borrar_producto_no_encontrado_inventario();
     }
-    void agregar_despensa_producto_no_encontrado(){
-        admin.agregar_producto_no_encontrado_despensa(codigo);
+    void agregar_despensa_producto_no_encontrado(String dato){
+        admin.agregar_producto_no_encontrado_despensa(dato, id_producto);
     }
     boolean nombre_producto(){
         boolean vacio = true;
@@ -233,10 +230,11 @@ public class Productos {
         if (producto_no_encontrado.moveToFirst()) {
             do {
                 codigo = producto_no_encontrado.getString(0); //id del producto
-                nombre = producto_no_encontrado.getString(1);
+                id_producto = producto_no_encontrado.getInt(1);
+                nombre = admin.por_nombre(id_producto);
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(TERCERA_COLUMNA, codigo);
+                temp.put(OCTAVA_COLUMNA, codigo);
                 lista_producto.add(temp);
             } while (producto_no_encontrado.moveToNext());
         }

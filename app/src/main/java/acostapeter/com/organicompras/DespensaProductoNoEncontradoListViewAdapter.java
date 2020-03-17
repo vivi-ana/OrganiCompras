@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.OCTAVA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.PRIMERA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 
@@ -53,7 +54,7 @@ public class DespensaProductoNoEncontradoListViewAdapter extends BaseAdapter {
         }
         HashMap<String, String> map = lista.get(position);
         holder.nombre.setText(map.get(PRIMERA_COLUMNA));
-        holder.id.setText(map.get(TERCERA_COLUMNA));
+        holder.id.setText(map.get(OCTAVA_COLUMNA));
         return convertView;
     }
 }
