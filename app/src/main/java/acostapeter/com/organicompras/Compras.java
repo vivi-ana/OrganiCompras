@@ -136,7 +136,8 @@ private DbCRUD admin;
                     marca = datos_producto.getString(3);
                     neto = datos_producto.getString(4);
                     medida = datos_producto.getString(5);
-                    String codigo = admin.getCodigo(id_producto);
+                    long cod = admin.getCodigo(id_producto);
+                    String codigo = Long.toString(cod);
                     double preun = 0;
                     if(!codigo.equals("")){
                     preun = admin.por_supermercado(codigo, supermercado); //se busca primero en la tabla existentes
@@ -263,7 +264,8 @@ private DbCRUD admin;
                     marca = datos_producto.getString(3);
                     neto = datos_producto.getString(4);
                     medida = datos_producto.getString(5);
-                    String codigo = admin.getCodigo(id_producto);
+                    Long cod =  admin.getCodigo(id_producto);
+                    String codigo = Long.toString(cod);
                     double preun = 0;
                     if(!codigo.equals("")) {
                         preun = admin.por_supermercado(codigo, supermercado); //se busca primero en la tabla existentes

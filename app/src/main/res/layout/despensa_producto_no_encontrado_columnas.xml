@@ -5,6 +5,40 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/descrip"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:text="@string/descripcion"
+        app:layout_constraintStart_toStartOf="@+id/nombre"
+        app:layout_constraintTop_toBottomOf="@+id/nombre" />
+
+    <TextView
+        android:id="@+id/marca"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/marca"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descrip" />
+
+    <TextView
+        android:id="@+id/neto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/neto"
+        app:layout_constraintBaseline_toBaselineOf="@+id/medida"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/medida"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:text="@string/medida"
+        app:layout_constraintStart_toEndOf="@+id/neto"
+        app:layout_constraintTop_toBottomOf="@+id/marca" />
+
+    <TextView
         android:id="@+id/nombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

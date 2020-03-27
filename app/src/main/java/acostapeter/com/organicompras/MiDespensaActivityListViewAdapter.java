@@ -79,8 +79,7 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
             holder.id = convertView.findViewById(R.id.id);
             holder.btnMenos.setEnabled(false);
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         HashMap<String, String> map = lista.get(position);
@@ -96,12 +95,10 @@ public class MiDespensaActivityListViewAdapter extends BaseAdapter {
         holder.marca.setText(map.get(QUINTA_COLUMNA));
         holder.neto.setText(map.get(SEXTA_COLUMNA));
         holder.medida.setText(map.get(SEPTIMA_COLUMNA));
-        if (!"".equals(map.get(QUINTA_COLUMNA))){
-            holder.descripcion.setVisibility(View.VISIBLE);
-            holder.marca.setVisibility(View.VISIBLE);
-            holder.neto.setVisibility(View.VISIBLE);
-            holder.medida.setVisibility(View.VISIBLE);
-        }
+        if (!"".equals(map.get(QUINTA_COLUMNA))) holder.marca.setVisibility(View.VISIBLE);
+        if (!"".equals(map.get(SEGUNDA_COLUMNA))) holder.descripcion.setVisibility(View.VISIBLE);
+        if (!"".equals(map.get(SEXTA_COLUMNA))) holder.neto.setVisibility(View.VISIBLE);
+        if (!"".equals(map.get(SEPTIMA_COLUMNA))) holder.medida.setVisibility(View.VISIBLE);
         String txtCantidad;  //verificar el textview del menos en la lista para deshabilitar el menos.
         int contador_cantidad;
         txtCantidad = holder.producto_cantidad.getText().toString();

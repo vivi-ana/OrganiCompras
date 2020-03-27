@@ -107,6 +107,7 @@ public class MiDespensaActivityBorrarLista extends AppCompatActivity {
                         //    despensa.setId_producto(item);
                         //    despensa.borrar_item();
                         //}
+                        Toast.makeText(getBaseContext(), "Los productos se borraron de forma correcta", Toast.LENGTH_LONG).show();
                     }
                     listaDespensa.setAdapter(null);
                     MiDespensaActivityBorrarListaListViewAdapter adapter = new MiDespensaActivityBorrarListaListViewAdapter(MiDespensaActivityBorrarLista.this, lista);

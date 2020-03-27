@@ -117,6 +117,10 @@ public class FragmentDespensaListViewAdapter extends BaseAdapter {
         holder.medida.setText(map.get(SEPTIMA_COLUMNA));
         holder.id_producto.setTag(position);
         holder.id_producto.setChecked(checked[position]);
+        if ("".equals(map.get(QUINTA_COLUMNA))) holder.marca.setVisibility(View.GONE);
+        if ("".equals(map.get(SEGUNDA_COLUMNA))) holder.descripcion.setVisibility(View.GONE);
+        if ("".equals(map.get(SEXTA_COLUMNA))) holder.neto.setVisibility(View.GONE);
+        if ("".equals(map.get(SEPTIMA_COLUMNA))) holder.medida.setVisibility(View.GONE);
         return convertView;
     }
 

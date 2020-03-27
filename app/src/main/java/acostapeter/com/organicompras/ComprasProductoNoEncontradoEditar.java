@@ -67,11 +67,15 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                 }
             }
         }
-        medida.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        medida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 producto_medida = medida.getSelectedItem().toString();
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+
         });
         BtnAaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,26 +89,22 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                 Matcher prodn = pn.matcher(nprod), prodD = pn.matcher(descripcion_producto);
                 boolean bs = prodn.matches(), dp = prodD.matches();
                 String pre = precio.getText().toString();
+                double neto_prod = 0;
+                if (!neto_producto.equals("")) { neto_prod = Double.parseDouble(neto_producto);}
                 if (nprod.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
                 }else if(!bs){
                     nombre.setError("El producto no debe contener numeros");
                 }else if(nombre_producto.length() <3){
                     nombre.setError("Nombre muy corto");
-                }else if(!descripcion_producto.matches("")){//si la descripcion no esta vacia
-                    if(!dp){
+                }else if(!descripcion_producto.matches("") & !(dp)){//si la descripcion no esta vacia
                         descripcion.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
-                    }else if(descripcion_producto.length() <3){
+                }else if(!descripcion_producto.matches("") & descripcion_producto.length() <3){
                         descripcion.setError("Descripcion muy corta");
-                    }
-                }else if(!marca_producto.matches("")) {
-                    if(marca_producto.length() <3){
+                }else if(!marca_producto.matches("") & marca_producto.length() <3 ) {
                         marca.setError("Nombre de marca muy corto");
-                    }
-                }else if(!neto_producto.matches("")) {
-                    if (Double.parseDouble(neto_producto) < 0) {
+                }else if(!neto_producto.matches("") & neto_prod < 0) {
                         neto.setError("El neto debe ser mayor a 0");
-                    }
                 } else {
                     if (pre.matches("")) {
                         Toast.makeText(getActivity(), "Debe ingresar un precio", Toast.LENGTH_SHORT).show();
@@ -122,7 +122,6 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                             productos.setNombre(nprod);
                             productos.setDescripcion(descripcion_producto);
                             productos.setMarca(marca_producto);
-                            double neto_prod = Double.parseDouble(neto_producto);
                             productos.setNeto(neto_prod);
                             productos.setMedida(producto_medida);
                             productos.actualizar_producto();

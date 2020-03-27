@@ -50,7 +50,7 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
         Botonaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombre_producto, descripcion_producto, marca_producto, neto_producto;
+                String nombre_producto, descripcion_producto, marca_producto, neto_producto, preciopro  ="", producto_precio;
                 nombre_producto = nombre.getText().toString();
                 descripcion_producto = descripcion.getText().toString();
                 marca_producto = marca.getText().toString();
@@ -59,68 +59,62 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                 Matcher prodn = pn.matcher(nombre_producto), prodD = pn.matcher(descripcion_producto);
                 boolean bs = prodn.matches(), dp = prodD.matches();
                 String pre = precio.getText().toString();
+                double neto_prod = 0;
+                if (!neto_producto.equals("")) { neto_prod = Double.parseDouble(neto_producto);}
+                producto_precio = precio.getText().toString();
+                if (!producto_precio.equals("")){
+                    precio_producto = Double.parseDouble(precio.getText().toString());
+                    preciopro = (df.format(precio_producto)).replace(",", ".");
+                }
                 if (nombre_producto.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
                 }else if(!bs){
                     nombre.setError("El producto no debe contener numeros");
                 }else if(nombre_producto.length() <3){
                     nombre.setError("Nombre muy corto");
-                }else if(!descripcion_producto.matches("")){//si la descripcion no esta vacia
-                    if(!dp){
+                }else if(!descripcion_producto.matches("") & !(dp)){//si la descripcion no esta vacia
                         descripcion.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
-                    }else if(descripcion_producto.length() <3){
+                }else if(!descripcion_producto.matches("") & descripcion_producto.length() <3){
                         descripcion.setError("Descripcion muy corta");
-                    }
-                }else if(!marca_producto.matches("")) {
-                    if(marca_producto.length() <3){
+                }else if(!marca_producto.matches("") & marca_producto.length() <3 ) {
                         marca.setError("Nombre de marca muy corto");
-                    }
-                }else if(!neto_producto.matches("")) {
-                    if (Double.parseDouble(neto_producto) < 0) {
+                }else if(!neto_producto.matches("") & neto_prod <0) {
                         neto.setError("El neto debe ser mayor a 0");
-                    }
-                } else {
-                    if (pre.matches("")) {
+                } else if (pre.matches("")){
                         Toast.makeText(getActivity(), "Debe ingresar un precio", Toast.LENGTH_SHORT).show();
-                    } else {
-                        precio_producto = Double.parseDouble(precio.getText().toString());
-                        String preciopro = (df.format(precio_producto)).replace(",", ".");
-                        if (precio.getText().length() < 3) { //fijarse como poner porque puede haber algo de 9 pesos o de 15 algo exacto y el usuario no puede poner 15.00
-                            precio.setError("Mínimo 3 dígitos");
-                        } else if (precio.getText().length() >= 6) {
-                            precio.setError("Máximo de 5 dígitos");
-                        } else if (Double.parseDouble(preciopro) < 0) {
-                            precio.setError("El valor ingresado debe ser mayor a 0");
-                        } else {//validado
-                            if(getArguments()!=null) {
-                                String id = getArguments().getString("idsuper");
-                                String codigo = getArguments().getString("codigo");
-                                if (id != null) {
-                                    int id_super = Integer.parseInt(id);
-                                    Productos producto_no_encontrado = new Productos(getActivity());
-                                    producto_no_encontrado.setNombre(nombre_producto);
-                                    producto_no_encontrado.setDescripcion(descripcion_producto);
-                                    producto_no_encontrado.setMarca(marca_producto);
-                                    double neto_prod = Double.parseDouble(neto_producto);
-                                    producto_no_encontrado.setNeto(neto_prod);
-                                    producto_no_encontrado.setMedida(medida_producto);
-                                    producto_no_encontrado.maximo_producto();//traer el id del producto recien agregado
-                                    int id_producto = producto_no_encontrado.getId_producto();
-                                    producto_no_encontrado.setCodigo(codigo);
-                                    producto_no_encontrado.setId_supermercado(id_super);
-                                    producto_no_encontrado.setId_producto(id_producto);
-                                    producto_no_encontrado.setPrecio(precio_producto);
-                                    producto_no_encontrado.agregar_compras_producto_no_encontrado();
-                                    dismiss();
-                                    Toast.makeText(getActivity(), "Se guardó correctamente", Toast.LENGTH_SHORT).show();
-                                    String p = precio.getText().toString();
-                                    double preun = Double.parseDouble(p);
-                                    String precioun = (df.format(preun)).replace(",", ".");
-                                    FragmentCompras compras = new FragmentCompras();
-                                    compras.comprar(id_producto, Double.parseDouble(precioun));
-                                    compras.cargar();
-                                }
-                            }
+                } else if (precio.getText().length() < 3) { //fijarse como poner porque puede haber algo de 9 pesos o de 15 algo exacto y el usuario no puede poner 15.00
+                        precio.setError("Mínimo 3 dígitos");
+                } else if (precio.getText().length() >= 6) {
+                        precio.setError("Máximo de 5 dígitos");
+                } else if (Double.parseDouble(preciopro) < 0) {
+                        precio.setError("El valor ingresado debe ser mayor a 0");
+                } else {//validado
+                    if(getArguments()!=null) {
+                        String id = getArguments().getString("idsuper");
+                        String codigo = getArguments().getString("codigo");
+                        if (id != null) {
+                            int id_super = Integer.parseInt(id);
+                            Productos producto_no_encontrado = new Productos(getActivity());
+                            producto_no_encontrado.setNombre(nombre_producto);
+                            producto_no_encontrado.setDescripcion(descripcion_producto);
+                            producto_no_encontrado.setMarca(marca_producto);
+                            producto_no_encontrado.setNeto(neto_prod);
+                            producto_no_encontrado.setMedida(medida_producto);
+                            producto_no_encontrado.maximo_producto();//traer el id del producto recien agregado
+                            int id_producto = producto_no_encontrado.getId_producto();
+                            producto_no_encontrado.setCodigo(codigo);
+                            producto_no_encontrado.setId_supermercado(id_super);
+                            producto_no_encontrado.setId_producto(id_producto);
+                            producto_no_encontrado.setPrecio(precio_producto);
+                            producto_no_encontrado.agregar_compras_producto_no_encontrado();
+                            dismiss();
+                            Toast.makeText(getActivity(), "Se guardó correctamente", Toast.LENGTH_SHORT).show();
+                            String p = precio.getText().toString();
+                            double preun = Double.parseDouble(p);
+                            String precioun = (df.format(preun)).replace(",", ".");
+                            FragmentCompras compras = new FragmentCompras();
+                            compras.comprar(id_producto, Double.parseDouble(precioun));
+                            compras.cargar();
                         }
                     }
                 }

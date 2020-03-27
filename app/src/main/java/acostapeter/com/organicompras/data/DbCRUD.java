@@ -137,15 +137,15 @@ public class DbCRUD extends DbHelper {
         }
         return precio_por_supermercado;
     }
-    public String getCodigo(int id_producto){
-        String codigo = "";
+    public long getCodigo(int id_producto){
+        long codigo = 0;
         final String query = "SELECT * FROM " + DbTablas.TablaExistentes.TABLA_EXISTENTES + " WHERE "
                 + DbTablas.TablaExistentes.CAMPO_FK_ID_PROD + " = " + id_producto;
         Cursor precio_producto = db.rawQuery(query,null);
         if (precio_producto != null){
             try {
                 if(precio_producto.moveToFirst()){
-                    codigo = precio_producto.getString(0);
+                    codigo = precio_producto.getLong(0);
                 }
             }finally {
                 precio_producto.close();
@@ -558,11 +558,6 @@ public class DbCRUD extends DbHelper {
             lista_producto.moveToFirst();
         }
         return lista_producto;
-    }
-    public void editar_producto_no_encontrado_despensa(String nombre, String id_producto){
-        ContentValues editar = new ContentValues();
-        editar.put(DbTablas.TablaProductosCasa.CAMPO_FK_ID_PROD, nombre);
-        db.update(DbTablas.TablaProductosCasa.TABLA_PROD_CASA, editar, DbTablas.TablaProductosCasa.CAMPO_ID_CASA + " = '" + id_producto +"'", null);
     }
     public Cursor cargar_historial(int year, String mes){
         final String query = "SELECT * from " + DbTablas.TablaCompras.TABLA_COMPRAS + " WHERE strftime('%Y'," + DbTablas.TablaCompras.CAMPO_FECHA + ") =('" + year +"') AND strftime('%m'," + DbTablas.TablaCompras.CAMPO_FECHA  + ") =('" + mes +"')";

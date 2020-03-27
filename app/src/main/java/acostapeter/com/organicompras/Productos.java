@@ -229,18 +229,29 @@ public class Productos {
         Cursor producto_no_encontrado = admin.listado_productos_no_encontrados_despensa();
         if (producto_no_encontrado.moveToFirst()) {
             do {
-                codigo = producto_no_encontrado.getString(0); //id del producto
+                String descripcion = "", marca = "", neto = "", medida = "", id = "", producto_id;
+                //codigo = producto_no_encontrado.getString(0); //id del producto
                 id_producto = producto_no_encontrado.getInt(1);
-                nombre = admin.por_nombre(id_producto);
+                producto_id = String.valueOf(id_producto);
+                Cursor datos_producto = admin.producto(id_producto);
+                if(datos_producto.moveToFirst()) {
+                    nombre = datos_producto.getString(1);
+                    descripcion = datos_producto.getString(2);
+                    marca = datos_producto.getString(3);
+                    neto = datos_producto.getString(4);
+                    medida = datos_producto.getString(5);
+                }
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
-                temp.put(OCTAVA_COLUMNA, codigo);
+                temp.put(SEGUNDA_COLUMNA, descripcion);
+                temp.put(TERCERA_COLUMNA, marca);
+                if (neto.equals("0")) neto = "";
+                temp.put(CUARTA_COLUMNA, neto);
+                temp.put(QUINTA_COLUMNA, medida);
+                temp.put(SEPTIMA_COLUMNA, producto_id);
                 lista_producto.add(temp);
             } while (producto_no_encontrado.moveToNext());
         }
         return lista_producto;
-    }
-    void editar_producto_no_encontrado(){
-        admin.editar_producto_no_encontrado_despensa(nombre, codigo);
     }
 }

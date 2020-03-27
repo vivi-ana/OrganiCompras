@@ -102,7 +102,8 @@ public class Despensa {
             do {//si no tiene datos el valor quedara por defecto "0"
                 id_producto = lista_inventario.getInt(0); //id del producto
                 cantidad = lista_inventario.getInt(1);
-                codigo = admin.getCodigo(id_producto);
+                Long cod = admin.getCodigo(id_producto);
+                codigo = Long.toString(cod);
                 Cursor datos1 = admin.calcular_despensa(codigo, id_supermercado);
                 if (datos1.moveToFirst()){ //esta en la tabla productosxsuper
                     double mont = Double.parseDouble(datos1.getString(2));
@@ -116,7 +117,8 @@ public class Despensa {
                         if (datos2.moveToFirst()) {
                             do {
                                 id_producto = datos2.getInt(0); //entrar en la lista y traer el id
-                                codigo = admin.getCodigo(id_producto);
+                                Long code = admin.getCodigo(id_producto);
+                                codigo = Long.toString(code);
                                 Cursor datos4 = admin.calcular_despensa(codigo, id_supermercado);
                                 if (datos4.moveToFirst()) {
                                     double mont = Double.parseDouble(datos4.getString(2));
