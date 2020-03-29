@@ -599,5 +599,13 @@ public class DbCRUD extends DbHelper {
         }
         return lista_estadistica;
     }
+    public Cursor producto_lista(int id){
+        final String query = "SELECT * FROM " + DbTablas.TablaProductosCasa.TABLA_PROD_CASA + " WHERE " + DbTablas.TablaProductosCasa.CAMPO_FK_ID_PROD + " = " + id;
+        Cursor lista_producto = db.rawQuery(query,null);
+        if (lista_producto != null){
+            lista_producto.moveToFirst();
+        }
+        return lista_producto;
+    }
     //asi se pone los string?'" + codigo +"'
 }

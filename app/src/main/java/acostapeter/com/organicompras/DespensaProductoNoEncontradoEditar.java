@@ -104,6 +104,50 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
                             productos.setId_producto(id);
                             productos.setMedida(producto_medida);
                             productos.actualizar_producto();
+                                /*
+                                 Despensa despensa = new Despensa(getActivity());
+                            ArrayList<HashMap<String, String>> listado_despensa, lista_producto_no_encontrado, lista_producto;
+
+                                 String id_producto, nombre;
+                                listado_despensa = despensa.detalle_inventario();
+
+                                lista_producto_no_encontrado = productos.lista_producto_no_encontrado_despensa();
+
+                                lista_producto = productos.producto_por_nombre();
+                                int bucle = listado_despensa.size();
+                                int bucle_producto = lista_producto_no_encontrado.size();
+                                bucle_lista_productos = lista_producto.size();
+                                if (bucle != 0) {
+                                    for (int i = 0; i < bucle; i++) {//cuando el id no sea EAN 13 el id tiene que ser distinto si el nombre es igual.
+                                        HashMap<String, String> hashmap = listado_despensa.get(i);
+                                        nombre = hashmap.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);
+                                        id_producto = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);//hay que verificar que no se haya dado de alta antes.
+                                        if (nombre != null) {
+                                            if (nombre.equals(nombre_producto) && !nuevo_codigo.equals(id_producto)) { //se verifica que no este escribiendo un producto ya ingresado con distinto id
+                                                Toast.makeText(getActivity(), "Este producto ya fue ingresado", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (bucle_lista_productos != 0) { //verificar que no este en la lista de productos
+                                   Toast.makeText(getActivity(), "Este producto ya existe", Toast.LENGTH_SHORT).show();
+                                   return;
+                                }
+                                if (bucle_producto != 0) {
+                                    for (int i = 0; i < bucle_producto; i++) { //se verifica que no este editando un producto que ya existe en la base de datos de los productos no encontrados
+                                        HashMap<String, String> hashmap = lista_producto_no_encontrado.get(i);
+                                        id_producto = hashmap.get(ConstantesColumnasDespensa.TERCERA_COLUMNA);
+                                        nombre = hashmap.get(ConstantesColumnasDespensa.PRIMERA_COLUMNA);
+                                        if (nombre != null) {
+                                            if (nombre.equals(nombre_producto) && !codigo.equals(id_producto)) {
+                                                Toast.makeText(getActivity(), "Este producto ya existe", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                                */
                             dismiss();
                             Toast.makeText(getActivity(), "Se guardó correctamente", Toast.LENGTH_SHORT).show();
                             DespensaProductoNoEncontrado noEncontrado = new DespensaProductoNoEncontrado();

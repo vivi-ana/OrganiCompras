@@ -46,17 +46,22 @@ public class Despensa {
         if (lista_inventario.moveToFirst()){
             do {
                 String descripcion = "", marca = "", neto = "", medida = "", id = "";
+                boolean dato =false;
                 id_producto = lista_inventario.getInt(0); //id del producto
                 id = Integer.toString(id_producto);
                 cantidad = lista_inventario.getInt(1);
                 cantidad_producto = Integer.toString(cantidad);
+                Cursor producto_detalle = admin.producto_lista(id_producto);
+                if (producto_detalle.moveToFirst()) dato = true;
                 Cursor datos_producto = admin.producto(id_producto);
                 if(datos_producto.moveToFirst()) {
                     nombre = datos_producto.getString(1);
-                    descripcion = datos_producto.getString(2);
-                    marca = datos_producto.getString(3);
-                    neto = datos_producto.getString(4);
-                    medida = datos_producto.getString(5);
+                    if (dato == true) {
+                        descripcion = datos_producto.getString(2);
+                        marca = datos_producto.getString(3);
+                        neto = datos_producto.getString(4);
+                        medida = datos_producto.getString(5);
+                    }
                 }
                 if (neto.equals(0)) neto = "";
                 HashMap<String, String> temporal = new HashMap<String, String>();
