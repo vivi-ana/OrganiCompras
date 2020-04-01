@@ -175,4 +175,9 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
             return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();//La primera letra en mayuscula y las demas en minuscula.
         }
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        Enombre.requestFocus();
+    }
 }
