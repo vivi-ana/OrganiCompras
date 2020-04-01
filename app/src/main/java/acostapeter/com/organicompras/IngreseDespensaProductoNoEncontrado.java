@@ -33,6 +33,7 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
         Emarca = rootview.findViewById(R.id.editMarca);
         Eneto = rootview.findViewById(R.id.editNeto);
         Smedida = rootview.findViewById(R.id.prodMedida);
+        Enombre.requestFocus();
         if(getArguments()!=null) {
             String dato_despensa = getArguments().getString("dato");
             Matcher validacion = pn.matcher(dato_despensa);
@@ -66,18 +67,16 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                 descripcion_producto = Edescripcion.getText().toString();
                 marca_producto = Emarca.getText().toString();
                 neto_producto = Eneto.getText().toString();
-                Matcher prodn = pn.matcher(nombre_producto), prodD = pn.matcher(descripcion_producto);
+                Matcher prodn = pn.matcher(nombre_producto);
                 double neto = 0;
                 if (!neto_producto.equals("")) { neto = Double.parseDouble(neto_producto);}
-                boolean bs = prodn.matches(), dp = prodD.matches();
+                boolean bs = prodn.matches();
                 if (nombre_producto.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
                 }else if(!bs){
                     Enombre.setError("El producto no debe contener numeros");
                 }else if(nombre_producto.length() <3){
                     Enombre.setError("Nombre muy corto");
-                }else if(!descripcion_producto.matches("")& (!dp)){//si la descripcion no esta vacia
-                        Edescripcion.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
                 }else if(!descripcion_producto.matches("")& descripcion_producto.length() <3) {
                         Edescripcion.setError("Descripcion muy corta");
                 }else if(!marca_producto.matches("") & marca_producto.length()<3) {

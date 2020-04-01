@@ -37,6 +37,7 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
         marca = rootview.findViewById(R.id.editMarca);
         neto = rootview.findViewById(R.id.editNeto);
         medida = rootview.findViewById(R.id.ProdMedida);
+        nombre.requestFocus();
         ArrayAdapter<CharSequence> spinneradapter =
                 ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.medidas, android.R.layout.simple_spinner_item);
         spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,8 +57,8 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                 marca_producto = marca.getText().toString();
                 neto_producto = neto.getText().toString();
                 Pattern pn = Pattern.compile("^[a-zA-Z ]+$");
-                Matcher prodn = pn.matcher(nombre_producto), prodD = pn.matcher(descripcion_producto);
-                boolean bs = prodn.matches(), dp = prodD.matches();
+                Matcher prodn = pn.matcher(nombre_producto);
+                boolean bs = prodn.matches();
                 String pre = precio.getText().toString();
                 double neto_prod = 0;
                 if (!neto_producto.equals("")) { neto_prod = Double.parseDouble(neto_producto);}
@@ -72,8 +73,6 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                     nombre.setError("El producto no debe contener numeros");
                 }else if(nombre_producto.length() <3){
                     nombre.setError("Nombre muy corto");
-                }else if(!descripcion_producto.matches("") & !(dp)){//si la descripcion no esta vacia
-                        descripcion.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
                 }else if(!descripcion_producto.matches("") & descripcion_producto.length() <3){
                         descripcion.setError("Descripcion muy corta");
                 }else if(!marca_producto.matches("") & marca_producto.length() <3 ) {

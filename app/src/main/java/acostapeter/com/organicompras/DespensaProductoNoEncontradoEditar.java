@@ -32,6 +32,7 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
         Emarca = rootview.findViewById(R.id.editMarca);
         Eneto = rootview.findViewById(R.id.editNeto);
         Smedida = rootview.findViewById(R.id.prodMedida);
+        Enombre.requestFocus();
         ArrayAdapter<CharSequence> spinneradapter =
                 ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.medidas, android.R.layout.simple_spinner_item);
         spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
