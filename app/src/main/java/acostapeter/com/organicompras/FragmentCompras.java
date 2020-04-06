@@ -112,7 +112,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 productos.precio_existente();
                 double precio = productos.getPrecio();
                 productos.obtener_id_producto();
-                id_producto = getId();
+                id_producto = productos.getId_producto();
                 if (precio != 0){ //verifico que el producto este en la bd de lo contrario tiene que agregar el usuario
                     compras.total_productos(id_producto);
                     count = compras.getCant_total_productos();
