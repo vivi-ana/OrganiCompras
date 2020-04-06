@@ -100,12 +100,12 @@ class DbTablas {
             + TablaSupermercados.CAMPO_NOMBRE + " text not null ) ; ";
 
     final String PRODXSUPER_CREATE = "create table " + TablaProdXSuper.TABLA_PRODXSUPER + " ( "
-            + TablaProdXSuper.CAMPO_FK_ID_EXISTENTE + " real not null, "
+            + TablaProdXSuper.CAMPO_FK_ID_EXISTENTE + " text not null, "
             + TablaProdXSuper.CAMPO_FK_ID_SUPER + " integer not null , "
             + TablaProdXSuper.CAMPO_PRECIO + " real not null ) ; ";
 
     final String EXISTENTES_CREATE = "create table " + TablaExistentes.TABLA_EXISTENTES + " ( "
-            + TablaExistentes.CAMPO_ID_EXISTENTE + " real primary key not null, "
+            + TablaExistentes.CAMPO_ID_EXISTENTE + " text primary key not null, "
             + TablaExistentes.CAMPO_FK_ID_PROD + " integer not null ) ; ";
 
     final String DESPENSANOPROD_CREATE = "create table " + TablaProductosCasa.TABLA_PROD_CASA + " ( "
@@ -114,7 +114,7 @@ class DbTablas {
             + TablaProductosCasa.CAMPO_GUARDAR + " text not null ) ; ";
 
     final String SUPERNOPROD_CREATE = "create table " + TablaProductosSuper.TABLA_PROD_NO_EN_COMP + " ( "
-            + TablaProductosSuper.CAMPO_ID_PROD_SUPER + " real primary key not null, "
+            + TablaProductosSuper.CAMPO_ID_PROD_SUPER + " text primary key not null, "
             + TablaProductosSuper.CAMPO_FK_ID_SUPER + " integer not null , "
             + TablaProductosSuper.CAMPO_FK_ID_PROD + " integer not null , "
             + TablaProductosSuper.CAMPO_PRECIO + " real not null ) ; ";
