@@ -145,7 +145,8 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         dialog.show();
     }
     private void buscar_producto(){
-        productos.setNombre(nombre_producto); //TRAER EL ID DEL PRODUCTO
+        String producto_nombre = mayuscula(nombre_producto);
+        productos.setNombre(producto_nombre); //TRAER EL ID DEL PRODUCTO
         ArrayList<HashMap<String, String>> listado_producto;
         listado_producto = productos.producto_por_nombre();
         bucle = listado_producto.size();
@@ -542,6 +543,13 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             });
             Dialog dialog = alertBuilder.create();
             dialog.show();
+        }
+    }
+    public static String mayuscula(String palabra) {
+        if (palabra.isEmpty()) {
+            return palabra;
+        } else {
+            return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1);
         }
     }
 }
