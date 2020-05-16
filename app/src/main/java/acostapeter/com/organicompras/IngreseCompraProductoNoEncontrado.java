@@ -42,10 +42,15 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                 ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.medidas, android.R.layout.simple_spinner_item);
         spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         medida.setAdapter(spinneradapter);
-        medida.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        medida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 medida_producto = medida.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
         Botonaceptar.setOnClickListener(new View.OnClickListener() {
