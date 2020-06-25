@@ -145,7 +145,7 @@ private DbCRUD admin;
                     }else{
                         Cursor producto_no_encontrado = admin.producto_comprado_no_encontrado(id_producto, supermercado);
                         if(producto_no_encontrado.moveToFirst()){
-                            preun = Double.parseDouble(producto_no_encontrado.getString(0));
+                            preun = Double.parseDouble(producto_no_encontrado.getString(3));
                             precio_unitario = (df.format(preun)).replace(",", ".");
                         }
                     }
