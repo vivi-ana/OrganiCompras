@@ -230,7 +230,8 @@ public class Productos {
         Cursor producto_no_encontrado = admin.listado_productos_no_encontrados_despensa();
         if (producto_no_encontrado.moveToFirst()) {
             do {
-                String descripcion = "", marca = "", neto = "", medida = "", id = "", producto_id;
+                descripcion = ""; marca= ""; medida = ""; neto =0.00;
+                String id = "", producto_id, producto_neto = "";
                 //codigo = producto_no_encontrado.getString(0); //id del producto
                 id_producto = producto_no_encontrado.getInt(1);
                 producto_id = String.valueOf(id_producto);
@@ -239,15 +240,16 @@ public class Productos {
                     nombre = datos_producto.getString(1);
                     descripcion = datos_producto.getString(2);
                     marca = datos_producto.getString(3);
-                    neto = datos_producto.getString(4);
+                    neto = datos_producto.getDouble(4);
                     medida = datos_producto.getString(5);
+                    producto_neto = Double.toString(neto);
                 }
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
                 temp.put(SEGUNDA_COLUMNA, descripcion);
                 temp.put(TERCERA_COLUMNA, marca);
-                if (neto.equals("0")) neto = "";
-                temp.put(CUARTA_COLUMNA, neto);
+                if (producto_neto.equals("0.0")) producto_neto = "";
+                temp.put(CUARTA_COLUMNA, producto_neto);
                 temp.put(QUINTA_COLUMNA, medida);
                 temp.put(SEPTIMA_COLUMNA, producto_id);
                 lista_producto.add(temp);
