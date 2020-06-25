@@ -28,7 +28,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
     Spinner  medida;
     DecimalFormat df = new DecimalFormat("0.00");
     double precioproducto,  preciounitario;
-    String id, codigo, nombre_producto, producto_codigo = "", producto_neto = "", producto_descripcion = "", producto_marca ="", producto_medida ="", producto_id = "", precio_unitario = "", precio_producto = "";
+    String id, nombre_producto, producto_codigo = "", producto_neto = "", producto_descripcion = "", producto_marca ="", producto_medida ="", producto_id = "", precio_unitario = "", precio_producto = "";
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.dialogo_compras_producto_no_encontrado_editar, container);
         BtnAaceptar = rootview.findViewById(R.id.btnAceptar);
@@ -119,6 +119,8 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                             precio.setError("El valor ingresado debe ser mayor a 1");
                         } else {//validado si esta validado
                             Productos productos = new Productos(getActivity());
+                            int prod_id = Integer.parseInt(producto_id);
+                            productos.setId_producto(prod_id);
                             productos.setNombre(nprod);
                             productos.setDescripcion(descripcion_producto);
                             productos.setMarca(marca_producto);
@@ -129,9 +131,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                             productos.setPrecio(precio);
                             int id_supermercado = Integer.parseInt(id);
                             productos.setId_supermercado(id_supermercado);
-                            productos.setCodigo(codigo);
-                            int prod_id = Integer.parseInt(producto_id);
-                            productos.setId_producto(prod_id);
+                            productos.setCodigo(producto_codigo);
                             productos.actualizar_producto_no_encontrado();
                             Compras compras = new Compras(getActivity());
                             compras.maximo_compra(); //obtener el id de compra
