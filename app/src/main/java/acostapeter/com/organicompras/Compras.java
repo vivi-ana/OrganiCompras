@@ -139,7 +139,7 @@ private DbCRUD admin;
                     long cod = admin.getCodigo(id_producto);
                     String codigo = Long.toString(cod);
                     double preun = 0;
-                    if(!codigo.equals("")){
+                    if(!codigo.equals("0")){
                     preun = admin.por_supermercado(codigo, supermercado); //se busca primero en la tabla existentes
                     precio_unitario = (df.format(preun)).replace(",", ".");
                     }else{
