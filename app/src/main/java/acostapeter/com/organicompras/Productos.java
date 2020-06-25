@@ -158,7 +158,7 @@ public class Productos {
                 String id = Integer.toString(id_producto), producto_neto = Double.toString(neto);
                 long producto_codigo = producto_no_encontrado.getLong(7);//codigo del producto
                 codigo = Long.toString(producto_codigo);
-                if (producto_neto.equals(0)) producto_neto = "";
+                if (producto_neto.equals(0.0)) producto_neto = "";
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
                 temp.put(SEGUNDA_COLUMNA, descripcion);
