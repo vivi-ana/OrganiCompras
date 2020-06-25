@@ -150,7 +150,7 @@ private DbCRUD admin;
                         }
                     }
                 }
-                if (neto.equals(0)) neto = "";
+                if (neto.equals("0")) neto = "";
                 HashMap<String, String> temporal = new HashMap<>();
                 temporal.put(PRIMERA_COLUMNA, nombre);
                 temporal.put(SEGUNDA_COLUMNA, descripcion);
