@@ -28,7 +28,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
     Spinner  medida;
     DecimalFormat df = new DecimalFormat("0.00");
     double precioproducto,  preciounitario;
-    String id, codigo, nombre_producto, producto_codigo = "", producto_neto = "", producto_descripcion = "", producto_marca ="", producto_medida ="", producto_id = "", precio_unitario = "", precio_producto = "", id_producto;
+    String id, codigo, nombre_producto, producto_codigo = "", producto_neto = "", producto_descripcion = "", producto_marca ="", producto_medida ="", producto_id = "", precio_unitario = "", precio_producto = "";
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.dialogo_compras_producto_no_encontrado_editar, container);
         BtnAaceptar = rootview.findViewById(R.id.btnAceptar);
@@ -130,7 +130,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                             int id_supermercado = Integer.parseInt(id);
                             productos.setId_supermercado(id_supermercado);
                             productos.setCodigo(codigo);
-                            int prod_id = Integer.parseInt(id_producto);
+                            int prod_id = Integer.parseInt(producto_id);
                             productos.setId_producto(prod_id);
                             productos.actualizar_producto_no_encontrado();
                             Compras compras = new Compras(getActivity());
