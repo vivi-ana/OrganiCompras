@@ -113,7 +113,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 double precio = productos.getPrecio();
                 productos.obtener_id_producto();
                 id_producto = productos.getId_producto();
-                if (precio != 0){ //verifico que el producto este en la bd de lo contrario tiene que agregar el usuario
+                if (id_producto != 0){ //verifico que el producto este en la bd de lo contrario tiene que agregar el usuario
                     compras.total_productos(id_producto);
                     count = compras.getCant_total_productos();
                     if (count == 0) { //verifico que no este en la lista para que no cargue dos veces el mismo producto

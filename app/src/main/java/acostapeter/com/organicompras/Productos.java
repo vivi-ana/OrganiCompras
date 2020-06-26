@@ -120,6 +120,7 @@ public class Productos {
     }
     void obtener_id_producto(){
         Cursor datos_producto_existente = admin.datos_producto(codigo);
+        id_producto = 0;
         if (datos_producto_existente.moveToFirst()) id_producto = datos_producto_existente.getInt(0);
     }
 
