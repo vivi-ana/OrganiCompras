@@ -29,6 +29,7 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
     static ArrayList<HashMap<String, String>> lista;
     String marca = "";
     ListView lista_despensa;
+    CheckBox checkBox;
     final ArrayList<String> item_borrar = new ArrayList<String>();
     public static boolean cargar = false;
     FragmentDespensaListViewAdapter adapter;
@@ -64,7 +65,7 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_despensa_check, menu);
         super.onCreateOptionsMenu(menu, inflater);
-        CheckBox checkBox = (CheckBox) menu.findItem(R.id.menucheckbox).getActionView();
+        checkBox = (CheckBox) menu.findItem(R.id.menucheckbox).getActionView();
         String texto = "Seleccionar todo";
         checkBox.setText(texto);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
