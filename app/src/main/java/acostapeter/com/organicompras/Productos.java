@@ -124,11 +124,14 @@ public class Productos {
         if (datos_producto_existente.moveToFirst()) id_producto = datos_producto_existente.getInt(0);
     }
 
-    void producto_no_encontrado() {
-        Cursor producto_no_encontrado = admin.compra_producto_no_encontrado(id_producto);
+    void datos_producto_no_encontrado() {
+        Cursor producto_no_encontrado = admin.compra_producto_no_encontrado(codigo);
+        id_producto = 0; precio = 0.0;
         if (producto_no_encontrado.moveToFirst()) {
+            id_producto = producto_no_encontrado.getInt(1);
             String precio_producto = producto_no_encontrado.getString(3);
             precio = Double.parseDouble(precio_producto);
+
         }
 
     }

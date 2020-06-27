@@ -174,9 +174,9 @@ public class DbCRUD extends DbHelper {
         }
         return lista_no_encontrado;
     }
-    public Cursor compra_producto_no_encontrado(int id_producto){
+    public Cursor compra_producto_no_encontrado(String codigo){
         final String query = "SELECT * FROM " + DbTablas.TablaProductosSuper.TABLA_PROD_NO_EN_COMP
-                + " WHERE " +  DbTablas.TablaProductosSuper.CAMPO_ID_PROD_SUPER + " = " + id_producto;
+                + " WHERE " +  DbTablas.TablaProductosSuper.CAMPO_ID_PROD_SUPER + " = " + codigo;
         Cursor producto_no_encontrado = db.rawQuery(query,null);
         if (producto_no_encontrado != null){
             producto_no_encontrado.moveToFirst();

@@ -125,11 +125,11 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                         cargar();
                     }
                 }else{
+                    productos.datos_producto_no_encontrado(); //me fijo si el usuario no dio de alta en tabla provisoria
+                    id_producto = productos.getId_producto();//buscar en la otra tabla
                     compras.total_productos(id_producto);
                     count = compras.getCant_total_productos();
                     if (count == 0) { //verifico que no este en la lista para que no cargue dos veces el mismo producto
-                        productos.setId_producto(id_producto); //me fijo si el usuario no dio de alta en tabla provisoria
-                        productos.producto_no_encontrado();
                         precio = productos.getPrecio();
                             if (precio !=0){ //si dio de alta puede comprar el producto
                                 lista.clear();
