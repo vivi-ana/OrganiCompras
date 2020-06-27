@@ -60,7 +60,7 @@ public class FragmentDespensaListViewAdapter extends BaseAdapter {
         if (bucle != 0){
             for(int i=0; i<bucle; i++) {
                 HashMap<String, String> hashmap= listado_despensa.get(i);
-                itemborrar[i] = hashmap.get(TERCERA_COLUMNA); //traer el id de los productos seleccionados
+                itemborrar[i] = hashmap.get(CUARTA_COLUMNA); //traer el id de los productos seleccionados
             }
         }
     }
