@@ -128,7 +128,7 @@ public class Productos {
         Cursor producto_no_encontrado = admin.compra_producto_no_encontrado(codigo);
         id_producto = 0; precio = 0.0;
         if (producto_no_encontrado.moveToFirst()) {
-            id_producto = producto_no_encontrado.getInt(1);
+            id_producto = producto_no_encontrado.getInt(2);
             String precio_producto = producto_no_encontrado.getString(3);
             precio = Double.parseDouble(precio_producto);
 
