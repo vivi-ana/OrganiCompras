@@ -108,7 +108,7 @@ public class FragmentDespensa extends android.support.v4.app.Fragment{
                     lista_despensa.setAdapter(adapter);
                     cargar();
                     item_borrar.clear();
-                    checkBox.setSelected(false);
+                    checkBox.setChecked(false);
                 } else {
                     Toast.makeText(getActivity(), "Debe seleccionar algun producto", Toast.LENGTH_LONG).show();
                 }
