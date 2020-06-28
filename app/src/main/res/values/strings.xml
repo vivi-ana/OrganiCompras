@@ -96,5 +96,5 @@
         <item>Litro</item>
         <item>Ml</item>
     </string-array>
-    <string name="errorSpinner">Debe colocar una medida</string>
+    <string name="errorSp">Debe colocar una medida</string>
 </resources>
