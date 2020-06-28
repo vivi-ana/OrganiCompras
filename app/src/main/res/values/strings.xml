@@ -96,5 +96,4 @@
         <item>Litro</item>
         <item>Ml</item>
     </string-array>
-    <string name="errorSp">Debe colocar una medida</string>
 </resources>
