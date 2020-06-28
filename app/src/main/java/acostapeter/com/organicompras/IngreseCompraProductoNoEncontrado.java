@@ -74,24 +74,34 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                 }
                 if (nombre_producto.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
+                    nombre.requestFocus();
                 }else if(!bs){
                     nombre.setError("El producto no debe contener numeros");
+                    nombre.requestFocus();
                 }else if(nombre_producto.length() <3){
                     nombre.setError("Nombre muy corto");
+                    nombre.requestFocus();
                 }else if(!descripcion_producto.matches("") & descripcion_producto.length() <3){
                         descripcion.setError("Descripcion muy corta");
+                        descripcion.requestFocus();
                 }else if(!marca_producto.matches("") & marca_producto.length() <3 ) {
                         marca.setError("Nombre de marca muy corto");
+                        marca.requestFocus();
                 }else if(!neto_producto.matches("") & neto_prod <0) {
                         neto.setError("El neto debe ser mayor a 0");
+                        neto.requestFocus();
                 } else if (pre.matches("")){
                         Toast.makeText(getActivity(), "Debe ingresar un precio", Toast.LENGTH_SHORT).show();
+                        precio.requestFocus();
                 } else if (precio.getText().length() < 3) { //fijarse como poner porque puede haber algo de 9 pesos o de 15 algo exacto y el usuario no puede poner 15.00
                         precio.setError("Mínimo 3 dígitos");
+                        precio.requestFocus();
                 } else if (precio.getText().length() >= 6) {
                         precio.setError("Máximo de 5 dígitos");
+                        precio.requestFocus();
                 } else if (Double.parseDouble(preciopro) < 0) {
                         precio.setError("El valor ingresado debe ser mayor a 0");
+                        precio.requestFocus();
                 } else {//validado
                     if(getArguments()!=null) {
                         String id = getArguments().getString("idsuper");
