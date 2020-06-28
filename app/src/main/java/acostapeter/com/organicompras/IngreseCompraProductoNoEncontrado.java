@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
@@ -38,7 +39,7 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
         neto = rootview.findViewById(R.id.editNeto);
         medida = rootview.findViewById(R.id.ProdMedida);
         nombre.requestFocus();
-        ArrayAdapter<CharSequence> spinneradapter =
+        final ArrayAdapter<CharSequence> spinneradapter =
                 ArrayAdapter.createFromResource(Objects.requireNonNull(getActivity()), R.array.medidas, android.R.layout.simple_spinner_item);
         spinneradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         medida.setAdapter(spinneradapter);
@@ -50,7 +51,6 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         Botonaceptar.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +88,11 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                         marca.setError("Nombre de marca muy corto");
                         marca.requestFocus();
                 }else if(!neto_producto.matches("") & neto_prod <0) {
-                        neto.setError("El neto debe ser mayor a 0");
-                        neto.requestFocus();
+                    neto.setError("El neto debe ser mayor a 0");
+                    neto.requestFocus();
+                }else if(!neto_producto.matches("")& medida_producto.matches("")){
+                    ((TextView)medida.getSelectedView()).setError("Debe colocar una medida");
+                    medida.requestFocus();
                 } else if (pre.matches("")){
                         Toast.makeText(getActivity(), "Debe ingresar un precio", Toast.LENGTH_SHORT).show();
                         precio.requestFocus();
