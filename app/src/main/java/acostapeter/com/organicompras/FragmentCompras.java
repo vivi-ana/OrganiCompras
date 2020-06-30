@@ -188,10 +188,17 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 HashMap<String, String> hashmap = listado_despensa.get(i);
                 id = hashmap.get(ConstantesColumnasDespensa.CUARTA_COLUMNA);
                 int producto_id = Integer.parseInt(id);
-                if (producto_id == id_producto) { //pregunto si hay un id igual al codigo de barra
+                if (producto_id == id_producto) { //pregunto si hay un id igual en la lista de despensa
                     despensa.setId_producto(id_producto);
-                    despensa.borrar_item();//borra por el codigo de barra.
+                    despensa.borrar_item();//borra por el id.
                     break;
+                }else{
+                    productos.setId_producto(id_producto);
+                    boolean validacion = productos.validacion_producto(); //busco en la tabla de productos no encontrados de la casa
+                    if (validacion = true) {
+                        despensa.setId_producto(id_producto);
+                        despensa.borrar_item();//borra por el id
+                    }
                 }
             }
         }

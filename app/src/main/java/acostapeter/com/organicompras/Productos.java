@@ -261,4 +261,10 @@ public class Productos {
         }
         return lista_producto;
     }
+    boolean validacion_producto(){
+        boolean valido = false;
+        Cursor producto_detalle = admin.producto_lista(id_producto);
+        if (producto_detalle.moveToFirst()) valido = true;
+        return valido;
+    }
 }
