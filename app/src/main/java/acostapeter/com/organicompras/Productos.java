@@ -263,8 +263,11 @@ public class Productos {
     }
     boolean validacion_producto(){
         boolean valido = false;
-        Cursor producto_detalle = admin.producto_lista(id_producto);
-        if (producto_detalle.moveToFirst()) valido = true;
+        Cursor producto_detalle = admin.validacion_producto(codigo);
+        if (producto_detalle.moveToFirst()) {
+            valido = true;
+            id_producto = producto_detalle.getInt(1);
+        }
         return valido;
     }
 }

@@ -159,7 +159,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         compras.setId(id_compras);
         compras.setTotal_unitario(precio_producto);
         compras.agregar_detalle_compra(id_producto);
-        ComparacionProductos(id_producto); //enviar el codigo de barra del producto agregado. Despues de agregar a la tabla
+        ComparacionProductos(id_producto); //enviar el id del producto agregado. Despues de agregar a la tabla
         text_total_compras = txt_total.getText().toString(); //capturo lo que tiene txttotal
         total_compras_anterior = Double.parseDouble(text_total_compras);//traigo el precio unitario
         suma_total = total_compras_anterior + precio_producto;
@@ -196,7 +196,8 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     productos.setId_producto(id_producto);
                     boolean validacion = productos.validacion_producto(); //busco en la tabla de productos no encontrados de la casa
                     if (validacion = true) {
-                        despensa.setId_producto(id_producto);
+                        int idP = productos.getId_producto(); //traer el id de ese producto
+                        despensa.setId_producto(idP);
                         despensa.borrar_item();//borra por el id
                         break;
                     }
