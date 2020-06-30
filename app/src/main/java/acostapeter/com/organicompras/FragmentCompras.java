@@ -198,6 +198,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     if (validacion = true) {
                         despensa.setId_producto(id_producto);
                         despensa.borrar_item();//borra por el id
+                        break;
                     }
                 }
             }
