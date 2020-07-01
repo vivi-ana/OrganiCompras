@@ -610,7 +610,7 @@ public class DbCRUD extends DbHelper {
         return lista_producto;
     }
     public Cursor validacion_producto(String codigo){
-        final String query = "SELECT * FROM " + DbTablas.TablaProductosCasa.TABLA_PROD_CASA + " WHERE " + DbTablas.TablaProductosCasa.CAMPO_FK_ID_PROD + " = " + codigo;
+        final String query = "SELECT * FROM " + DbTablas.TablaProductosCasa.TABLA_PROD_CASA + " WHERE " + DbTablas.TablaProductosCasa.CAMPO_ID_CASA + " = " + codigo;
         Cursor lista_producto = db.rawQuery(query,null);
         if (lista_producto != null){
             lista_producto.moveToFirst();

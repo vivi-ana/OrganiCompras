@@ -195,7 +195,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                 }else{
                     productos.setCodigo(scanContent);
                     boolean validacion = productos.validacion_producto(); //busco en la tabla de productos no encontrados de la casa
-                    if (validacion = true) {
+                    if (validacion == true) {
                         int idP = productos.getId_producto(); //traer el id de ese producto
                         despensa.setId_producto(idP);
                         despensa.borrar_item();//borra por el id
