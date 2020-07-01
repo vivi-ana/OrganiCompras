@@ -55,7 +55,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     static Activity activity;
     static String datos_no_editados [][], matriz_compras[][], matriz_detalles[][];
     static int max, id_compras, id_supermercado;
-    static String text_total_compras;
+    static String text_total_compras, scanContent ="";
     static boolean guardar;
     String dia = "",seleccion = "", datoRecibido = null;
     DecimalFormat df = new DecimalFormat("0.00");
@@ -100,7 +100,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         int count, id_producto = 0;
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
-            String scanContent = scanningResult.getContents();
+            scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
             String formato = "EAN_13";
             if (formato.equals(scanFormat)) { ///se tiene que comprobar que solo se scanee EAN 13
@@ -193,6 +193,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                     despensa.borrar_item();//borra por el id.
                     break;
                 }else{
+                    productos.setCodigo(scanContent);
                     boolean validacion = productos.validacion_producto(); //busco en la tabla de productos no encontrados de la casa
                     if (validacion = true) {
                         int idP = productos.getId_producto(); //traer el id de ese producto
