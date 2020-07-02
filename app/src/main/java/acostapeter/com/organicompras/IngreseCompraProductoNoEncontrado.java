@@ -133,6 +133,7 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                             FragmentCompras compras = new FragmentCompras();
                             compras.comprar(id_producto, Double.parseDouble(precioun));
                             compras.cargar();
+                            compras.llenar();
                         }
                     }
                 }
