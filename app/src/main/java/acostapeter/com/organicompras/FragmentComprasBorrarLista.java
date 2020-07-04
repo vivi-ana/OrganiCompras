@@ -38,6 +38,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
     final ArrayList<String> item_borrar = new ArrayList<String>();
     public static boolean cargar = false;
     TextView txt_total, cantidad_producto;
+    CheckBox checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                 int count = lista_compras.getAdapter().getCount();
                 for (int i = 0; i < count; i++) {
                     ConstraintLayout itemLayout = (ConstraintLayout) lista_compras.getChildAt(i); // Encontrar el objeto
-                    CheckBox checkbox = itemLayout.findViewById(R.id.check);
+                    checkbox = itemLayout.findViewById(R.id.check);
                     if (checkbox.isChecked()) {
                         item_borrar.add(checkbox.getText().toString());
                     }
@@ -132,6 +133,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                     cargar();
                     item_borrar.clear();//borrar
                     cambiartxt();
+                    checkbox.setChecked(false);
                 } else {
                     Toast.makeText(getBaseContext(), "Debe seleccionar algun producto", Toast.LENGTH_LONG).show();
                 }

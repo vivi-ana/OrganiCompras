@@ -343,12 +343,10 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         dia = simpleDate.format(el_dia);
     }
-    public TextView actualizar_txt_total()
-    {
+    public TextView actualizar_txt_total() {
         return txt_total;
     }
-    public TextView actualizar_txt_cantidad()
-    {
+    public TextView actualizar_txt_cantidad() {
         return cantidad_producto;
     }
     public void onClick(View v){ //evento del boton scanear
@@ -400,8 +398,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     public String retornartotal() {
         return txt_total.getText().toString();
     }
-    public String retornarcantidad()
-    {
+    public String retornarcantidad() {
         return cantidad_producto.getText().toString();
     }
     public String[][] getDatosnoeditados() {
