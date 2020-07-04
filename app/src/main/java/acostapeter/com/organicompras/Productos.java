@@ -125,7 +125,7 @@ public class Productos {
     }
 
     void datos_producto_no_encontrado() {
-        Cursor producto_no_encontrado = admin.compra_producto_no_encontrado(codigo);
+        Cursor producto_no_encontrado = admin.compra_producto_no_encontrado(codigo, id_supermercado);
         id_producto = 0; precio = 0.0;
         if (producto_no_encontrado.moveToFirst()) {
             id_producto = producto_no_encontrado.getInt(2);
