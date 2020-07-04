@@ -261,13 +261,12 @@ public class Productos {
         }
         return lista_producto;
     }
-    boolean validacion_producto(){
-        boolean valido = false;
-        Cursor producto_detalle = admin.validacion_producto(codigo);
-        if (producto_detalle.moveToFirst()) {
-            valido = true;
-            id_producto = producto_detalle.getInt(1);
+    Long validar_producto(int id_inventario){
+        long cod = admin.getCodigo(id_inventario); //de tabla existente
+        if (cod != 0) {
+            Cursor casa = admin.producto_lista(id_inventario); //de tabla casa
+            if (casa.moveToFirst()) cod = casa.getLong(0);
         }
-        return valido;
+        return cod;
     }
 }
