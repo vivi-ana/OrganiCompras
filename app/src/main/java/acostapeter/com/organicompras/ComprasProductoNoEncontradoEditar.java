@@ -136,6 +136,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                             Productos productos = new Productos(getActivity());
                             int prod_id = Integer.parseInt(producto_id);
                             productos.setId_producto(prod_id);
+                            nprod = nprod.substring(0,1).toUpperCase() + nprod.substring(1).toLowerCase();
                             productos.setNombre(nprod);
                             productos.setDescripcion(descripcion_producto);
                             productos.setMarca(marca_producto);
