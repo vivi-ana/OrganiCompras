@@ -98,7 +98,8 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
                         if (producto_id != null) {
                             int id;
                             id = Integer.parseInt(producto_id);
-                            productos.setNombre(formato(nprod));
+                            nprod = nprod.substring(0,1).toUpperCase() + nprod.substring(1).toLowerCase();
+                            productos.setNombre(nprod);
                             productos.setDescripcion(descripcion_producto);
                             productos.setMarca(marca_producto);
                             productos.setNeto(neto_prod);
@@ -167,13 +168,6 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
         setCancelable(false);
         getDialog().setTitle("Producto no encontrado");
         return rootview;
-    }
-    public static String formato(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
-        } else {
-            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();//La primera letra en mayuscula y las demas en minuscula.
-        }
     }
     @Override
     public void onResume(){
