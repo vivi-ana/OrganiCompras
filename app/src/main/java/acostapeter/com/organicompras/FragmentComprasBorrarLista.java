@@ -39,6 +39,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
     public static boolean cargar = false;
     TextView txt_total, cantidad_producto;
     CheckBox checkbox;
+    CheckBox mCheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             getSupportActionBar().setCustomView(R.layout.checkboxbar);
-            final CheckBox mCheckbox = actionBar.getCustomView().findViewById(R.id.checkBox);
+            mCheckbox = actionBar.getCustomView().findViewById(R.id.checkBox);
             mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
