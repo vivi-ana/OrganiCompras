@@ -134,7 +134,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                     cargar();
                     item_borrar.clear();//borrar
                     cambiartxt();
-                    checkbox.setChecked(false);
+                    mCheckbox.setChecked(false);
                 } else {
                     Toast.makeText(getBaseContext(), "Debe seleccionar algun producto", Toast.LENGTH_LONG).show();
                 }
