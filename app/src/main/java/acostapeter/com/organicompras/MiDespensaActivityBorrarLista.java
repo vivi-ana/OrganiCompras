@@ -34,6 +34,7 @@ public class MiDespensaActivityBorrarLista extends AppCompatActivity {
     ListView listaDespensa;
     ArrayList<String> item_borrar = new ArrayList<String>();
     public static boolean cargar = false;
+    CheckBox mCheckbox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class MiDespensaActivityBorrarLista extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             getSupportActionBar().setCustomView(R.layout.checkboxbar);
-            final CheckBox mCheckbox = actionBar.getCustomView().findViewById(R.id.checkBox);
+            mCheckbox = actionBar.getCustomView().findViewById(R.id.checkBox);
             mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -114,6 +115,7 @@ public class MiDespensaActivityBorrarLista extends AppCompatActivity {
                     listaDespensa.setAdapter(adapter);
                     cargar();
                     item_borrar.clear();
+                    mCheckbox.setChecked(false);
                 } else{
                     Toast.makeText(getBaseContext(), "Debe seleccionar algun producto", Toast.LENGTH_LONG).show();
                 }

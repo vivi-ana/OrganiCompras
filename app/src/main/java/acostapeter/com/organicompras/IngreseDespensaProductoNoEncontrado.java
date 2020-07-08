@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -75,17 +76,26 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
                 }else if(!bs){
                     Enombre.setError("El producto no debe contener numeros");
+                    Enombre.requestFocus();
                 }else if(nombre_producto.length() <3){
                     Enombre.setError("Nombre muy corto");
+                    Enombre.requestFocus();
                 }else if(!descripcion_producto.matches("")& descripcion_producto.length() <3) {
                         Edescripcion.setError("Descripcion muy corta");
+                        Edescripcion.requestFocus();
                 }else if(!marca_producto.matches("") & marca_producto.length()<3) {
                         Emarca.setError("Nombre de marca muy corto");
+                        Emarca.requestFocus();
+                }else if(!neto_producto.matches("")& medida_producto.matches("")){
+                    ((TextView)Smedida.getSelectedView()).setError("Debe colocar una medida");
+                    Smedida.requestFocus();
                 }else if(!neto_producto.matches("") & neto < 0) {
                         Eneto.setError("El neto debe ser mayor a 0");
+                        Eneto.requestFocus();
                 } else {
                     String nom = Enombre.getText().toString();
                     Productos productos = new Productos(getActivity());
+                    nom = nom.substring(0,1).toUpperCase() + nom.substring(1).toLowerCase();
                     productos.setNombre(nom);
                     productos.setDescripcion(descripcion_producto);
                     productos.setMarca(marca_producto);

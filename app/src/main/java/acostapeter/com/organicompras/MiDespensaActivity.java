@@ -27,7 +27,6 @@ import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_CO
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEGUNDA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEPTIMA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
-import static acostapeter.com.organicompras.ConstantesColumnasProductoNoEncontrado.TERCERA_COLUMNA;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,7 +144,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         dialog.show();
     }
     private void buscar_producto(){
-        String producto_nombre = mayuscula(nombre_producto);
+        String producto_nombre = nombre_producto.substring(0,1).toUpperCase() + nombre_producto.substring(1).toLowerCase();
         productos.setNombre(producto_nombre); //TRAER EL ID DEL PRODUCTO
         ArrayList<HashMap<String, String>> listado_producto;
         listado_producto = productos.producto_por_nombre();
@@ -543,13 +542,6 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             });
             Dialog dialog = alertBuilder.create();
             dialog.show();
-        }
-    }
-    public static String mayuscula(String palabra) {
-        if (palabra.isEmpty()) {
-            return palabra;
-        } else {
-            return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1);
         }
     }
 }
