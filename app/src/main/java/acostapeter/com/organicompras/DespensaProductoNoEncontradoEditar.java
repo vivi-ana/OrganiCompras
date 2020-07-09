@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -81,16 +82,25 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
                 }else if(!bs){
                     Enombre.setError("El producto no debe contener numeros");
+                    Enombre.requestFocus();
                 }else if(nombre_producto.length() <3){
                     Enombre.setError("Nombre muy corto");
+                    Enombre.requestFocus();
                 }else if(!descripcion_producto.matches("") & !(dp)){//si la descripcion no esta vacia
                         Edescrip.setError("El producto no debe contener numeros");//se verifica que no tenga numeros
+                        Edescrip.requestFocus();
                 }else if(!descripcion_producto.matches("") & descripcion_producto.length() <3){
                         Edescrip.setError("Descripcion muy corta");
+                        Edescrip.requestFocus();
                 }else if(!marca_producto.matches("") & marca_producto.length() <3 ) {
                         Emarca.setError("Nombre de marca muy corto");
+                        Emarca.requestFocus();
+                }else if(!neto_producto.matches("")& producto_medida.matches("")){
+                    ((TextView)Smedida.getSelectedView()).setError("Debe colocar una medida");
+                    Smedida.requestFocus();
                 }else if(!neto_producto.matches("") & neto_prod < 0) {
                         Eneto.setError("El neto debe ser mayor a 0");
+                        Eneto.requestFocus();
                 } else {
                     if(getArguments()!=null) {
                         String producto_id = getArguments().getString("id");

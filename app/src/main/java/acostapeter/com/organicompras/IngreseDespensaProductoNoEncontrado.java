@@ -74,6 +74,7 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                 boolean bs = prodn.matches();
                 if (nombre_producto.matches("")) {
                     Toast.makeText(getActivity(), R.string.msjProd, Toast.LENGTH_SHORT).show();
+                    Enombre.requestFocus();
                 }else if(!bs){
                     Enombre.setError("El producto no debe contener numeros");
                     Enombre.requestFocus();
