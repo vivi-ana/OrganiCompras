@@ -111,7 +111,11 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             Eproducto.requestFocus();
         }else{
             buscar_producto(); //buscar si esta en la tabla productos
-            if (bucle ==0)mensaje(nombre_producto); //hay que agregar el producto porque no se encontro
+            if (bucle ==0){
+                String np = nombre_producto;
+                np = np.substring(0,1).toUpperCase() + np.substring(1).toLowerCase();
+                mensaje(np); //hay que agregar el producto porque no se encontro
+            }
         }
     }
     private void mensaje(final String nuevo_producto) {
