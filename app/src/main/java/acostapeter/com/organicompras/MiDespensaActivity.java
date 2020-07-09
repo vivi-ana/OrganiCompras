@@ -144,7 +144,8 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         dialog.show();
     }
     private void buscar_producto(){
-        String producto_nombre = nombre_producto.substring(0,1).toUpperCase() + nombre_producto.substring(1).toLowerCase();
+        String producto_nombre = nombre_producto;
+        producto_nombre = producto_nombre.substring(0,1).toUpperCase() + producto_nombre.substring(1).toLowerCase();
         productos.setNombre(producto_nombre); //TRAER EL ID DEL PRODUCTO
         ArrayList<HashMap<String, String>> listado_producto;
         listado_producto = productos.producto_por_nombre();
