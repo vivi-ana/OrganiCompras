@@ -116,6 +116,9 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                 }else if(!neto_producto.matches("")& producto_medida.matches("")){
                     ((TextView)medida.getSelectedView()).setError("Debe colocar una medida");
                     medida.requestFocus();
+                }else if(neto_producto.matches("")& !producto_medida.matches("")){
+                    neto.setError("Debe colocar un neto");
+                    neto.requestFocus();
                 } else {
                     if (pre.matches("")) {
                         Toast.makeText(getActivity(), "Debe ingresar un precio", Toast.LENGTH_SHORT).show();

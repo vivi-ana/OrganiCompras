@@ -90,6 +90,9 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                 }else if(!neto_producto.matches("")& medida_producto.matches("")){
                     ((TextView)Smedida.getSelectedView()).setError("Debe colocar una medida");
                     Smedida.requestFocus();
+                }else if(neto_producto.matches("")& !medida_producto.matches("")){
+                    Eneto.setError("Debe colocar un neto");
+                    Eneto.requestFocus();
                 }else if(!neto_producto.matches("") & neto < 0) {
                         Eneto.setError("El neto debe ser mayor a 0");
                         Eneto.requestFocus();
