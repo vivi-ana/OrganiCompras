@@ -146,23 +146,25 @@ public class Productos {
     }
     ArrayList<HashMap<String, String>> cargar_producto_no_encontrado() {
         ArrayList<HashMap<String, String>> lista = new ArrayList<>();
+        String producto_neto;
         DecimalFormat df = new DecimalFormat("0.00");
         Cursor producto_no_encontrado = admin.cargar_no_producto(id_supermercado);
         if (producto_no_encontrado.moveToFirst()) {
             do {
-                descripcion = ""; marca= ""; medida = ""; neto =0.00;
+                producto_neto = "";
+                descripcion = ""; marca= ""; medida = "";
                 nombre = producto_no_encontrado.getString(0);
                 descripcion = producto_no_encontrado.getString(1);
                 marca = producto_no_encontrado.getString(2);
-                neto = producto_no_encontrado.getDouble(3);
+                producto_neto = producto_no_encontrado.getString(3);
                 medida = producto_no_encontrado.getString(4);
                 precio = producto_no_encontrado.getDouble(5);
                 String precio_producto = (df.format(precio)).replace(",", ".");
                 id_producto = producto_no_encontrado.getInt(6);
-                String id = Integer.toString(id_producto), producto_neto = Double.toString(neto);
+                String id = Integer.toString(id_producto);
                 long producto_codigo = producto_no_encontrado.getLong(7);//codigo del producto
                 codigo = Long.toString(producto_codigo);
-                if (producto_neto.equals("0.0")) producto_neto = "";
+                if (producto_neto.equals("0")) producto_neto = "";
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
                 temp.put(SEGUNDA_COLUMNA, descripcion);
@@ -234,7 +236,7 @@ public class Productos {
         Cursor producto_no_encontrado = admin.listado_productos_no_encontrados_despensa();
         if (producto_no_encontrado.moveToFirst()) {
             do {
-                descripcion = ""; marca= ""; medida = ""; neto =0.00;
+                descripcion = ""; marca= ""; medida = "";
                 String id = "", producto_id, producto_neto = "";
                 //codigo = producto_no_encontrado.getString(0); //id del producto
                 id_producto = producto_no_encontrado.getInt(1);
@@ -244,15 +246,14 @@ public class Productos {
                     nombre = datos_producto.getString(1);
                     descripcion = datos_producto.getString(2);
                     marca = datos_producto.getString(3);
-                    neto = datos_producto.getDouble(4);
+                    producto_neto = datos_producto.getString(4);
                     medida = datos_producto.getString(5);
-                    producto_neto = Double.toString(neto);
                 }
                 HashMap<String, String> temp = new HashMap<String, String>();
                 temp.put(PRIMERA_COLUMNA, nombre);
                 temp.put(SEGUNDA_COLUMNA, descripcion);
                 temp.put(TERCERA_COLUMNA, marca);
-                if (producto_neto.equals("0.0")) producto_neto = "";
+                if (producto_neto.equals("0")) producto_neto = "";
                 temp.put(CUARTA_COLUMNA, producto_neto);
                 temp.put(QUINTA_COLUMNA, medida);
                 temp.put(SEPTIMA_COLUMNA, producto_id);
