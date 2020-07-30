@@ -51,6 +51,10 @@ class DbDatos {
         Existentes("7790407031013", 12, db);
         Existentes("7798116010015", 13, db);
         Existentes("8412345678905", 14, db);
+        Existentes("7794000597525", 15, db);
+        Existentes("7790920008707", 16, db);
+        Existentes("7790787153664", 17, db);
+        Existentes("7794000598317", 18, db);
         Productos("Dulce de leche", "Repostero" ,"Arcor", "300", "gr", db);
         Productos("Arveja", "Al natural","Alco", "500", "gr", db);
         Productos("Arroz", "Largo fino","Gallo", "1000", "gr", db);
@@ -65,6 +69,10 @@ class DbDatos {
         Productos("Chocolate", "Amargo","Aguila", "100", "gr", db);
         Productos("Arroz","Largo Fino", "Itajai", "1000", "gr", db);
         Productos("Arroz", "Largo Grueso", "Marolio", "500", "gr", db);
+        Productos("Caldo", "Sabor gallina", "Knorr", "114", "gr", db);
+        Productos("Picadillo", "De carne", "Safra", "90", "gr", db);
+        Productos("Dulce de leche", "Clasico", "iLolay", "400", "gr", db);
+        Productos("Sopa crema", "Arvejas con jamon", "Knorr", "64", "gr", db);
         ProductosXSuper("7791234567898", "1", "30.20", db);
         ProductosXSuper("7791234567898", "2", "35", db);
         ProductosXSuper("7791234567898", "3", "40", db);
@@ -107,5 +115,17 @@ class DbDatos {
         ProductosXSuper("8412345678905", "1", "50.25", db);
         ProductosXSuper("8412345678905", "2", "50.70", db);
         ProductosXSuper("8412345678905", "3", "52.25", db);
+        ProductosXSuper("7794000597525", "1", "60.25", db);
+        ProductosXSuper("7794000597525", "2", "60.70", db);
+        ProductosXSuper("7794000597525", "3", "62.25", db);
+        ProductosXSuper("7790920008707", "1", "70.25", db);
+        ProductosXSuper("7790920008707", "2", "70.70", db);
+        ProductosXSuper("7790920008707", "3", "72.25", db);
+        ProductosXSuper("7790787153664", "1", "80.25", db);
+        ProductosXSuper("7790787153664", "2", "80.70", db);
+        ProductosXSuper("7790787153664", "3", "82.25", db);
+        ProductosXSuper("7794000598317", "1", "90.25", db);
+        ProductosXSuper("7794000598317", "2", "90.70", db);
+        ProductosXSuper("7794000598317", "3", "92.25", db);
     }
 }
