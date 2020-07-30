@@ -163,6 +163,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 if (!verificado) {
                     guardar = false; //cuando se inserta un producto nuevo se tiene que obligar al usuario que guarde.
                     despensa.setId_producto(id_producto);
+                    despensa.setDetalle("F");
                     despensa.insertar_inventario();
                     cargar();
                     cantidad_nueva();
@@ -235,6 +236,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 String dato = String.valueOf(maximo);
                 productos.agregar_despensa_producto_no_encontrado(dato);
                 despensa.setId_producto(maximo);
+                despensa.setDetalle("F");
                 despensa.insertar_inventario();
                 guardar = false;
                 cargar();
@@ -340,6 +342,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
     public void almacenar(int id){
         Despensa despensa = new Despensa(contexto);
         despensa.setId_producto(id);
+        despensa.setDetalle("F");
         despensa.insertar_inventario();
     }
     private void mensajeguardar() {
@@ -396,6 +399,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                     if (!verificado) {
                         guardar = false;//se carga en la lista el dato scanneado.
                         despensa.setId_producto(id_producto);
+                        despensa.setDetalle("V");
                         despensa.insertar_inventario();
                         cargar();
                         cantidad();

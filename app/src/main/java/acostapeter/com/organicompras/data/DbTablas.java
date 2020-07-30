@@ -34,6 +34,7 @@ class DbTablas {
         static final String CAMPO_FK_ID_PROD = "producto_id";
         static final String CAMPO_CANT = "cantidad";
         static final String CAMPO_GUARDAR = "guardar";
+        static final String CAMPO_DETALLE = "detalle";
     }
     static class TablaSupermercados {
         static final String TABLA_SUPERMERCADOS = "SUPERMERCADOS";
@@ -93,7 +94,8 @@ class DbTablas {
     final String INVENTARIO_CREATE = "create table " + TablaInventarios.TABLA_INVENTARIOS + " ( "
             + TablaInventarios.CAMPO_FK_ID_PROD + " integer not null, "
             + TablaInventarios.CAMPO_CANT + " integer not null , "
-            + TablaInventarios.CAMPO_GUARDAR + " text not null ) ; ";
+            + TablaInventarios.CAMPO_GUARDAR + " text not null, "
+            + TablaInventarios.CAMPO_DETALLE + "text not null ) ; ";
 
     final String SUPER_CREATE = "create table " + TablaSupermercados.TABLA_SUPERMERCADOS + " ( "
             + TablaSupermercados.CAMPO_ID_SUPERMERCADO + " integer primary key autoincrement, "

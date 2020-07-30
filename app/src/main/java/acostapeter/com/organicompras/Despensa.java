@@ -19,6 +19,7 @@ import acostapeter.com.organicompras.data.DbCRUD;
 public class Despensa {
     private int id_producto;
     private int cantidad;
+    private String detalle;
     private DbCRUD admin;
     Despensa(Context context){
         this.admin = new DbCRUD(context, null);
@@ -35,6 +36,14 @@ public class Despensa {
         return cantidad;
     }
 
+    public String getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
+    }
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
@@ -45,14 +54,15 @@ public class Despensa {
         Cursor lista_inventario = admin.recargar_despensa();
         if (lista_inventario.moveToFirst()){
             do {
-                String descripcion = "", marca = "", neto = "", medida = "", id = "";
+                String descripcion = "", marca = "", neto = "", medida = "", id = "", detalle = "";
                 boolean dato =false;
                 id_producto = lista_inventario.getInt(0); //id del producto
                 id = Integer.toString(id_producto);
+                detalle = lista_inventario.getString(3);
                 cantidad = lista_inventario.getInt(1);
                 cantidad_producto = Integer.toString(cantidad);
                 Cursor producto_detalle = admin.producto_lista(id_producto);
-                if (producto_detalle.moveToFirst()) dato = true;
+                if (producto_detalle.moveToFirst() || detalle.equals("V")) dato = true;
                 Cursor datos_producto = admin.producto(id_producto);
                 if(datos_producto.moveToFirst()) {
                     nombre = datos_producto.getString(1);
@@ -81,7 +91,7 @@ public class Despensa {
         admin.borrar_item_despensa(id_producto);
     }
     void insertar_inventario(){
-        admin.insertar_inventario(id_producto);
+        admin.insertar_inventario(id_producto, detalle);
     }
     int cantidad_productos_inventario(){
         int cantidad =0;

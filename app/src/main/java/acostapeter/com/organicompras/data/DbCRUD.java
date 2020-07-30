@@ -320,11 +320,12 @@ public class DbCRUD extends DbHelper {
     public void borrar_item_despensa(int item){
         db.delete(DbTablas.TablaInventarios.TABLA_INVENTARIOS, DbTablas.TablaInventarios.CAMPO_FK_ID_PROD + " = '" + item +"'",null);
     }
-    public void insertar_inventario(int id_producto){
+    public void insertar_inventario(int id_producto, String detalle){
         ContentValues registros = new ContentValues();
         registros.put(DbTablas.TablaInventarios.CAMPO_FK_ID_PROD, id_producto);
         registros.put(DbTablas.TablaInventarios.CAMPO_CANT, 1);
         registros.put(DbTablas.TablaInventarios.CAMPO_GUARDAR, "N");
+        registros.put(DbTablas.TablaInventarios.CAMPO_DETALLE, detalle);
         db.insert(DbTablas.TablaInventarios.TABLA_INVENTARIOS, null, registros);
     }
     public int maximo_producto_no_encontrado(){
