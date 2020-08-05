@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
-
+@SuppressWarnings("all")
 public class Tabs extends AppCompatActivity {
     int id_compra = 0;
     static boolean edicion = false;
@@ -195,35 +195,37 @@ public class Tabs extends AppCompatActivity {
             compras.borrar_detalle_compra();
             String mdetalles[][] = Lista.getMatriz_detalles();
             String mcompras[][] = Lista.getMatriz_compras();
-            for (int i=0; i<=cantidad_filas-1;i++){
-                String detalle = mdetalles[i][0];
-                int id_detalle = Integer.parseInt(detalle);
-                String id_producto = mdetalles[i][2];
-                String cant = mdetalles[i][3];
-                int cantidad = Integer.parseInt(cant);
-                String nuevo_monto = mdetalles[i][4];
-                double monto = Double.parseDouble(nuevo_monto);
+            if (bucle!=0) {
+                for (int i = 0; i <= cantidad_filas - 1; i++) {
+                    String detalle = mdetalles[i][0];
+                    int id_detalle = Integer.parseInt(detalle);
+                    String id_producto = mdetalles[i][2];
+                    String cant = mdetalles[i][3];
+                    int cantidad = Integer.parseInt(cant);
+                    String nuevo_monto = mdetalles[i][4];
+                    double monto = Double.parseDouble(nuevo_monto);
+                    compras.setCantidad(cantidad);
+                    compras.resetear_detalle(id_detalle, id_producto, monto);
+                }
+                String id_super = mcompras[0][1];
+                int id_supermercado = Integer.parseInt(id_super);
+                String fecha = mcompras[0][2];
+                String max = mcompras[0][3];
+                int maximo = Integer.parseInt(max);
+                String cant_prod = mcompras[0][4];
+                int cantidad = Integer.parseInt(cant_prod);
+                String total = mcompras[0][5];
+                double total_compra = Double.parseDouble(total);
+                String total_unitario = mcompras[0][6];
+                double total_unitario_compra = Double.parseDouble(total_unitario);
+                compras.setSupermercado(id_supermercado);
+                compras.setMax(maximo);
                 compras.setCantidad(cantidad);
-                compras.resetear_detalle(id_detalle, id_producto, monto);
+                compras.setTotal(total_compra);
+                compras.setFecha(fecha);
+                compras.setTotal_unitario(total_unitario_compra);
+                compras.resetear_compras();
             }
-            String id_super= mcompras[0][1];
-            int id_supermercado = Integer.parseInt(id_super);
-            String fecha = mcompras[0][2];
-            String max= mcompras[0][3];
-            int maximo = Integer.parseInt(max);
-            String cant_prod = mcompras[0][4];
-            int cantidad = Integer.parseInt(cant_prod);
-            String total = mcompras[0][5];
-            double total_compra = Double.parseDouble(total);
-            String total_unitario= mcompras[0][6];
-            double total_unitario_compra = Double.parseDouble(total_unitario);
-            compras.setSupermercado(id_supermercado);
-            compras.setMax(maximo);
-            compras.setCantidad(cantidad);
-            compras.setTotal(total_compra);
-            compras.setFecha(fecha);
-            compras.setTotal_unitario(total_unitario_compra);
-            compras.resetear_compras();
         }
         finish();
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
