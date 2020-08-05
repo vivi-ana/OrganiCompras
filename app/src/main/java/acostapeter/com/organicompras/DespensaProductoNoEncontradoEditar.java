@@ -113,7 +113,9 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
                             id = Integer.parseInt(producto_id);
                             nprod = nprod.substring(0,1).toUpperCase() + nprod.substring(1).toLowerCase();
                             productos.setNombre(nprod);
+                            if (!descripcion_producto.matches("")) descripcion_producto = descripcion_producto.substring(0,1).toUpperCase() + descripcion_producto.substring(1).toLowerCase();
                             productos.setDescripcion(descripcion_producto);
+                            if (!marca_producto.matches("")) marca_producto = marca_producto.substring(0,1).toUpperCase() + marca_producto.substring(1).toLowerCase();
                             productos.setMarca(marca_producto);
                             productos.setNeto(neto_prod);
                             productos.setId_producto(id);

@@ -141,7 +141,9 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
                             productos.setId_producto(prod_id);
                             nprod = nprod.substring(0,1).toUpperCase() + nprod.substring(1).toLowerCase();
                             productos.setNombre(nprod);
+                            if (!descripcion_producto.equals("")) descripcion_producto = descripcion_producto.substring(0,1).toUpperCase() + descripcion_producto.substring(1).toLowerCase();
                             productos.setDescripcion(descripcion_producto);
+                            if (!marca_producto.equals("")) marca_producto = marca_producto.substring(0,1).toUpperCase() + marca_producto.substring(1).toLowerCase();
                             productos.setMarca(marca_producto);
                             productos.setNeto(neto_prod);
                             productos.setMedida(producto_medida);
