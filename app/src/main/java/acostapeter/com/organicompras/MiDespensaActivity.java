@@ -405,9 +405,13 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                         cantidad();
                     }
                 }else {
-                    verificar(null,scanContent);
-                    if (!verificado)
-                    productonoencontrado(scanContent);
+                    boolean lista = productos.producto_no_encontrado_despensa(scanContent);//hay que verificar que no se haya dado de alta antes.
+                    if (!lista) { //si lista es falsa es porque es un producto nuevo que hay que ingresarlo.
+                        verificar(null,scanContent);
+                        if (!verificado)
+                            productonoencontrado(scanContent);
+                    }
+
                 }
             }else{
                 cargar();
