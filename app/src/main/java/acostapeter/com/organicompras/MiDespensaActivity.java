@@ -190,14 +190,14 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                     productos.setCodigo(codigo);
                     productos.obtener_id_producto();
                     id = productos.getId_producto();
-                    if (id != 0) {
+                    if (id != 0) { //filtrar por id
                         if (id == id_p){
                             Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
                             verificado = true;
                             return;
                         }
                     }
-                    }else{
+                    }else{ //filtrar por nombre
                         if (nombre.equalsIgnoreCase(nombre_producto)) {
                             Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
                             verificado = true;
@@ -383,6 +383,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
         startActivity(i);
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        int id_producto = 0;
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents(); //El codigo de barra
@@ -391,25 +392,34 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
             if (formato.equals(scanFormat)) {
                 productos.setCodigo(scanContent);
                 productos.obtener_id_producto();
-                int id_producto = productos.getId_producto();
+                id_producto = productos.getId_producto();
                 boolean vacio = productos.nombre_producto();//Hay que verificar si el producto esta en la tabla productos.
                 if (vacio != true){
                     String nombre = productos.getNombre();
                     verificar(nombre, scanContent);
                     if (!verificado) {
-                        guardar = false;//se carga en la lista el dato scanneado.
+                        guardar = false;//se carga en la lista el dato scanneado y se inserta en el inventario.
                         despensa.setId_producto(id_producto);
                         despensa.setDetalle("V");
                         despensa.insertar_inventario();
                         cargar();
                         cantidad();
                     }
-                }else {
+                }else {//si el codigo no esta en la tabla productos existentes
                     boolean lista = productos.producto_no_encontrado_despensa(scanContent);//hay que verificar que no se haya dado de alta antes.
                     if (!lista) { //si lista es falsa es porque es un producto nuevo que hay que ingresarlo.
                         verificar(null,scanContent);
-                        if (!verificado)
-                            productonoencontrado(scanContent);
+                        if (!verificado){
+                            guardar = false;
+                            productos.id_producto_no_encontrado();
+                            id_producto = productos.getId_producto();
+                            despensa.setId_producto(id_producto);
+                            despensa.setDetalle("V");
+                            cargar();
+                            cantidad();
+                        }
+                    }else{//no esta el producto hay que darlo de alta.
+                        productonoencontrado(scanContent);
                     }
 
                 }

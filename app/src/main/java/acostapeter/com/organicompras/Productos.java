@@ -270,4 +270,11 @@ public class Productos {
         }
         return cod;
     }
+    void id_producto_no_encontrado() {
+        Cursor producto_no_encontrado = admin.recargar_producto_no_encontrado(codigo);
+        id_producto = 0;
+        if (producto_no_encontrado.moveToFirst()) {
+            id_producto = producto_no_encontrado.getInt(1);
+        }
+    }
 }
