@@ -212,7 +212,7 @@ public class DbCRUD extends DbHelper {
     }
     //no encontrado despensa
     public Cursor recargar_producto_no_encontrado(String id_producto){
-        final String query = "SELECT * FROM " + DbTablas.TablaProductosCasa.TABLA_PROD_CASA + " WHERE " + DbTablas.TablaProductosCasa.CAMPO_FK_ID_PROD + " = " + id_producto;
+        final String query = "SELECT * FROM " + DbTablas.TablaProductosCasa.TABLA_PROD_CASA + " WHERE " + DbTablas.TablaProductosCasa.CAMPO_ID_CASA + " = " + id_producto;
         Cursor producto_no_encontrado = db.rawQuery(query,null);
         if (producto_no_encontrado != null){
             producto_no_encontrado.moveToFirst();
