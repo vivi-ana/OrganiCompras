@@ -117,9 +117,11 @@ public class IngreseCompraProductoNoEncontrado extends DialogFragment {
                             Productos producto_no_encontrado = new Productos(getActivity());
                             nombre_producto = nombre_producto.substring(0,1).toUpperCase() + nombre_producto.substring(1).toLowerCase();
                             producto_no_encontrado.setNombre(nombre_producto);
+                            if(!descripcion_producto.equals("")) descripcion_producto = descripcion_producto.substring(0,1).toUpperCase() + descripcion_producto.substring(1).toLowerCase();
                             producto_no_encontrado.setDescripcion(descripcion_producto);
                             producto_no_encontrado.setMarca(marca_producto);
                             producto_no_encontrado.setNeto(neto_prod);
+                            if(!medida_producto.equals("")) medida_producto = medida_producto.substring(0,1).toUpperCase() + medida_producto.substring(1).toLowerCase();
                             producto_no_encontrado.setMedida(medida_producto);
                             producto_no_encontrado.agregar_producto();
                             producto_no_encontrado.maximo_producto();//traer el id del producto recien agregado

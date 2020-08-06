@@ -101,7 +101,9 @@ public class IngreseDespensaProductoNoEncontrado extends DialogFragment {
                     Productos productos = new Productos(getActivity());
                     nom = nom.substring(0,1).toUpperCase() + nom.substring(1).toLowerCase();
                     productos.setNombre(nom);
+                    if(!descripcion_producto.equals("")) descripcion_producto = descripcion_producto.substring(0,1).toUpperCase() + descripcion_producto.substring(1).toLowerCase();
                     productos.setDescripcion(descripcion_producto);
+                    if(!medida_producto.equals("")) medida_producto = medida_producto.substring(0,1).toUpperCase() + medida_producto.substring(1).toLowerCase();
                     productos.setMarca(marca_producto);
                     productos.setMedida(medida_producto);
                     productos.setNeto(neto);
