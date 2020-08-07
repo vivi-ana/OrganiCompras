@@ -419,6 +419,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                             id_producto = productos.getId_producto();
                             despensa.setId_producto(id_producto);
                             despensa.setDetalle("V");
+                            despensa.insertar_inventario();
                             cargar();
                             cantidad();
                         }
