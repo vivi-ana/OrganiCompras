@@ -201,7 +201,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
                         Long codigo = productos.validar_producto(producto_id); //traigo el codigo de producto de ese id si tiene (existente o casa)
                         if (codigo != 0) {
                             String codigo_despensa = String.valueOf(codigo);
-                            if (scanContent == codigo_despensa) { //pregunto si hay un cod igual en la lista de despensa
+                            if (scanContent.equals(codigo_despensa)) { //pregunto si hay un cod igual en la lista de despensa
                                 despensa.setId_producto(producto_id);
                                 despensa.borrar_item();//borra por el id.
                                 break;
