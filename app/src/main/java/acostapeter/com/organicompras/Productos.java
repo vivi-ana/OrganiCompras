@@ -264,7 +264,7 @@ public class Productos {
     }
     Long validar_producto(int id_inventario){
         long cod = admin.getCodigo(id_inventario); //de tabla existente
-        if (cod != 0) {
+        if (cod == 0) {
             Cursor casa = admin.producto_lista(id_inventario); //de tabla casa
             if (casa.moveToFirst()) cod = casa.getLong(0);
         }
