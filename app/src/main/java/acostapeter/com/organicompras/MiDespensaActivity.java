@@ -190,6 +190,10 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                     productos.setCodigo(codigo);
                     productos.obtener_id_producto();
                     id = productos.getId_producto();
+                    if (id == 0){//buscar en la otra tabla
+                        productos.id_producto_no_encontrado();
+                        id = productos.getId_producto();
+                    }
                     if (id != 0) { //filtrar por id
                         if (id == id_p){
                             Toast.makeText(this, "Este producto ya se agregó a la lista", Toast.LENGTH_SHORT).show();
