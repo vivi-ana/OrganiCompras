@@ -277,4 +277,10 @@ public class Productos {
             id_producto = producto_no_encontrado.getInt(1);
         }
     }
+    void nombre_producto_no_encontrado(){
+        Cursor nombre_producto = admin.producto(id_producto);
+        if (nombre_producto.moveToFirst()){
+            nombre = nombre_producto.getString(1);
+        }
+    }
 }

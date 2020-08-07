@@ -388,6 +388,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         int id_producto = 0;
+        String nombre = "";
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents(); //El codigo de barra
@@ -399,7 +400,7 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 id_producto = productos.getId_producto();
                 boolean vacio = productos.nombre_producto();//Hay que verificar si el producto esta en la tabla productos.
                 if (vacio != true){
-                    String nombre = productos.getNombre();
+                    nombre = productos.getNombre();
                     verificar(nombre, scanContent);
                     if (!verificado) {
                         guardar = false;//se carga en la lista el dato scanneado y se inserta en el inventario.
@@ -412,11 +413,14 @@ public class MiDespensaActivity extends AppCompatActivity implements View.OnClic
                 }else {//si el codigo no esta en la tabla productos existentes
                     boolean lista = productos.producto_no_encontrado_despensa(scanContent);//hay que verificar que no se haya dado de alta antes.
                     if (lista) { //si lista es falsa es porque es un producto nuevo que hay que ingresarlo.
-                        verificar(null,scanContent);
+                        productos.id_producto_no_encontrado();
+                        id_producto = productos.getId_producto();
+                        productos.setId_producto(id_producto);
+                        productos.nombre_producto_no_encontrado();
+                        nombre = productos.getNombre();
+                        verificar(nombre,scanContent);
                         if (!verificado){
                             guardar = false;
-                            productos.id_producto_no_encontrado();
-                            id_producto = productos.getId_producto();
                             despensa.setId_producto(id_producto);
                             despensa.setDetalle("V");
                             despensa.insertar_inventario();
