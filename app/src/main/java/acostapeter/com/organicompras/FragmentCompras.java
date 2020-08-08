@@ -536,7 +536,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         boolean bandera = FragmentComprasBorrarLista.ReturnCargar();
         if(bandera) {
             listado_productos.setAdapter(null);
-            MiHistorialActivityBorrarHistorialListViewAdapter adapter = new MiHistorialActivityBorrarHistorialListViewAdapter(getActivity(), lista);
+            MiHistorialActivityBorrarHistorialListViewAdapter adapter = new MiHistorialActivityBorrarHistorialListViewAdapter(activity, lista);
             listado_productos.setAdapter(adapter);
             cargar();
             cambiarTxtTotal();
