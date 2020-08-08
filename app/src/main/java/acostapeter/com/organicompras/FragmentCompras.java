@@ -535,10 +535,9 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         super.onResume();
         boolean bandera = FragmentComprasBorrarLista.ReturnCargar();
         if(bandera) {
-            listado_productos.setAdapter(null);
-            MiHistorialActivityBorrarHistorialListViewAdapter adapter = new MiHistorialActivityBorrarHistorialListViewAdapter(activity, lista);
-            listado_productos.setAdapter(adapter);
+            limpiar();
             cargar();
+            llenar();
             cambiarTxtTotal();
             FragmentComprasBorrarLista.SetCargar();
         }
