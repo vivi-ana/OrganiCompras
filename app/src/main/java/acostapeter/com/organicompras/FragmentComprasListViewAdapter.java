@@ -173,5 +173,6 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
         txt_total.setText(nuevo_monto);
         TextView txt_cantidad = fragmentCompras.actualizar_txt_cantidad();
         txt_cantidad.setText(cantidad);
+        fragmentCompras.cambiarTxtTotal();
     }
 }
