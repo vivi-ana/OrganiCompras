@@ -31,7 +31,7 @@ import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_CO
 @SuppressWarnings("all")
 public class FragmentComprasBorrarLista extends AppCompatActivity {
     private ArrayList<HashMap<String, String>> lista;
-    static int id_compras = 0;
+    static int id_compras = 0, id_supermercado = 0;
     String cantidad, total;
     ListView lista_compras;
     DecimalFormat df = new DecimalFormat("0.00");
@@ -50,6 +50,8 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         FragmentComprasBorrarListaListViewAdapter adapter = new FragmentComprasBorrarListaListViewAdapter(this, lista);
         lista_compras.setAdapter(adapter);
         Button btnborrar = findViewById(R.id.btnBorrar);
+        id_supermercado = getIntent().getIntExtra("idsuper", 0);
+        id_compras = getIntent().getIntExtra("id", 0);
         cargar();
         btnborrar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -96,9 +98,10 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
     }
     public void cambiartxt(){
         Compras compras = new Compras(getBaseContext());
-        compras.maximo_compra(); //obtener el id de la compra
-        id_compras = compras.getId();
+        //compras.maximo_compra(); //obtener el id de la compra
+        //id_compras = compras.getId();
         compras.setId(id_compras);
+        compras.setSupermercado(id_supermercado);
         compras.cargar_algunos_detalles_compras();
         if (!compras.isVacio()) {
             compras.total_productos_comprados();
@@ -154,8 +157,9 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
         String id_producto, cantidades, descripcion, montos, neto, medida, nombre, marca, precio_unitario;
         lista.clear();
         Compras compras = new Compras(getBaseContext());
-        compras.maximo_compra(); //obtener el id
-        id_compras = compras.getId();
+        //compras.maximo_compra(); //obtener el id
+        //id_compras = compras.getId();
+        compras.setSupermercado(id_supermercado);
         listado_compras = compras.detalle_compras(id_compras);
         int bucle = listado_compras.size();
         if (bucle != 0) {

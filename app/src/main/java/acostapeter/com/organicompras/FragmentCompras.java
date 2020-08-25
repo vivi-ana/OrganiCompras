@@ -364,7 +364,10 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.accion_borrar:
-                startActivity(new Intent(getActivity(), FragmentComprasBorrarLista.class));
+                Intent j = new Intent(getActivity(),FragmentComprasBorrarLista.class);
+                j.putExtra("idsuper",id_supermercado);
+                j.putExtra("id", id_compras);
+                startActivity(j);
                 return true;
             case R.id.accion_guardar:
                 if (listado_productos != null){
