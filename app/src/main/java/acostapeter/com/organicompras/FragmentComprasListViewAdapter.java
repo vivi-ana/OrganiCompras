@@ -111,7 +111,8 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
                 holder.cantidad_producto.setText(cantidad_producto);
                 String id_producto = holder.id_producto.getText().toString(); //Codigo de barra
                 Compras compras = new Compras(vista.getContext());
-                id_compras = compras.getId();
+                FragmentCompras fragmentCompras =new FragmentCompras();
+                id_compras = fragmentCompras.getId_compras();
                 //maximo_detalle_compra(); //id maximo del detalle de la compra.
                 compras.setCantidad(contador);  //hacer el update
                 compras.setTotal_unitario(calculo_subtotal);
@@ -150,7 +151,8 @@ public class FragmentComprasListViewAdapter extends BaseAdapter {
                 holder.cantidad_producto.setText(cantidad_producto);
                 String id_producto = holder.id_producto.getText().toString(); //Codigo de barra
                 Compras compras = new Compras(vista.getContext());
-                id_compras = compras.getId();
+                FragmentCompras fragmentCompras =new FragmentCompras();
+                id_compras = fragmentCompras.getId_compras();
                 //maximo_detalle_compra(); //id maximo del detalle de la compra.
                 compras.setCantidad(contador);//hacer el update
                 compras.setTotal_unitario(calculo_subtotal);

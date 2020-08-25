@@ -346,6 +346,9 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
     public TextView actualizar_txt_total() {
         return txt_total;
     }
+    public int getId_compras(){
+        return id_compras;
+    }
     public TextView actualizar_txt_cantidad() {
         return cantidad_producto;
     }
