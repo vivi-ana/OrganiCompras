@@ -218,6 +218,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         //compras.maximo_compra(); //obtener el id y el supermercado donde compra
         //id_compras = compras.getId();
         //id_supermercado = compras.getSupermercado();
+        compras.setSupermercado(id_supermercado);
         listado_compras = compras.detalle_compras(id_compras);
         int bucle = listado_compras.size();
         if (bucle != 0){
