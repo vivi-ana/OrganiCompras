@@ -429,7 +429,7 @@ public class FragmentCompras extends android.support.v4.app.Fragment implements 
         //compras.maximo_compra();
         //id_compras = compras.getId();
         compras.setId(id_compras);
-        compras.contar_productos_compra();
+        compras.total_productos_comprados();
         int cantidad = compras.getCant_total_productos();
         String cantidad_productos = String.valueOf(cantidad);
         if (cantidad != 0) {
