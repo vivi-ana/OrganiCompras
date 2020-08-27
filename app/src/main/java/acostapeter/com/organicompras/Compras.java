@@ -197,6 +197,7 @@ private DbCRUD admin;
     }
     String total_productos_comprados(){
         String cantidad_productos;
+        cant_total_productos = 0;
         cantidad_productos = admin.cantidad_productos_comprados(id);
         if(cantidad_productos!=null)
         cant_total_productos = Integer.parseInt(cantidad_productos);
