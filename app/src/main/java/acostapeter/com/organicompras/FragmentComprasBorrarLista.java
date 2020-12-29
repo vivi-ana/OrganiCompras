@@ -3,9 +3,9 @@ package acostapeter.com.organicompras;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import android.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -66,7 +66,7 @@ public class FragmentComprasBorrarLista extends AppCompatActivity {
                 mensaje();
             }
         });
-        ActionBar actionBar = getSupportActionBar();
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             getSupportActionBar().setCustomView(R.layout.checkboxbar);
             mCheckbox = actionBar.getCustomView().findViewById(R.id.checkBox);

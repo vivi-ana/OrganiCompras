@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +27,7 @@ import static acostapeter.com.organicompras.ConstantesColumnasDespensa.TERCERA_C
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.QUINTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasDespensa.SEXTA_COLUMNA;
 @SuppressWarnings("all")
-public class FragmentDespensa extends android.support.v4.app.Fragment{
+public class FragmentDespensa extends Fragment {
     static ArrayList<HashMap<String, String>> lista;
     String marca = "";
     ListView lista_despensa;

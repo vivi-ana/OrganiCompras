@@ -4,15 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.cardview.widget.CardView;
 import android.view.View;
-import acostapeter.com.organicompras.data.DbHelper;
-
+@SuppressWarnings("all")
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     CardView cardCompra, cardOfertas, cardDespensa, cardHistorial;
     @Override

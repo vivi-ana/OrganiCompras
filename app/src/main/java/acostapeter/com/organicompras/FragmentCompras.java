@@ -7,8 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,7 +43,7 @@ import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEPTIMA_CO
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.SEXTA_COLUMNA;
 import static acostapeter.com.organicompras.ConstantesColumnasCompras.TERCERA_COLUMNA;
 @SuppressWarnings("all")
-public class FragmentCompras extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class FragmentCompras extends Fragment implements View.OnClickListener {
     Button scanBtn;
     TextView formatTxt, contentTxt, lblmx, textView;
     static TextView txt_total, cantidad_producto, descrip;

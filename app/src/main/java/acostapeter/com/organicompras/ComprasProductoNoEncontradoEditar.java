@@ -1,8 +1,8 @@
 package acostapeter.com.organicompras;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -193,7 +193,7 @@ public class ComprasProductoNoEncontradoEditar extends DialogFragment {
             }
         });
         setCancelable(false);
-        getDialog().setTitle("Producto no encontrado");
+        Objects.requireNonNull(getDialog()).setTitle("Producto no encontrado");
         return rootview;
     }
 }

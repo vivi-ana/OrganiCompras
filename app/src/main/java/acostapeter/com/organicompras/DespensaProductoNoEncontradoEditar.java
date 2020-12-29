@@ -1,7 +1,7 @@
 package acostapeter.com.organicompras;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,6 @@ import android.widget.Toast;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class DespensaProductoNoEncontradoEditar extends DialogFragment {
     Button BotonAceptar, BotonCancelar;
     EditText Enombre, Edescrip, Emarca, Eneto;
@@ -181,7 +180,7 @@ public class DespensaProductoNoEncontradoEditar extends DialogFragment {
             }
         });
         setCancelable(false);
-        getDialog().setTitle("Producto no encontrado");
+        Objects.requireNonNull(getDialog()).setTitle("Producto no encontrado");
         return rootview;
     }
     @Override

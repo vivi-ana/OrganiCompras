@@ -3,8 +3,8 @@ package acostapeter.com.organicompras;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -72,7 +72,7 @@ public class MiHistorialActivityBorrarHistorial extends AppCompatActivity {
                 mensaje();
             }
         });
-        ActionBar actionBar = getSupportActionBar();
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
         getSupportActionBar().setCustomView(R.layout.checkboxbar);
         final CheckBox mCheckbox = actionBar.getCustomView().findViewById(R.id.checkBox);
